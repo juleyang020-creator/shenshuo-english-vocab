@@ -1,0 +1,41 @@
+name: ShenShuoVocab
+options:
+  bundleIdPrefix: com.shenshuo
+  deploymentTarget:
+    iOS: "16.0"
+  createIntermediateGroups: true
+  groupSortPosition: top
+
+targets:
+  ShenShuoVocab:
+    type: application
+    platform: iOS
+    # Source code.
+    sources:
+      - path: Sources
+      - path: Resources/Assets.xcassets
+      # The whole built web app is bundled as an opaque folder reference so the
+      # directory structure (assets/, data/vocab.json) is preserved verbatim.
+      # The custom URL-scheme handler reads files straight out of this folder.
+      - path: web
+        type: folder
+        buildPhase: resources
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.shenshuo.vocab
+        MARKETING_VERSION: "1.0"
+        CURRENT_PROJECT_VERSION: "1"
+        SWIFT_VERSION: "5.0"
+        TARGETED_DEVICE_FAMILY: "1,2"          # iPhone + iPad
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_CFBundleDisplayName: 申硕词汇
+        INFOPLIST_KEY_LSApplicationCategoryType: public.app-category.education
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        # Light UI; keep status-bar content dark.
+        INFOPLIST_KEY_UIUserInterfaceStyle: Light
+        INFOPLIST_KEY_UISupportedInterfaceOrientations: "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight"
+        INFOPLIST_KEY_UISupportedInterfaceOrientations~ipad: "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight"
+        # Simulator builds don't need a signing identity.
+        CODE_SIGN_STYLE: Automatic

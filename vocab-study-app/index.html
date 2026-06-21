@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>申硕英语词汇学习</title>
+    <style>
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: #f7fafb;
+        color: #14202b;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      }
+
+      #file-open-help {
+        display: grid;
+        min-height: 100vh;
+        place-items: center;
+        padding: 24px;
+      }
+
+      .help-card {
+        width: min(560px, 100%);
+        border: 1px solid #dce5e8;
+        border-radius: 8px;
+        background: #fff;
+        box-shadow: 0 16px 40px rgba(25, 41, 57, 0.08);
+        padding: 28px;
+      }
+
+      .help-card h1 {
+        margin: 0 0 12px;
+        font-size: 24px;
+      }
+
+      .help-card p {
+        margin: 10px 0;
+        color: #526170;
+        line-height: 1.7;
+      }
+
+      .help-card a {
+        color: #078b8a;
+        font-weight: 700;
+      }
+
+      html[data-served="true"] #file-open-help {
+        display: none;
+      }
+
+      html:not([data-served="true"]) #root {
+        display: none;
+      }
+    </style>
+    <script>
+      if (location.protocol === "http:" || location.protocol === "https:") {
+        document.documentElement.dataset.served = "true";
+      }
+    </script>
+  </head>
+  <body>
+    <div id="file-open-help">
+      <section class="help-card">
+        <h1>请用“打开申硕英语词汇学习.command”启动</h1>
+        <p>这个软件需要先启动一个本地服务。直接双击 index.html 时，Chrome 不会编译 React 应用，所以页面会空白。</p>
+        <p>如果服务已经启动，也可以直接打开：<a href="http://127.0.0.1:5173/">http://127.0.0.1:5173/</a></p>
+      </section>
+    </div>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
