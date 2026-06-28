@@ -1,6 +1,4 @@
-function clamp(value, min, max) {
-  return Math.min(Math.max(value, min), max);
-}
+import { clamp } from '../lib/math.js';
 
 export function ProgressRing({ value }) {
   const size = 54;

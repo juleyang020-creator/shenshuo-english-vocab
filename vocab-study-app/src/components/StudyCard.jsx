@@ -192,6 +192,7 @@ export function StudyCard({
                     disabled={answeredChoice}
                     key={option.id}
                     type="button"
+                    aria-label={`选项 ${String.fromCharCode(65 + index)}：${option.definition}`}
                     onClick={() => onChoice(option)}
                   >
                     <span>{String.fromCharCode(65 + index)}</span>

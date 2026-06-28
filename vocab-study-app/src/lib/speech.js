@@ -1,17 +1,17 @@
 import { DEFAULT_SPEECH_SETTINGS, normalizeSpeechSettings } from './storage.js';
-
-function clamp(value, min, max) {
-  return Math.min(Math.max(value, min), max);
-}
+import { clamp } from './math.js';
 
 export function getSpeechText(word, accent = 'us') {
   let text = String(word || '').trim();
-  text = text.replace(/ise\/-ize/gi, accent === 'uk' ? 'ise' : 'ize');
-  text = text.replace(/er\/-tre/gi, accent === 'uk' ? 're' : 'er');
+  // Expand parenthesised optional letters, e.g. "distil(l)" -> "distill" (uk) / "distil" (us).
+  // The previous version also had two literal-String regexes (/ise\/-ize/ and /er\/-tre/)
+  // that never matched real headwords — the slash-split below already handles
+  // "analyse/-yze" style alternations by taking the first form.
   text = text.replace(/\(([a-z]+)\)/gi, (_, optional) => {
     if (optional.length <= 2) return accent === 'uk' ? optional : '';
     return optional;
   });
+  // Take the first slash-separated form (e.g. "hi/hey" -> "hi") and strip punctuation.
   text = text.split('/')[0].replace(/[^A-Za-z .'-]/g, '').trim();
   return text || word;
 }

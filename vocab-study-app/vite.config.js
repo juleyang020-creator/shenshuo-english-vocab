@@ -10,4 +10,17 @@ import react from '@vitejs/plugin-react';
 export default defineConfig({
   base: process.env.VITE_BASE || '/',
   plugins: [react()],
+  build: {
+    target: 'es2020',
+    rollupOptions: {
+      output: {
+        // Split vendor code into stable chunks so app-code changes don't
+        // invalidate the browser cache for react/lucide.
+        manualChunks: {
+          react: ['react', 'react-dom'],
+          icons: ['lucide-react'],
+        },
+      },
+    },
+  },
 });

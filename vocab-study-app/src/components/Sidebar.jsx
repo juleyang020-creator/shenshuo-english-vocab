@@ -1,4 +1,4 @@
-import { BookOpen, Layers3, ListChecks, PencilLine, RotateCcw, Star } from 'lucide-react';
+import { BookOpen, Layers3, ListChecks, PencilLine, Replace, RotateCcw, Star } from 'lucide-react';
 import { ScopeButton } from './ScopeButton.jsx';
 
 export const MODES = [
@@ -6,6 +6,7 @@ export const MODES = [
   { id: 'review', label: '复习巩固', icon: RotateCcw },
   { id: 'quiz', label: '单词测试', icon: ListChecks },
   { id: 'spelling', label: '拼写练习', icon: PencilLine },
+  { id: 'cloze', label: '近义辨析', icon: Replace },
   { id: 'browse', label: '生词本', icon: BookOpen },
 ];
 
@@ -18,7 +19,8 @@ export function Sidebar({
   rangeStats,
   frequencyScopes,
   typeScopes,
-  getStatsForEntries,
+  frequencyScopeStats,
+  typeScopeStats,
 }) {
   return (
     <aside className="sidebar">
@@ -52,13 +54,13 @@ export function Sidebar({
 
       <div className="nav-section scope-list">
         <span className="section-label">按难度梯度</span>
-        {frequencyScopes.map((scope) => (
+        {frequencyScopes.map((scope, index) => (
           <ScopeButton
             active={activeScope.kind === 'frequency' && activeScope.value === scope.id}
             detail={scope.detail}
             key={scope.id}
             label={scope.label}
-            stats={getStatsForEntries(scope.entries)}
+            stats={frequencyScopeStats?.[index] || { learned: 0, known: 0, total: scope.entries?.length || 0 }}
             onClick={() => setActiveScope({ kind: 'frequency', value: scope.id })}
           />
         ))}
@@ -66,13 +68,13 @@ export function Sidebar({
 
       <div className="nav-section scope-list">
         <span className="section-label">按词汇类型</span>
-        {typeScopes.map((scope) => (
+        {typeScopes.map((scope, index) => (
           <ScopeButton
             active={activeScope.kind === 'type' && activeScope.value === scope.id}
             detail={scope.detail}
             key={scope.id}
             label={scope.label}
-            stats={getStatsForEntries(scope.entries)}
+            stats={typeScopeStats?.[index] || { learned: 0, known: 0, total: scope.entries?.length || 0 }}
             onClick={() => setActiveScope({ kind: 'type', value: scope.id })}
           />
         ))}

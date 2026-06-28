@@ -20,13 +20,19 @@ function escapeRegExp(value) {
 }
 
 function HighlightedText({ text, query }) {
-  if (!query) return <>{text}</>;
-  const re = new RegExp(`(${escapeRegExp(query)})`, 'ig');
-  const parts = String(text).split(re);
+  const trimmed = (query || '').trim();
+  if (!trimmed) return <>{text}</>;
+  // Build the split regex once per render. The previous version reused `re`
+  // for both split() and test() — but with the `g` flag, RegExp.test() is
+  // stateful (lastIndex advances), so consecutive matches alternated between
+  // true and false and highlights flickered. We now compare lowercased
+  // strings instead of re-testing with the same sticky regex.
+  const lowerQuery = trimmed.toLowerCase();
+  const parts = String(text).split(new RegExp(`(${escapeRegExp(trimmed)})`, 'ig'));
   return (
     <>
       {parts.map((part, index) =>
-        re.test(part) ? (
+        part && part.toLowerCase() === lowerQuery ? (
           <mark key={index}>{part}</mark>
         ) : (
           <span key={index}>{part}</span>
@@ -198,6 +204,8 @@ export function DetailTabs({
             className={activeTab === id ? 'is-active' : ''}
             key={id}
             type="button"
+            role="tab"
+            aria-selected={activeTab === id}
             onClick={() => setActiveTab(id)}
           >
             {label}

@@ -4,6 +4,7 @@ import { Topbar } from './components/Topbar.jsx';
 import { StudyCard } from './components/StudyCard.jsx';
 import { DetailTabs } from './components/DetailTabs.jsx';
 import { RightRail } from './components/RightRail.jsx';
+import { ClozeMode } from './components/ClozeMode.jsx';
 import {
   defaultStudyState,
   loadStudyState,
@@ -18,13 +19,11 @@ import { makeRanges, STAGE_CHUNK_SIZE } from './lib/scope.js';
 import { shuffle, stableShuffle } from './lib/shuffle.js';
 import { chooseEnglishVoice, getEnglishVoices, speakWord } from './lib/speech.js';
 import { diffSpelling } from './lib/spelling.js';
+import { clamp } from './lib/math.js';
 import { useVocab } from './hooks/useVocab.js';
+import { useCloze } from './hooks/useCloze.js';
 import { useSpeechVoices } from './hooks/useSpeechVoices.js';
 import { useKeyboardShortcuts } from './hooks/useKeyboardShortcuts.js';
-
-function clamp(value, min, max) {
-  return Math.min(Math.max(value, min), max);
-}
 
 function normalizeSearch(value) {
   return value.trim().toLowerCase();
@@ -49,7 +48,8 @@ const INITIAL_STUDY = loadStudyState();
 const INITIAL_LAST_SESSION = INITIAL_STUDY.settings?.lastSession || {};
 
 export default function App() {
-  const { payload, error: loadError } = useVocab();
+  const { payload, error: loadError, loading } = useVocab();
+  const { items: clozeItems, error: clozeError, loading: clozeLoading } = useCloze();
   const [study, setStudy] = useState(INITIAL_STUDY);
   const [mode, setMode] = useState(INITIAL_LAST_SESSION.mode || 'study');
   // Default to the gaokao stage — the user's baseline is high-school English,
@@ -110,6 +110,19 @@ export default function App() {
     [learnerEntries],
   );
 
+  // Pre-compute per-scope learning stats so Sidebar doesn't re-iterate every
+  // entry on each render. Previously getStatsForEntries(scope.entries) was
+  // called inline in Sidebar for all ~21 scopes — each call walking hundreds
+  // of entries — every time study changed.
+  const frequencyScopeStats = useMemo(
+    () => frequencyScopes.map((scope) => getLearningStats(scope.entries, study)),
+    [frequencyScopes, study],
+  );
+  const typeScopeStats = useMemo(
+    () => typeScopes.map((scope) => getLearningStats(scope.entries, study)),
+    [typeScopes, study],
+  );
+
   const rangeStats = useMemo(
     () =>
       ranges.map((range) => getLearningStats(learnerEntries.slice(range.start, range.end), study)),
@@ -167,9 +180,22 @@ export default function App() {
     [rangeEntries, study],
   );
 
+  // Debounce the search term so fast typing doesn't trigger a 5390-entry ×
+  // 20-regex scan on every keystroke. compactDefinition is now cached, but
+  // the filter pass + string comparisons still add up on slower devices.
   const searchTerm = normalizeSearch(search);
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('');
+  useEffect(() => {
+    if (!searchTerm) {
+      setDebouncedSearchTerm('');
+      return;
+    }
+    const timer = setTimeout(() => setDebouncedSearchTerm(searchTerm), 150);
+    return () => clearTimeout(timer);
+  }, [searchTerm]);
+
   const searchedEntries = useMemo(() => {
-    if (!searchTerm) return rangeEntries;
+    if (!debouncedSearchTerm) return rangeEntries;
     return entries.filter((entry) => {
       // Match across: word, IPA, compact definition, AND personal notes.
       const word = entry.word.toLowerCase();
@@ -177,10 +203,10 @@ export default function App() {
       const phonetic = (entry.phonetic || '').toLowerCase();
       const note = (study.notes[entry.id] || '').toLowerCase();
       if (
-        !word.includes(searchTerm)
-        && !definition.includes(searchTerm)
-        && !phonetic.includes(searchTerm)
-        && !note.includes(searchTerm)
+        !word.includes(debouncedSearchTerm)
+        && !definition.includes(debouncedSearchTerm)
+        && !phonetic.includes(debouncedSearchTerm)
+        && !note.includes(debouncedSearchTerm)
       ) return false;
       if (searchFilter === 'all') return true;
       if (searchFilter === 'favorite') return Boolean(study.words[entry.id]?.favorite);
@@ -188,16 +214,16 @@ export default function App() {
       // Otherwise treat the filter id as a difficulty stage.
       return entry.difficultyStage === searchFilter;
     });
-  }, [entries, rangeEntries, searchTerm, searchFilter, study]);
+  }, [entries, rangeEntries, debouncedSearchTerm, searchFilter, study]);
 
   const lockedChoiceEntryId = choiceResult?.entryId || '';
   const queue = useMemo(() => {
     const now = Date.now();
     if (mode === 'browse') {
-      const browsePool = searchTerm ? searchedEntries : entries;
+      const browsePool = debouncedSearchTerm ? searchedEntries : entries;
       return browsePool.filter((entry) => {
         const progress = getWordProgress(study, entry);
-        return searchTerm || progress.favorite || isWeak(progress) || progress.attempts;
+        return debouncedSearchTerm || progress.favorite || isWeak(progress) || progress.attempts;
       });
     }
     if (mode === 'review') {
@@ -223,13 +249,13 @@ export default function App() {
     );
   }, [
     activeScopeMeta.key,
+    debouncedSearchTerm,
     entries,
     learnerEntries,
     lockedChoiceEntryId,
     mode,
     rangeEntries,
     reviewableRangeEntries,
-    searchTerm,
     searchedEntries,
     shuffleSeed,
     study,
@@ -305,7 +331,7 @@ export default function App() {
     setSpellingInput('');
     setSpellingFeedback(null);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [mode, scopeIntentKey, searchTerm, shuffleSeed]);
+  }, [mode, scopeIntentKey, debouncedSearchTerm, shuffleSeed]);
 
   // Once the queue is populated for the first time, jump to the last-studied
   // entry (if it still exists in that queue). Runs at most once.
@@ -328,30 +354,74 @@ export default function App() {
 
   // Persist last session — mode, scope, position — so reopening the app
   // resumes where the user left off instead of dropping back to word #1.
+  // Debounced (1.2s) so rapid word navigation doesn't trigger a study state
+  // update on every keystroke. The ref captures the latest intent so the
+  // flush always writes the most recent position even if the user keeps
+  // navigating within the debounce window.
+  const lastSessionIntentRef = useRef(null);
+  lastSessionIntentRef.current = {
+    mode,
+    activeScope,
+    currentIndex,
+    currentEntryId: currentEntry?.id || null,
+  };
   useEffect(() => {
-    setStudy((previous) => {
-      const next = {
-        mode,
-        activeScope,
-        currentIndex,
-        currentEntryId: currentEntry?.id || null,
-      };
-      const prev = previous.settings?.lastSession || {};
-      if (
-        prev.mode === next.mode
-        && prev.currentIndex === next.currentIndex
-        && prev.currentEntryId === next.currentEntryId
-        && prev.activeScope?.kind === next.activeScope.kind
-        && prev.activeScope?.value === next.activeScope.value
-      ) {
-        return previous;
-      }
-      return {
-        ...previous,
-        settings: { ...previous.settings, lastSession: next },
-      };
-    });
+    const timer = setTimeout(() => {
+      const next = lastSessionIntentRef.current;
+      if (!next) return;
+      setStudy((previous) => {
+        const prev = previous.settings?.lastSession || {};
+        if (
+          prev.mode === next.mode
+          && prev.currentIndex === next.currentIndex
+          && prev.currentEntryId === next.currentEntryId
+          && prev.activeScope?.kind === next.activeScope.kind
+          && prev.activeScope?.value === next.activeScope.value
+        ) {
+          return previous;
+        }
+        return {
+          ...previous,
+          settings: { ...previous.settings, lastSession: next },
+        };
+      });
+    }, 1200);
+    return () => clearTimeout(timer);
   }, [mode, activeScope, currentIndex, currentEntry?.id]);
+
+  // Also flush lastSession when the page is being closed so the final
+  // position is saved even if the user closes within the debounce window.
+  useEffect(() => {
+    function flush() {
+      const next = lastSessionIntentRef.current;
+      if (!next) return;
+      setStudy((previous) => {
+        const prev = previous.settings?.lastSession || {};
+        if (
+          prev.mode === next.mode
+          && prev.currentIndex === next.currentIndex
+          && prev.currentEntryId === next.currentEntryId
+          && prev.activeScope?.kind === next.activeScope.kind
+          && prev.activeScope?.value === next.activeScope.value
+        ) {
+          return previous;
+        }
+        return {
+          ...previous,
+          settings: { ...previous.settings, lastSession: next },
+        };
+      });
+    }
+    window.addEventListener('beforeunload', flush);
+    window.addEventListener('pagehide', flush);
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'hidden') flush();
+    });
+    return () => {
+      window.removeEventListener('beforeunload', flush);
+      window.removeEventListener('pagehide', flush);
+    };
+  }, []);
 
   useEffect(() => {
     if (!currentEntry) return;
@@ -378,6 +448,21 @@ export default function App() {
       return {
         ...previous,
         words: { ...previous.words, [entry.id]: nextWord },
+      };
+    });
+  }
+
+  function recordCloze(correct) {
+    setStudy((previous) => {
+      const current = previous.daily[todayKey] || { seen: 0, known: 0, weak: 0, quiz: 0 };
+      const cloze = previous.cloze || { seen: 0, correct: 0 };
+      return {
+        ...previous,
+        cloze: { seen: cloze.seen + 1, correct: cloze.correct + (correct ? 1 : 0) },
+        daily: {
+          ...previous.daily,
+          [todayKey]: { ...current, cloze: (current.cloze || 0) + 1 },
+        },
       };
     });
   }
@@ -557,7 +642,8 @@ export default function App() {
       setActiveTab('search');
       requestAnimationFrame(() => searchInputRef.current?.focus());
     },
-  });
+    // The cloze module owns its own keyboard handlers (1-4 / arrows).
+  }, { enabled: mode !== 'cloze' });
 
   return (
     <div className="app-shell">
@@ -570,7 +656,8 @@ export default function App() {
         rangeStats={rangeStats}
         frequencyScopes={frequencyScopes}
         typeScopes={typeScopes}
-        getStatsForEntries={(items) => getLearningStats(items, study)}
+        frequencyScopeStats={frequencyScopeStats}
+        typeScopeStats={typeScopeStats}
       />
 
       <main className="workspace">
@@ -591,7 +678,21 @@ export default function App() {
         <div className="content-grid">
           <section className="study-area">
             {loadError ? <div className="notice">{loadError}</div> : null}
+            {loading && !loadError && entries.length === 0 ? (
+              <div className="notice">词库加载中，请稍候…</div>
+            ) : null}
 
+            {mode === 'cloze' ? (
+              <ClozeMode
+                items={clozeItems}
+                loading={clozeLoading}
+                error={clozeError}
+                shuffleSeed={shuffleSeed}
+                stats={study.cloze}
+                onAnswer={recordCloze}
+              />
+            ) : (
+            <>
             <StudyCard
               mode={mode}
               activeScopeMeta={activeScopeMeta}
@@ -648,6 +749,8 @@ export default function App() {
                 setCurrentIndex(Math.max(index, 0));
               }}
             />
+            </>
+            )}
           </section>
 
           <RightRail

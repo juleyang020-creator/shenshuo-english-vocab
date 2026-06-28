@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import {
   Bookmark,
   BookOpen,
@@ -13,10 +14,7 @@ import { EmptyState } from './EmptyState.jsx';
 import { summarizeRecentDays } from '../lib/streak.js';
 import { DIFFICULTY_STAGES } from '../lib/frequency.js';
 import { STAGE_CHUNK_SIZE } from '../lib/scope.js';
-
-function clamp(value, min, max) {
-  return Math.min(Math.max(value, min), max);
-}
+import { clamp } from '../lib/math.js';
 
 function Sparkline({ days, max }) {
   if (!days?.length) return null;
@@ -123,7 +121,7 @@ export function RightRail({
   getWordProgress,
   resetAllProgress,
 }) {
-  const recentDays = summarizeRecentDays(study.daily, 7);
+  const recentDays = useMemo(() => summarizeRecentDays(study.daily, 7), [study.daily]);
   return (
     <aside className="right-rail">
       <Panel title="今日任务">

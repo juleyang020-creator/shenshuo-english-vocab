@@ -1,0 +1,2799 @@
+{
+  "meta": {
+    "count": 90,
+    "source": "curated (generated + adversarially verified)",
+    "note": "近义词辨析选词填空：每题 4 个近义选项，作答后给中文释义与辨析。"
+  },
+  "items": [
+    {
+      "id": "cloze-0001",
+      "theme": "影响",
+      "sentence": "The new medication is effective, but it may cause an unpleasant side ___ such as drowsiness.",
+      "answer": "effect",
+      "translation": "这种新药很有效，但可能引起令人不适的副作用，比如嗜睡。",
+      "level": "cet4",
+      "explain": "本题靠固定搭配 side effect（副作用）锁定答案：英语中表示药物等的‘副作用’只能说 side effect，side 与 effect 是几乎唯一的固定组合。effect 作名词意为‘效果、影响、作用’，与 side 连用指药物的附带不良反应，故选 effect。affect 是及物动词（直接作用于某人/某物），既不能跟在 side 后构成名词短语，also 语法上也不能充当 an unpleasant side ___ 中的名词中心词，排除。influence 作名词指对思想、行为的潜移默化的左右，不与 side 搭配，没有 side influence 这一说法，且语义上药物‘副作用’不是‘感化’，排除。impact 作名词指强烈冲击或重大影响，没有 side impact 这一医学固定搭配（side impact 只在车辆‘侧面碰撞’语境出现，与药物无关），语义与搭配均不符，排除。",
+      "options": [
+        {
+          "word": "effect",
+          "zh": "n. 效果；作用；影响",
+          "correct": true
+        },
+        {
+          "word": "affect",
+          "zh": "vt. 影响（直接作用于）",
+          "correct": false
+        },
+        {
+          "word": "influence",
+          "zh": "n./v. (潜移默化地)影响",
+          "correct": false
+        },
+        {
+          "word": "impact",
+          "zh": "n./v. 巨大冲击；影响",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0002",
+      "theme": "影响",
+      "sentence": "His encouraging teacher ___ him to pursue a career in medicine.",
+      "answer": "influenced",
+      "translation": "他那位给予鼓励的老师促使他去从事医学事业。",
+      "level": "cet6",
+      "explain": "本题靠句型 influence sb to do sth（影响/促使某人做某事）锁定答案：在‘影响’这组词里，只有 influence 能直接接‘宾语+to do’，表示左右、促使某人做出某种选择，故选 influenced。affect 虽表‘影响’，但它是‘affect sb/sth’的及物用法，不能说 affect sb to do sth，本句结构 ___ him to pursue 中它语法不成立，排除。effect 作动词意为‘实现、促成（变化）’，搭配是 effect a change/reform，同样不能接‘sb to do sth’，且语义不是‘左右某人’，排除。impact 作动词时为‘impact sth / impact on sth’，强调强烈冲击或重大作用，也不能接‘sb to do sth’这一不定式结构，句法不通，排除。",
+      "options": [
+        {
+          "word": "influenced",
+          "zh": "vt. (潜移默化地)影响、促使",
+          "correct": true
+        },
+        {
+          "word": "affected",
+          "zh": "vt. (直接)影响",
+          "correct": false
+        },
+        {
+          "word": "effected",
+          "zh": "vt. 实现、促成（变化）",
+          "correct": false
+        },
+        {
+          "word": "impacted",
+          "zh": "v. 强烈冲击；影响",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0003",
+      "theme": "影响",
+      "sentence": "The government rolled out subsidies to cushion the ___ of the recession on small businesses.",
+      "answer": "impact",
+      "translation": "政府推出补贴，以缓冲经济衰退对小企业的冲击。",
+      "level": "postgrad",
+      "explain": "本题靠固定搭配 cushion/soften the impact of sth（缓冲、减轻……的冲击）锁定答案：cushion（缓冲）一词源于‘减轻撞击力’，与表示‘冲击、重创’的 impact 搭配最地道，故选 impact。effect 作名词虽可说 the effect of the recession，但 cushion the effect 并非地道固定搭配——cushion 强调减缓‘力道、冲击’，与偏中性的‘效果、结果’ effect 不匹配，排除。affect 是动词，不能跟在 the 后充当 the ___ of 中的名词，语法不通，排除。influence 作名词指对思想、行为的潜移默化的感化或左右，用于描述衰退对企业的客观打击既不搭 cushion，语义也不符（衰退不是在‘感化’企业），排除。",
+      "options": [
+        {
+          "word": "impact",
+          "zh": "n./v. 巨大冲击；影响",
+          "correct": true
+        },
+        {
+          "word": "effect",
+          "zh": "n. 效果；影响（偏中性）",
+          "correct": false
+        },
+        {
+          "word": "affect",
+          "zh": "vt. 影响（动词）",
+          "correct": false
+        },
+        {
+          "word": "influence",
+          "zh": "n./v. (潜移默化地)影响",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0004",
+      "theme": "改变",
+      "sentence": "We had to ___ the original design slightly so that it would meet the new safety standards.",
+      "answer": "modify",
+      "translation": "我们不得不对原设计稍作改动，以便它能符合新的安全标准。",
+      "level": "cet4",
+      "explain": "四词均含‘改变’义，但程度与搭配不同。modify 指‘小幅调整、局部修改’使其更完善或更合规，与 slightly（稍微）及对单一设计方案做改进的语境最契合，故为答案。transform 指‘彻底改造、使面目全非’，与 slightly 的‘稍作’在程度上直接矛盾。convert 意为‘转换用途/形态’，典型结构是 convert sth into sth，单独说 convert the design to meet standards 语义不通。vary 强调‘使多样化、在不同场合有所变动’（如 vary one's routine），并非为达标而做的一次性修正，与本句不符。",
+      "options": [
+        {
+          "word": "modify",
+          "zh": "vt. (小幅)修改，调整",
+          "correct": true
+        },
+        {
+          "word": "transform",
+          "zh": "vt. 彻底改变，使变形",
+          "correct": false
+        },
+        {
+          "word": "convert",
+          "zh": "vt. 转换，改作(用途/形态)",
+          "correct": false
+        },
+        {
+          "word": "vary",
+          "zh": "v. (使)变化，使多样",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0005",
+      "theme": "改变",
+      "sentence": "After the renovation, the old factory was ___ into a modern art museum.",
+      "answer": "converted",
+      "translation": "翻修之后，这座旧工厂被改造成了一座现代艺术博物馆。",
+      "level": "cet6",
+      "explain": "四词都表‘改变’，但本句关键搭配是 be ___ into（被改成某物以改变用途）。convert 最常用于 convert A into B，正合‘工厂改作博物馆’的用途转换之意，故选 converted。modify 指‘小幅修改’，既不表整体改作他物，也不接 into。vary 表‘使多样、变动’，从不接 into 表用途转换，搭配不通。alter 侧重‘局部改动外观或细节’，一般不说 alter A into B，故远不如 convert 地道。",
+      "options": [
+        {
+          "word": "converted",
+          "zh": "vt. 转换，改作(用途)",
+          "correct": true
+        },
+        {
+          "word": "modified",
+          "zh": "vt. (小幅)修改，调整",
+          "correct": false
+        },
+        {
+          "word": "varied",
+          "zh": "v. (使)变化，使多样",
+          "correct": false
+        },
+        {
+          "word": "altered",
+          "zh": "vt. (局部)改变，更改",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0006",
+      "theme": "改变",
+      "sentence": "Education can ___ an entire community, lifting it out of poverty within a single generation.",
+      "answer": "transform",
+      "translation": "教育能够彻底改变整个社区，使其在一代人的时间内摆脱贫困。",
+      "level": "postgrad",
+      "explain": "四词皆含‘改变’义。transform 强调‘脱胎换骨、根本而彻底的改观’，与 an entire community（整个社区）及‘一代人内摆脱贫困’这一翻天覆地的变化高度契合，故为答案。alter 指‘局部、细微的更改’，程度太轻，无法表达使整个社区命运逆转之意。vary 表‘（不断）变化、使多样’，强调差异与波动，不指整体性的根本改观，语义不符。convert 侧重‘形态/用途/信仰的转换’，常需 convert sb to/into sth 结构，单独接 a community 表‘彻底改变其面貌’搭配不当。",
+      "options": [
+        {
+          "word": "transform",
+          "zh": "vt. 彻底改变，使改观",
+          "correct": true
+        },
+        {
+          "word": "alter",
+          "zh": "vt. (局部)改变，更改",
+          "correct": false
+        },
+        {
+          "word": "vary",
+          "zh": "v. (使)变化，使多样",
+          "correct": false
+        },
+        {
+          "word": "convert",
+          "zh": "vt. 转换，转变(形态/信仰)",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0007",
+      "theme": "增加",
+      "sentence": "The number of online orders ___ steadily throughout last year, reaching a record high in December.",
+      "answer": "increased",
+      "translation": "线上订单的数量在去年全年稳步增加，并在十二月创下历史新高。",
+      "level": "cet4",
+      "explain": "四者都与‘增加/上升’有关，且此处均给出过去式以排除时态干扰，纯考语义与搭配。主语 The number of online orders 强调‘数量上的增多’，increase（increase-increased）作不及物动词正表示‘(数目)增加’，与 the number、steadily 搭配最贴切，故选 increased。rose（rise 的过去式）虽也可表上升，但 rise 更多指价格、水平、温度等‘水平面’的升高，与 the number of orders 这一‘数目’搭配不如 increase 自然。raised 是及物动词，必须带宾语（raise prices/funds），其后无宾语，语法不通。grew（grow 的过去式）多强调有机的、整体规模的‘成长、壮大’（the company grew），用于 the number 这种精确计数显得别扭。",
+      "options": [
+        {
+          "word": "increased",
+          "zh": "vi.&vt. (数量上)增加（increase的过去式）",
+          "correct": true
+        },
+        {
+          "word": "rose",
+          "zh": "vi. (价格/水平)上升（rise的过去式，不接宾语）",
+          "correct": false
+        },
+        {
+          "word": "raised",
+          "zh": "vt. 提高、筹集（须带宾语）",
+          "correct": false
+        },
+        {
+          "word": "grew",
+          "zh": "vi. 成长、壮大（grow的过去式）",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0008",
+      "theme": "增加",
+      "sentence": "The government decided to ___ the minimum wage to help low-income workers.",
+      "answer": "raise",
+      "translation": "政府决定提高最低工资标准，以帮助低收入工人。",
+      "level": "cet4",
+      "explain": "四者都含‘增加/提高’义，本句空格后紧跟宾语 the minimum wage，因此首先要求及物动词。raise 是及物动词，意为‘(人为地)提高、上调(数额、标准)’，与 wage、price、standard 搭配地道，政府主动上调工资正是此典型用法，故选 raise。rise 是不及物动词，后面不能接宾语，语法错误。enhance 虽及物，但意为‘增强、提升(质量、价值、能力)’，强调使某物更优，多接 quality、image、ability 等抽象名词，与具体的‘工资数额’搭配不当。grow 作及物时意为‘种植、培养(作物)’（grow crops），不能表示‘上调工资’，语义不符。",
+      "options": [
+        {
+          "word": "raise",
+          "zh": "vt. 提高、上调(数额/标准)",
+          "correct": true
+        },
+        {
+          "word": "rise",
+          "zh": "vi. (自身)上升（不接宾语）",
+          "correct": false
+        },
+        {
+          "word": "enhance",
+          "zh": "vt. 增强、提升(质量/价值/能力)",
+          "correct": false
+        },
+        {
+          "word": "grow",
+          "zh": "vt. 种植、培养(作物)",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0009",
+      "theme": "增加",
+      "sentence": "Regular training can greatly ___ employees' communication skills and overall confidence.",
+      "answer": "enhance",
+      "translation": "定期培训能极大地提升员工的沟通能力和整体自信心。",
+      "level": "cet6",
+      "explain": "四者都与‘增加/提升’相关，但搭配对象不同。enhance 意为‘增强、提升(能力、质量、价值、效果)’，强调使原本就存在的东西变得更好、更强，与 skills（技能）、confidence（自信）这类抽象品质搭配最地道，故选 enhance。increase 侧重数量、数目上的‘增多’（increase the number/amount/output），用于不可量化的 skills、confidence 显得别扭。raise 表示提高数额、标准或举起，搭配 wage、price、hand 等，不用于‘提升能力素质’。grow 作及物时意为‘种植’，作不及物意为‘成长’，不能直接带 skills 作宾语表示‘提升技能’，搭配不当。",
+      "options": [
+        {
+          "word": "enhance",
+          "zh": "vt. 增强、提升(能力/质量/价值)",
+          "correct": true
+        },
+        {
+          "word": "increase",
+          "zh": "vi.&vt. (数量上)增加、增多",
+          "correct": false
+        },
+        {
+          "word": "raise",
+          "zh": "vt. 提高(数额/标准)、举起",
+          "correct": false
+        },
+        {
+          "word": "grow",
+          "zh": "vt. 种植；vi. 成长、增长",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0010",
+      "theme": "减少",
+      "sentence": "Share prices ___ steadily throughout the afternoon and closed at a record low.",
+      "answer": "declined",
+      "translation": "股价在整个下午持续下跌，收盘时创下历史新低。",
+      "level": "cet4",
+      "explain": "四词都含‘减少/下降’义，但用法和搭配不同。decline 作不及物动词，强调价格、数量、销量等自身‘逐步下跌、走低’，不带宾语，与 share prices、steadily 搭配地道，故选 declined。reduce 和 lower 都是及物动词，必须接宾语（reduce/lower the price），本句 prices 后无宾语，二者不能这样单独使用。diminish 虽可作不及物动词，但多指力量、价值、重要性等抽象事物‘减弱’，用来描述‘股价下跌’这种行情走势不地道，行情下跌的固定说法是 prices fall/decline。故唯一正确的是 declined。",
+      "options": [
+        {
+          "word": "declined",
+          "zh": "vi. (价格/数量)下跌，下降",
+          "correct": true
+        },
+        {
+          "word": "reduced",
+          "zh": "vt. 减少，缩减",
+          "correct": false
+        },
+        {
+          "word": "lowered",
+          "zh": "vt. 降低，放低",
+          "correct": false
+        },
+        {
+          "word": "diminished",
+          "zh": "v. (使)减弱，缩小",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0011",
+      "theme": "减少",
+      "sentence": "The factory has installed new equipment to ___ the amount of waste it produces.",
+      "answer": "reduce",
+      "translation": "工厂安装了新设备，以减少其产生的废料量。",
+      "level": "cet4",
+      "explain": "四词都表‘减少’。reduce 是最通用的及物动词，意为‘减少、缩减（数量、程度等）’，reduce the amount of waste/cost/risk 是地道固定搭配，故选 reduce。decline 在‘减少’义上是不及物动词（自身下降），不能带宾语 the amount of waste，作及物时意为‘谢绝、婉拒’，语义不符。lower 侧重把‘高度/水平/价格/声音’本身调低（lower the price/voice），不与 the amount（数量）搭配，说 lower the amount of waste 不自然。diminish 多用于抽象事物（diminish importance/value）逐渐减弱，用于‘废料量’这种可量化的具体数量不如 reduce 准确。因此唯一正确的是 reduce。",
+      "options": [
+        {
+          "word": "reduce",
+          "zh": "vt. 减少，缩减",
+          "correct": true
+        },
+        {
+          "word": "decline",
+          "zh": "vi. 下降，衰退；vt. 谢绝",
+          "correct": false
+        },
+        {
+          "word": "lower",
+          "zh": "vt. 降低，放低",
+          "correct": false
+        },
+        {
+          "word": "diminish",
+          "zh": "v. (使)减弱，缩小",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0012",
+      "theme": "减少",
+      "sentence": "Constantly criticizing colleagues in public will only ___ you in the eyes of others.",
+      "answer": "diminish",
+      "translation": "总是当众批评同事只会让你在别人眼中显得低人一等（贬低你的形象）。",
+      "level": "postgrad",
+      "explain": "四词都含‘减少/降低’义，但本句考查固定表达 diminish sb in the eyes of others（在他人眼中贬低某人、使某人形象受损）。diminish 在此作及物动词，宾语是人，表示‘降低某人的声望/形象’，是地道惯用搭配，故选 diminish。reduce 虽是及物动词，但 reduce 后接人时意为‘使某人沦落到（某种困境/状态）’，须接 to + 状态（reduce sb to tears/poverty），不能直接说 reduce you in the eyes of others。lower 表‘降低（价格/水平/声音）’或 lower oneself（自降身份），不能说 lower you in the eyes of others。decline 在‘下降’义上是不及物动词，不能带人作宾语，作及物时意为‘谢绝’，语义不符。故唯一正确的是 diminish。",
+      "options": [
+        {
+          "word": "diminish",
+          "zh": "vt. 贬低，降低(声望/形象)",
+          "correct": true
+        },
+        {
+          "word": "reduce",
+          "zh": "vt. 减少；使沦落(reduce to)",
+          "correct": false
+        },
+        {
+          "word": "lower",
+          "zh": "vt. 降低，放低",
+          "correct": false
+        },
+        {
+          "word": "decline",
+          "zh": "vi. 下降；vt. 谢绝",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0013",
+      "theme": "看",
+      "sentence": "I happened to ___ that she had been crying when she came into the office.",
+      "answer": "notice",
+      "translation": "她走进办公室时，我碰巧注意到她刚刚哭过。",
+      "level": "cet4",
+      "explain": "四者都与‘看/察觉’相关，但侧重不同。notice 指无意中‘注意到、察觉到’某个细节或变化，可接 that 从句（notice that...），与 happened to（碰巧）搭配自然，强调不经意间发现‘她哭过’这一迹象，故为唯一正确答案。glance 意为‘瞥一眼’，是短暂、有意的一看，为不及物动词，须说 glance at，不能直接接 that 从句。stare 意为‘盯着、凝视’，强调长时间目不转睛地看，也不能接 that 从句，且与‘碰巧’语义矛盾。watch 意为‘观看、注视’持续变化的事物（如电视、比赛），不能接 that 从句表‘察觉’，语义也不符。只有 notice 在语法（接 that 从句）和语义（不经意察觉）上都成立。",
+      "options": [
+        {
+          "word": "notice",
+          "zh": "vt. 注意到，察觉到",
+          "correct": true
+        },
+        {
+          "word": "glance",
+          "zh": "vi. 瞥一眼（glance at）",
+          "correct": false
+        },
+        {
+          "word": "stare",
+          "zh": "vi. 盯着，凝视（stare at）",
+          "correct": false
+        },
+        {
+          "word": "watch",
+          "zh": "vt. 观看，注视",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0014",
+      "theme": "看",
+      "sentence": "Scientists carefully ___ the animals' behaviour for several months before drawing conclusions.",
+      "answer": "observed",
+      "translation": "科学家们仔细观察这些动物的行为长达数月，然后才得出结论。",
+      "level": "cet6",
+      "explain": "四者都含‘看’义，但语体和侧重不同。observe 指为研究目的‘（系统地、仔细地）观察’，强调认真、有方法地察看以获取信息，与 scientists、carefully、for several months 这一科研语境完美契合，故选 observed。look 是不及物动词，必须说 look at，不能直接接宾语 the behaviour，语法不通。see 强调‘看见’这一结果（视觉自然映入眼帘），是非持续、无意识的，无法表达‘历时数月的研究性观察’，与 carefully、for several months 不符。glance 意为‘匆匆瞥一眼’，是短暂一看，与 carefully、for several months 的长期、细致语境直接矛盾。",
+      "options": [
+        {
+          "word": "observed",
+          "zh": "vt. （为研究而）观察",
+          "correct": true
+        },
+        {
+          "word": "looked",
+          "zh": "vi. 看（look at）",
+          "correct": false
+        },
+        {
+          "word": "saw",
+          "zh": "vt. 看见（强调结果）",
+          "correct": false
+        },
+        {
+          "word": "glanced",
+          "zh": "vi. 瞥一眼",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0015",
+      "theme": "看",
+      "sentence": "The little boy sat by the window and ___ the rain falling all afternoon.",
+      "answer": "watched",
+      "translation": "小男孩坐在窗边，看着雨整整下了一下午。",
+      "level": "cet4",
+      "explain": "四者都表‘看’，区别在于对象和方式。watch 指持续地注视‘正在运动或变化的事物’（如下雨、比赛、电视），并隐含注视一段时间，与 the rain falling（落下的雨）和 all afternoon（一整个下午）完全契合，故选 watched。see 强调一次性‘看见’的结果，不表持续的注视过程，与 all afternoon 的长时段含义不符，故 see...all afternoon 不地道。glance 意为‘瞥一眼’，是一瞬间的动作，与‘一整个下午’直接冲突，且为不及物动词须接 at。stare 意为‘瞪眼、凝视’，多指因吃惊、出神而目不转睛地盯着，带情绪色彩，且须接 at（stare at the rain），既不能直接接宾语，语义也偏重，不如 watch 中性贴切。",
+      "options": [
+        {
+          "word": "watched",
+          "zh": "vt. 注视，观看（动态事物）",
+          "correct": true
+        },
+        {
+          "word": "saw",
+          "zh": "vt. 看见（强调结果）",
+          "correct": false
+        },
+        {
+          "word": "glanced",
+          "zh": "vi. 瞥一眼（glance at）",
+          "correct": false
+        },
+        {
+          "word": "stared",
+          "zh": "vi. 盯着，凝视（stare at）",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0016",
+      "theme": "说",
+      "sentence": "At the press conference, the minister refused to ___ his views on the scandal.",
+      "answer": "state",
+      "translation": "在新闻发布会上，那位部长拒绝就这桩丑闻陈述自己的观点。",
+      "level": "cet6",
+      "explain": "四者都与‘说’有关，但空格后直接接宾语 his views（要正式、清楚地阐明观点），需要一个能直接带‘所说内容’作宾语且语体正式的及物动词。state 意为‘正式陈述、明确表明’，state one's views 是固定地道搭配，故选 state。say 虽及物，但通常接 say something/say that 从句，英语里不说 say one's views（应说 state/express one's views），属搭配不当。tell 必须带人作宾语（tell sb sth），tell his views 缺少听话人，语法不通。speak 在‘说话’义上为不及物动词，要说 speak about his views，不能直接接 his views 作宾语。",
+      "options": [
+        {
+          "word": "state",
+          "zh": "vt. 正式陈述；表明",
+          "correct": true
+        },
+        {
+          "word": "say",
+          "zh": "vt. 说（话/内容）",
+          "correct": false
+        },
+        {
+          "word": "tell",
+          "zh": "vt. 告诉（某人）",
+          "correct": false
+        },
+        {
+          "word": "speak",
+          "zh": "vi. 说话；讲（语言）",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0017",
+      "theme": "说",
+      "sentence": "Could you ___ me how to get to the nearest subway station from here?",
+      "answer": "tell",
+      "translation": "你能告诉我从这里怎么去最近的地铁站吗？",
+      "level": "cet4",
+      "explain": "四者都含‘说’义，但空格后紧跟人称宾语 me，再接 how 引导的宾语从句，需要一个‘告诉某人某事’的及物动词，即 tell sb sth。tell 正是‘告知信息’的常用词，tell me how... 完全地道，故选 tell。say 虽及物，但不直接接人作宾语（不能说 say me），只能 say to me，搭配错误。speak 在此义上为不及物动词，speak me 语法不通，只能 speak to me。talk 同样不及物，只能 talk to me about...，talk me how 语法与搭配均错。",
+      "options": [
+        {
+          "word": "tell",
+          "zh": "vt. 告诉；告知",
+          "correct": true
+        },
+        {
+          "word": "say",
+          "zh": "vt. 说（内容）",
+          "correct": false
+        },
+        {
+          "word": "speak",
+          "zh": "vi. 说话",
+          "correct": false
+        },
+        {
+          "word": "talk",
+          "zh": "vi. 谈话；交谈",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0018",
+      "theme": "说",
+      "sentence": "Many tourists come here because most of the locals can ___ fluent English.",
+      "answer": "speak",
+      "translation": "许多游客来这里，是因为大多数当地人能讲一口流利的英语。",
+      "level": "cet4",
+      "explain": "四者都与‘说’相关，但空格后接的是语言名称 fluent English，表示‘讲某种语言’这一能力，只有 speak 能直接以语言作宾语，speak English 是固定搭配，故选 speak。say 接的是具体说出的话语或内容，不能说 say English（语义不符）。talk 在标准英语中为不及物动词，要说 talk in English 或 talk about something，不能直接接 English 作宾语。tell 意为‘告诉（某人）’，须接人或所告知的信息，tell English 语义与搭配都不成立。",
+      "options": [
+        {
+          "word": "speak",
+          "zh": "vt. 讲（某种语言）",
+          "correct": true
+        },
+        {
+          "word": "say",
+          "zh": "vt. 说（话语内容）",
+          "correct": false
+        },
+        {
+          "word": "talk",
+          "zh": "vi. 交谈；谈论",
+          "correct": false
+        },
+        {
+          "word": "tell",
+          "zh": "vt. 告诉（某人某事）",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0019",
+      "theme": "允许",
+      "sentence": "According to the regulations, the museum does not ___ visitors to touch any of the exhibits.",
+      "answer": "permit",
+      "translation": "根据规定，博物馆不允许参观者触摸任何展品。",
+      "level": "cet6",
+      "explain": "四词都与‘允许’相关，但只有 permit 能在本句成立。permit 较正式，多用于规章、官方机构作出的准许，结构 permit sb to do，与‘根据规定…博物馆’的正式语境最贴切，故选 permit。admit 意为‘准许进入、接纳’或‘承认’，可说 admit sb to a place，但不能接‘sb to do sth’表示‘允许做某事’，admit visitors to touch 搭配不通。let 表‘让’，须接动词原形（let sb do），填入 let visitors to touch 语法错误。enable 意为‘使能够、使有能力’，强调赋予能力或条件（enable sb to do），与‘不准触摸’的禁止性许可语义相反，不符。",
+      "options": [
+        {
+          "word": "permit",
+          "zh": "vt.(正式)允许，准许",
+          "correct": true
+        },
+        {
+          "word": "admit",
+          "zh": "vt. 准许进入；承认",
+          "correct": false
+        },
+        {
+          "word": "let",
+          "zh": "vt. 让(后接动词原形)",
+          "correct": false
+        },
+        {
+          "word": "enable",
+          "zh": "vt. 使能够，使有能力",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0020",
+      "theme": "允许",
+      "sentence": "The new software ___ even complete beginners to produce professional-looking videos with a few clicks.",
+      "answer": "enables",
+      "translation": "这款新软件使完全的新手也能点击几下就制作出看起来很专业的视频。",
+      "level": "cet6",
+      "explain": "本题考查‘使…能够’而非单纯‘准许’。enable 强调提供能力或条件使原本做不到的事成为可能，主语常是工具、技术等无生命事物，正合‘软件让新手也能制作专业视频’之意，且 enable sb to do 搭配正确，故选 enables。lets 表‘让/允许’，但 let 须接动词原形（let sb do），填入 lets … beginners to produce 语法不通。forces 意为‘迫使、强迫’，与‘新手轻松做到’的赋能语义相反，且 force sb to do 虽合语法但含义完全不符。obliges 意为‘责成、迫使（某人履行义务）’，同样是强制做某事，与‘使其有能力’相悖，不符。",
+      "options": [
+        {
+          "word": "enables",
+          "zh": "vt. 使能够，使有能力",
+          "correct": true
+        },
+        {
+          "word": "lets",
+          "zh": "vt. 让(后接动词原形)",
+          "correct": false
+        },
+        {
+          "word": "forces",
+          "zh": "vt. 迫使，强迫",
+          "correct": false
+        },
+        {
+          "word": "obliges",
+          "zh": "vt. 责成，迫使(履行义务)",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0021",
+      "theme": "允许",
+      "sentence": "Come on, just ___ me have a quick look at your new phone for a second.",
+      "answer": "let",
+      "translation": "来嘛，就让我快看一眼你的新手机，就一下下。",
+      "level": "cet4",
+      "explain": "四词都含‘允许’义，但本句空格后是动词原形 have（无 to）。let 最口语随意，结构为 let sb do（后接动词原形，不带 to），用于日常恳求‘让我…’最自然，与 Come on, just… 的口语语气完全契合，故选 let。allow 与 permit 都须接带 to 的不定式（allow/permit me to have），填入‘allow/permit me have’语法不通；且 permit 过于正式，不合朋友间随意请求的口吻。enable 意为‘使能够’，强调赋予能力（enable sb to do，需带 to），既语法不合，‘看一眼’这种临时许可也不属于赋能语义，不符。",
+      "options": [
+        {
+          "word": "let",
+          "zh": "vt. 让，允许(后接动词原形)",
+          "correct": true
+        },
+        {
+          "word": "allow",
+          "zh": "vt. 允许(后接 sb to do)",
+          "correct": false
+        },
+        {
+          "word": "permit",
+          "zh": "vt.(正式)允许，准许",
+          "correct": false
+        },
+        {
+          "word": "enable",
+          "zh": "vt. 使能够，使有能力",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0022",
+      "theme": "拒绝",
+      "sentence": "The factory had to ___ several batches of components that failed the quality check.",
+      "answer": "reject",
+      "translation": "工厂不得不把几批没通过质量检验的零件剔除退回。",
+      "level": "cet4",
+      "explain": "四者都含‘拒绝/不接受’义，但对象与语气不同。reject 强调因不合标准而‘剔除、退回、不予接受’具体的人或物，与 components、quality check 搭配最贴切，故选 reject。refuse 侧重主观‘不愿做/不肯给’，典型搭配是 refuse to do 或 refuse a request，用于‘按标准淘汰次品’这种被动、客观的工序并不自然。decline 是委婉客气的‘谢绝’（邀请、好意、提议），用于工厂剔除次品太文雅、不合语境。deny 意为‘否认（事实）’或‘拒绝给予某人某物（deny sb sth）’，不能表示‘退回不合格零件’。",
+      "options": [
+        {
+          "word": "reject",
+          "zh": "vt. 拒收，剔除，退回",
+          "correct": true
+        },
+        {
+          "word": "refuse",
+          "zh": "vt. 拒绝(做/给)",
+          "correct": false
+        },
+        {
+          "word": "decline",
+          "zh": "vt. 婉拒，谢绝",
+          "correct": false
+        },
+        {
+          "word": "deny",
+          "zh": "vt. 否认；拒绝给予",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0023",
+      "theme": "拒绝",
+      "sentence": "No matter how hard the rescuers begged, the stubborn old man ___ to leave his flooded house.",
+      "answer": "refused",
+      "translation": "无论救援人员怎么恳求，那个固执的老人就是不肯离开被淹的房子。",
+      "level": "cet6",
+      "explain": "本题关键在结构 ‘___ to do’ 和‘固执、断然不肯’的语气。refuse 可接不定式 refuse to do，表示‘坚决不肯做某事’，与 stubborn、no matter how hard…begged 的语境完全吻合，故选 refused。decline 虽也能接 to do，但它表示客气、委婉的‘谢绝’（多用于邀请、提议），与‘固执地不肯撤离’这种强硬、非礼节性的语境矛盾，搭配不当。reject 和 deny 都不能接不定式：reject 后接名词（拒收/否决某物），deny 后接名词或双宾语（deny sb sth），二者在 ‘___ to leave’ 结构中均语法不通。",
+      "options": [
+        {
+          "word": "refused",
+          "zh": "vt. 拒绝，断然不肯(refuse to do)",
+          "correct": true
+        },
+        {
+          "word": "declined",
+          "zh": "vt. 婉拒，谢绝",
+          "correct": false
+        },
+        {
+          "word": "rejected",
+          "zh": "vt. 拒收，否决",
+          "correct": false
+        },
+        {
+          "word": "denied",
+          "zh": "vt. 否认；拒绝给予",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0024",
+      "theme": "拒绝",
+      "sentence": "The hospital cannot ___ any patient emergency treatment simply because of unpaid bills.",
+      "answer": "deny",
+      "translation": "医院不能仅仅因为账单未付就拒绝给任何病人提供急救。",
+      "level": "postgrad",
+      "explain": "本题关键在双宾语结构 ‘___ sb sth’（拒绝给某人某物）。deny 可接双宾语 deny sb sth，意为‘拒绝给予某人（应得的权利或东西）’，deny a patient emergency treatment 即‘拒绝给病人急救’，含‘剥夺应得权利’的正式意味，语法与语义都正确，故选 deny。reject 不能接双宾语，且意为‘拒收/否决’具体事物，不能说 reject sb sth。decline 一般只接单宾语或 to do（decline an offer / decline to comment），不接双宾语，故 decline a patient treatment 语法不通。refuse 虽也能说 refuse sb sth，但更偏个人‘不愿给’，缺少 deny 所含‘剥夺正当权利’这一正式、制度化的含义，在此正式语境中不如 deny 准确。",
+      "options": [
+        {
+          "word": "deny",
+          "zh": "vt. 拒绝给予(deny sb sth)；否认",
+          "correct": true
+        },
+        {
+          "word": "reject",
+          "zh": "vt. 拒收，否决",
+          "correct": false
+        },
+        {
+          "word": "decline",
+          "zh": "vt. 婉拒，谢绝",
+          "correct": false
+        },
+        {
+          "word": "refuse",
+          "zh": "vt. 拒绝",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0025",
+      "theme": "获得",
+      "sentence": "After years of practice abroad, she finally ___ a near-native command of French.",
+      "answer": "acquired",
+      "translation": "在国外苦练多年后，她终于掌握了接近母语水平的法语能力。",
+      "level": "cet6",
+      "explain": "四者都含‘获得’义，但搭配与语义侧重不同。acquire 强调经过长期努力、逐渐‘习得/掌握’技能、语言、知识，acquire a command of a language 是固定地道搭配，与句中‘years of practice’（长期积累）完全吻合，故选 acquired。obtain 指通过正式申请或手段‘取得’具体之物（证件、许可、信息），不能用于‘掌握语言能力’这种内化过程，obtain a command of French 不成立。earn 意为通过劳动或表现‘挣得、赢得’（金钱、声誉、尊重），语言能力并非‘挣来的’，earn a command 搭配不通。win 意为在竞争或争取中‘赢得’（比赛、奖项、支持），语言能力不是‘赢来’的，win a command of French 不地道。",
+      "options": [
+        {
+          "word": "acquired",
+          "zh": "vt. (经长期努力)习得；掌握",
+          "correct": true
+        },
+        {
+          "word": "obtained",
+          "zh": "vt. (正式)取得；获得(具体物)",
+          "correct": false
+        },
+        {
+          "word": "earned",
+          "zh": "vt. 挣得；赢得(凭劳动/表现)",
+          "correct": false
+        },
+        {
+          "word": "won",
+          "zh": "vt. 赢得(经竞争/争取)",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0026",
+      "theme": "获得",
+      "sentence": "You must ___ written permission from the landlord before subletting the flat.",
+      "answer": "obtain",
+      "translation": "转租这套公寓之前，你必须从房东那里取得书面许可。",
+      "level": "cet6",
+      "explain": "四者皆与‘获得’相关，关键在于‘正式手续 + 与 permission 的搭配’。obtain 是较正式的及物动词，专指通过申请、请求等正规途径‘取得’许可、签证、证书等，obtain permission 是高度地道的固定搭配，与 must、written permission、landlord 的正式语境完全契合，故选 obtain。win 意为‘赢得、争得’（比赛、奖项、支持），许可是被授予的而非‘赢来’的，win permission 不地道。earn 指凭劳动或表现‘挣得’（金钱、信任、尊重），许可并非靠付出‘挣’来，earn permission 搭配不通。achieve 意为‘实现、达到’（目标、成就、效果），不与 permission 搭配，achieve permission 不成立。",
+      "options": [
+        {
+          "word": "obtain",
+          "zh": "vt. (正式)取得；获得",
+          "correct": true
+        },
+        {
+          "word": "win",
+          "zh": "vt. 赢得；获胜",
+          "correct": false
+        },
+        {
+          "word": "earn",
+          "zh": "vt. 挣得；赢得(凭劳动/表现)",
+          "correct": false
+        },
+        {
+          "word": "achieve",
+          "zh": "vt. 实现；达到(目标)",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0027",
+      "theme": "获得",
+      "sentence": "He works two jobs just to ___ enough money to support his family.",
+      "answer": "earn",
+      "translation": "他打两份工，只为挣到足够的钱养家。",
+      "level": "cet6",
+      "explain": "四者都可与‘获得’相关，但本句强调‘通过劳动挣得金钱’，这正是 earn 的核心语义。earn 指靠工作、付出‘挣得’（金钱、工资、报酬），earn money 是固定地道搭配，与 works two jobs（辛勤劳动）因果呼应，故选 earn。win 表示靠运气或竞争‘赢得’（彩票、赌局、比赛奖金），win money 含‘偶然/博彩’意味，与‘打两份工’的辛勤付出自相矛盾，语义不符。gain 表中性的‘获得、增加’，多搭配抽象事物（experience、weight、advantage），不用于日常挣钱，gain money 不地道。obtain 指通过正式途径‘取得’具体物品或文件，用于日常挣工资生硬别扭，obtain money 不自然。",
+      "options": [
+        {
+          "word": "earn",
+          "zh": "vt. 挣得；赚(钱)",
+          "correct": true
+        },
+        {
+          "word": "win",
+          "zh": "vt. 赢得(靠运气/竞争)",
+          "correct": false
+        },
+        {
+          "word": "gain",
+          "zh": "vt. 获得；增加(中性、抽象)",
+          "correct": false
+        },
+        {
+          "word": "obtain",
+          "zh": "vt. (正式)取得(具体物)",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0028",
+      "theme": "选择",
+      "sentence": "The citizens went to the polls to ___ a new president last week.",
+      "answer": "elect",
+      "translation": "上周公民们前往投票站选举新总统。",
+      "level": "cet4",
+      "explain": "四者都含'选择'义，但侧重不同。elect 特指通过投票'选举'产生公职人员（elect a president/mayor），与 went to the polls（前往投票站）、citizens（公民）共同锁定政治选举语境，是唯一表'投票选出某人担任职务'的词，故正确。choose 是最普通的'选择'，强调凭意愿挑选，但它不含'投票推选公职'之义，无法表达'选举总统'这一通过选票产生职务的过程。select 强调'经仔细比较从多者中精选'，多用于商品或人选筛选，不用于公民投票选举公职。pick 偏口语，指'随手挑、选中'，更不适合正式的国家选举，且都不能表达'投票使某人当选'。",
+      "options": [
+        {
+          "word": "elect",
+          "zh": "vt. (投票)选举，选出",
+          "correct": true
+        },
+        {
+          "word": "choose",
+          "zh": "vt. 选择，挑选",
+          "correct": false
+        },
+        {
+          "word": "select",
+          "zh": "vt. (仔细)挑选，精选",
+          "correct": false
+        },
+        {
+          "word": "pick",
+          "zh": "vt. 挑选，选中(口语)",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0029",
+      "theme": "选择",
+      "sentence": "Inspectors ___ a few samples from each batch and sent them to the lab for testing.",
+      "answer": "selected",
+      "translation": "检验员从每一批中抽选出几个样品，送到实验室检测。",
+      "level": "cet6",
+      "explain": "四者都表'选择'，但本句考'从大批中按标准抽取出部分代表'之义。select 强调'依据标准从众多对象中（有目的地）挑出若干'，与 a few samples from each batch（从每批中抽取几个）这一'抽样'语境精确契合，是唯一地道选项。choose 强调'凭意愿在选项间作决定'，常含'拿定主意要哪个'之意，用于'抽样取出几个送检'显得不自然，也不突出按标准筛取。pick 偏口语、随意，指'随手挑出'，与正式的质检抽样、再送实验室检测的语境语气不符。elect 专指投票选举公职人员，绝不能用于抽取样品，语义不通。",
+      "options": [
+        {
+          "word": "selected",
+          "zh": "vt. (按标准)挑选，抽选",
+          "correct": true
+        },
+        {
+          "word": "chose",
+          "zh": "vt. 选择(凭意愿)",
+          "correct": false
+        },
+        {
+          "word": "picked",
+          "zh": "vt. 挑选(口语，随意)",
+          "correct": false
+        },
+        {
+          "word": "elected",
+          "zh": "vt. (投票)选举",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0030",
+      "theme": "选择",
+      "sentence": "Faced with two equally good job offers, she finally ___ to stay in her hometown.",
+      "answer": "chose",
+      "translation": "面对两份同样不错的工作邀约，她最终决定留在家乡。",
+      "level": "cet4",
+      "explain": "四者都含'选择'义，但本句空格后接动词不定式 to stay，考'做出抉择、拿定主意做某事'。只有 choose 能直接接不定式（choose to do sth = 决定做某事），与 finally（最终）、Faced with two offers（面对两个选择）这一'权衡后作出决定'的语境完全吻合，故唯一正确。select 表'经比较精选出某物'，是及物动词，不能说 select to do sth，语法不通。pick 同样不接不定式（不能说 pick to stay），且偏口语随意，与慎重抉择不符。elect 虽偶可接不定式（elect to do）但属正式、生硬的'选择做某事'，更主要义为投票选举公职，用于此处个人留乡的日常抉择极不自然。",
+      "options": [
+        {
+          "word": "chose",
+          "zh": "vt. 选择，决定(choose to do)",
+          "correct": true
+        },
+        {
+          "word": "selected",
+          "zh": "vt. (仔细)精选",
+          "correct": false
+        },
+        {
+          "word": "picked",
+          "zh": "vt. 挑选(口语)",
+          "correct": false
+        },
+        {
+          "word": "elected",
+          "zh": "vt. (投票)选举",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0031",
+      "theme": "重要的",
+      "sentence": "Sodium and potassium are ___ minerals that the human body cannot produce on its own.",
+      "answer": "essential",
+      "translation": "钠和钾是人体自身无法合成的必需矿物质。",
+      "level": "cet4",
+      "explain": "四词都沾‘重要’义，但本题靠固定搭配与语义定位。essential 有‘必不可少的、(营养素)必需的’专门义，‘essential minerals/nutrients’是营养学固定术语，特指机体无法自行合成、必须从外界摄取的成分，与从句‘the body cannot produce on its own（身体无法自己合成）’精确呼应，故唯一正确。important 只表泛泛的‘重要’，不含‘人体必须从外界获取’这一层，且‘important minerals’不能扣住下文‘无法自产’的逻辑。significant 意为‘数量/程度显著的、有重大意义的’（significant difference/amount），用来修饰可量化的差异或影响，不用于指‘人体必需的矿物质’。crucial 表‘对结果起决定作用的关键的’，搭配 crucial role/factor/stage，强调‘决定成败’，并不表示‘营养必需、需外源摄取’，‘crucial minerals’不地道。",
+      "options": [
+        {
+          "word": "essential",
+          "zh": "adj. 必不可少的，(营养)必需的",
+          "correct": true
+        },
+        {
+          "word": "important",
+          "zh": "adj. 重要的（一般语气）",
+          "correct": false
+        },
+        {
+          "word": "significant",
+          "zh": "adj. 重大的，显著的（数量/程度）",
+          "correct": false
+        },
+        {
+          "word": "crucial",
+          "zh": "adj. 关键的，决定性的",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0032",
+      "theme": "重要的",
+      "sentence": "The survey revealed a ___ rise in unemployment over the past year.",
+      "answer": "significant",
+      "translation": "这项调查显示，过去一年里失业率出现了显著的上升。",
+      "level": "cet6",
+      "explain": "四词均可译‘重要的’，但本句中心名词是‘rise（上升、涨幅）’，需要一个能表‘幅度大、数值上明显’的形容词。significant 除‘重要’外有‘数量上显著的、可观的’之义，significant rise/increase/difference 是固定地道搭配，专门描述数据变化幅度之大，故唯一正确。important 只表‘重要、有意义’，无法度量‘涨幅大小’，‘an important rise’不通。essential 意为‘必不可少的’，强调缺它不行，与‘上升的幅度’语义错位，‘an essential rise’不成立。vital 意为‘至关重要的、攸关存亡的’，用于说明某事对存续极关键（vital to success），不能用来形容失业率‘上升得明显’，‘a vital rise’不地道。",
+      "options": [
+        {
+          "word": "significant",
+          "zh": "adj. 显著的，重大的（数量/程度）",
+          "correct": true
+        },
+        {
+          "word": "important",
+          "zh": "adj. 重要的（一般语气）",
+          "correct": false
+        },
+        {
+          "word": "essential",
+          "zh": "adj. 必不可少的",
+          "correct": false
+        },
+        {
+          "word": "vital",
+          "zh": "adj. 至关重要的，性命攸关的",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0033",
+      "theme": "重要的",
+      "sentence": "The organs need a steady blood supply to keep functioning; cutting it off even briefly can be ___, threatening the patient's life within minutes.",
+      "answer": "vital",
+      "translation": "器官需要稳定的供血才能维持运转；哪怕短暂中断供血都可能性命攸关，几分钟内就危及病人的生命。",
+      "level": "postgrad",
+      "explain": "四词都表‘重要’，但本句以‘keep functioning（维持运转）’与‘threatening the patient's life（危及生命）’框定了‘攸关生死’的语境，需用与‘生命’直接挂钩的词。vital 源自拉丁 vita（生命），本义即‘维持生命所必需的、生死攸关的’，恰好承载‘几分钟内危及生命’的紧迫与‘性命攸关’的分量，故为唯一最佳答案。important 语气过轻，无法体现‘短暂中断即致命’的危急。significant 表‘数量/程度显著的、意义重大的’（significant change/effect），修饰可量化的变化或影响，不能用来说‘断血一事是性命攸关的’。essential 表‘必不可少的、构成必要条件’，多接所需之物（essential to the process），偏中性客观，难以传达此处‘事关生死、刻不容缓’的强烈意味，故首选 vital。",
+      "options": [
+        {
+          "word": "vital",
+          "zh": "adj. 至关重要的，性命攸关的",
+          "correct": true
+        },
+        {
+          "word": "significant",
+          "zh": "adj. 重大的，显著的（数量/程度）",
+          "correct": false
+        },
+        {
+          "word": "important",
+          "zh": "adj. 重要的（一般语气）",
+          "correct": false
+        },
+        {
+          "word": "essential",
+          "zh": "adj. 必不可少的",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0034",
+      "theme": "著名的",
+      "sentence": "The gang leader was ___ throughout the country for a series of brutal robberies and murders.",
+      "answer": "notorious",
+      "translation": "这个团伙头目因一连串残忍的抢劫和谋杀而在全国臭名昭著。",
+      "level": "cet4",
+      "explain": "四词都表‘出名的’，但本句的出名是因‘brutal robberies and murders（残忍的抢劫与谋杀）’这类恶行，需要专表坏名声的词。notorious 意为‘臭名昭著的、声名狼藉的’，固定用 be notorious for（因坏事而出名），与残暴罪行语境完美契合，故选 notorious。renowned 是褒义‘享有盛誉的’，只用于因才华、成就受人尊敬，绝不能搭配残暴罪行，语义完全相悖，故排除。celebrated 意为‘受赞颂的、广受好评的’，是明确褒义词，与‘谋杀、抢劫’搭配自相矛盾，故排除。esteemed 意为‘受人尊敬的’，专表对德高望重者的敬意，更不可能修饰一个杀人犯，故排除。",
+      "options": [
+        {
+          "word": "notorious",
+          "zh": "adj. 臭名昭著的，声名狼藉的",
+          "correct": true
+        },
+        {
+          "word": "renowned",
+          "zh": "adj. 享有盛誉的（褒义）",
+          "correct": false
+        },
+        {
+          "word": "celebrated",
+          "zh": "adj. 受赞颂的，广受好评的（褒义）",
+          "correct": false
+        },
+        {
+          "word": "esteemed",
+          "zh": "adj. 受人尊敬的（褒义）",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0035",
+      "theme": "著名的",
+      "sentence": "The surgeon is internationally ___ for her pioneering work in heart transplants and has received many top awards.",
+      "answer": "renowned",
+      "translation": "这位外科医生因在心脏移植领域的开创性工作而享誉国际，并获得了许多顶级奖项。",
+      "level": "cet6",
+      "explain": "四词都含‘出名’义。renowned 常构成 be renowned for sth（因……而享有盛誉），褒义强烈，强调因卓越成就受人敬仰，与‘pioneering work（开创性工作）、top awards（顶级奖项）’的高规格正面语境完美契合，且 internationally renowned 是地道固定搭配，故选 renowned。notorious 为贬义‘因坏事臭名昭著’，与本句的褒奖语气直接矛盾，故排除。infamous 同样是贬义‘声名狼藉的’，多用于罪行、丑闻，与‘获奖、开创性成就’语义相悖，故排除。obscure 意为‘默默无闻的、鲜为人知的’，与 internationally（享誉国际）及获奖背景完全冲突，故排除。",
+      "options": [
+        {
+          "word": "renowned",
+          "zh": "adj. 享有盛誉的，闻名的（褒义）",
+          "correct": true
+        },
+        {
+          "word": "notorious",
+          "zh": "adj. 臭名昭著的（贬义）",
+          "correct": false
+        },
+        {
+          "word": "infamous",
+          "zh": "adj. 声名狼藉的（贬义）",
+          "correct": false
+        },
+        {
+          "word": "obscure",
+          "zh": "adj. 默默无闻的，鲜为人知的",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0036",
+      "theme": "著名的",
+      "sentence": "It is a ___ fact that smoking seriously damages your health.",
+      "answer": "well-known",
+      "translation": "吸烟严重损害健康是一个众所周知的事实。",
+      "level": "cet4",
+      "explain": "四词都与‘出名/知晓’相关，但本句关键是固定搭配 a well-known fact（一个众所周知的事实）。well-known 修饰 fact/truth 等抽象信息，意为‘人人皆知的’，是英语高频地道搭配，故选 well-known。famous 强调‘有名望、出名’，多修饰人或具体事物（a famous singer/city），*a famous fact 不地道，故排除。renowned 是褒义‘因成就享有盛誉的’，只能修饰因卓越受尊敬的人或机构，不能修饰 fact，语义不通，故排除。notorious 为贬义‘臭名昭著的’，与‘事实’这一中性客观陈述的内容和语气都不符，故排除。",
+      "options": [
+        {
+          "word": "well-known",
+          "zh": "adj. 众所周知的",
+          "correct": true
+        },
+        {
+          "word": "famous",
+          "zh": "adj. 著名的（修饰人/具体事物）",
+          "correct": false
+        },
+        {
+          "word": "renowned",
+          "zh": "adj. 享有盛誉的（褒义）",
+          "correct": false
+        },
+        {
+          "word": "notorious",
+          "zh": "adj. 臭名昭著的（贬义）",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0037",
+      "theme": "聪明的",
+      "sentence": "Years later he realized how ___ his grandmother had been to invest patiently rather than chase quick profits.",
+      "answer": "wise",
+      "translation": "多年以后他才意识到,祖母当年耐心投资、而不去追逐快钱,是多么明智。",
+      "level": "cet4",
+      "explain": "四者都含‘聪明’义,但侧重不同。wise 强调基于阅历的‘明智、有远见、判断正确’,常用于评价经得起时间检验的决定;本句‘多年以后才意识到’‘耐心投资而非追逐快钱’突出的正是长远眼光与正确判断,只有 wise 贴切,故选 wise。clever 侧重头脑灵活、反应快或巧妙取巧,说 how clever she had been to invest patiently 反而暗示‘耍小聪明’,与‘耐心、有远见’的语境冲突。smart 偏口语,指机灵、精明,同样强调灵巧而非深思熟虑后的正确,放在此处不能传达‘多年后才证明正确’的明智感。brilliant 指‘才华横溢、极出色’,程度过重,用来评价一项普通的长期投资决定不贴切。",
+      "options": [
+        {
+          "word": "wise",
+          "zh": "adj. 明智的;有远见的",
+          "correct": true
+        },
+        {
+          "word": "clever",
+          "zh": "adj. 机灵的;巧妙的",
+          "correct": false
+        },
+        {
+          "word": "smart",
+          "zh": "adj. 机灵的;精明的",
+          "correct": false
+        },
+        {
+          "word": "brilliant",
+          "zh": "adj. 才华横溢的;极出色的",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0038",
+      "theme": "聪明的",
+      "sentence": "She gave a ___ performance on stage that left the whole audience speechless with admiration.",
+      "answer": "brilliant",
+      "translation": "她在台上献上了一场精彩绝伦的表演,让全场观众惊叹得说不出话来。",
+      "level": "cet6",
+      "explain": "四者都与‘聪明、出色’相关,但本句修饰的是 performance(表演),且语境是‘让全场惊叹得说不出话’。brilliant 除‘聪明’外,更常表示‘极其出色、光彩夺目’,可直接修饰 performance/idea/achievement,与‘令人惊叹’的强烈赞美完美吻合,故选 brilliant。intelligent 主要形容‘有智力、有理解力’,用于人或动物的认知能力,几乎不用来夸奖一场演出精彩,intelligent performance 不地道。wise 指‘明智、有判断力’,源于阅历,与‘精彩的演出’语义不搭。clever 虽可修饰想法或设计(a clever idea),用来形容表演时只表示‘巧妙、有小聪明’,程度远不及 brilliant,无法传达让全场叹服的震撼。",
+      "options": [
+        {
+          "word": "brilliant",
+          "zh": "adj. 精彩的;才华横溢的",
+          "correct": true
+        },
+        {
+          "word": "intelligent",
+          "zh": "adj. 有智力的;理解力强的",
+          "correct": false
+        },
+        {
+          "word": "wise",
+          "zh": "adj. 明智的;有远见的",
+          "correct": false
+        },
+        {
+          "word": "clever",
+          "zh": "adj. 巧妙的;机灵的",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0039",
+      "theme": "聪明的",
+      "sentence": "Dolphins are among the most ___ species on earth, with brains capable of abstract reasoning.",
+      "answer": "intelligent",
+      "translation": "海豚是地球上最聪明的物种之一,其大脑能够进行抽象推理。",
+      "level": "cet4",
+      "explain": "四者都含‘聪明’义,但本句描述的是物种与生俱来的‘智力水平’,且与 most ... species、brains capable of abstract reasoning(能抽象推理的大脑)搭配。intelligent 强调‘智力高、具备理解与推理能力’,是形容人或动物先天智力的标准、科学用词,与‘抽象推理’直接对应,the most intelligent species 也是固定说法,故选 intelligent。clever 多指‘机灵、反应快或有具体技巧’,常含后天学来的小聪明,既不与 most ... species 的整体智力评价搭配,也不能描述‘抽象推理’这种高级认知。smart 偏口语,指机灵伶俐,同样不用于科学语境下评判物种智力。wise 指‘明智、有人生智慧’,源于人生阅历与判断,无法用来描述动物天生的智力,语义完全不符。",
+      "options": [
+        {
+          "word": "intelligent",
+          "zh": "adj. 有智力的;聪颖的",
+          "correct": true
+        },
+        {
+          "word": "clever",
+          "zh": "adj. 机灵的;有技巧的",
+          "correct": false
+        },
+        {
+          "word": "smart",
+          "zh": "adj. 机灵的;伶俐的",
+          "correct": false
+        },
+        {
+          "word": "wise",
+          "zh": "adj. 明智的;有智慧的",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0040",
+      "theme": "害怕的",
+      "sentence": "\"I'm ___ we've sold out of tickets,\" the clerk said politely to the disappointed customer.",
+      "answer": "afraid",
+      "translation": "\"很抱歉，我们的票已经售完了，\"售票员礼貌地对失望的顾客说。",
+      "level": "cet4",
+      "explain": "四词都有\"害怕\"义，但只有 afraid 发展出固定的客套用法 I'm afraid (that)...，表示\"恐怕/很抱歉（要告知坏消息）\"，是一种委婉的歉意表达，与本句售票员礼貌告知坏消息的语境完全吻合。scared、frightened、terrified 只表\"受惊吓、感到恐惧\"这一字面情绪义，绝不能用来表示\"恐怕/抱歉地说\"——若代入则变成\"我被吓坏了我们票卖光了\"，逻辑荒谬。故此处唯一正确的是 afraid。",
+      "options": [
+        {
+          "word": "afraid",
+          "zh": "adj. 恐怕的；抱歉的；害怕的",
+          "correct": true
+        },
+        {
+          "word": "scared",
+          "zh": "adj. 受惊吓的，恐慌的",
+          "correct": false
+        },
+        {
+          "word": "frightened",
+          "zh": "adj. 受惊的，惊恐的",
+          "correct": false
+        },
+        {
+          "word": "terrified",
+          "zh": "adj. 极度惊恐的",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0041",
+      "theme": "害怕的",
+      "sentence": "The explosion was so loud that the little boy was absolutely ___ and couldn't stop crying.",
+      "answer": "terrified",
+      "translation": "爆炸声太响了，那个小男孩吓得魂飞魄散，哭个不停。",
+      "level": "cet6",
+      "explain": "四词都含\"害怕\"义，差异在程度与可修饰性。terrified 本身即表\"极度恐惧、惊恐万状\"，属不可分级（极限义）形容词，故能与同为\"绝对级\"的副词 absolutely 搭配（absolutely terrified=吓坏了）。而 afraid/scared/frightened 是可分级的普通强度词，习惯用 very 修饰，不能说 absolutely afraid/scared/frightened。再结合前文 so loud 渲染的强烈冲击，唯一贴切的是 terrified。",
+      "options": [
+        {
+          "word": "terrified",
+          "zh": "adj. 极度惊恐的，吓坏的",
+          "correct": true
+        },
+        {
+          "word": "afraid",
+          "zh": "adj. 害怕的；担心的",
+          "correct": false
+        },
+        {
+          "word": "scared",
+          "zh": "adj. 受惊吓的，恐慌的",
+          "correct": false
+        },
+        {
+          "word": "frightened",
+          "zh": "adj. 受惊的，惊恐的",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0042",
+      "theme": "害怕的",
+      "sentence": "When the lights suddenly went out, the children were scared ___ and dared not move.",
+      "answer": "stiff",
+      "translation": "灯突然熄灭时，孩子们吓得僵在原地，一动也不敢动。",
+      "level": "cet6",
+      "explain": "本题考查\"害怕\"的固定强调搭配。scared stiff 是地道习语，意为\"吓呆了、吓得僵住\"，stiff 在此作副词强调恐惧到身体发僵，与后文 dared not move（不敢动）呼应。其余三项均为同义形容词，无法填入：scared dead/afraid/frightened 都不构成英语固定表达——表\"吓死了\"应说 scared to death 而非 scared dead；afraid、frightened 本身是形容词，不能像 stiff 那样紧跟在 scared 之后作补足。故唯一正确的是 stiff。",
+      "options": [
+        {
+          "word": "stiff",
+          "zh": "adv.(口语)非常，极度（scared stiff=吓呆）",
+          "correct": true
+        },
+        {
+          "word": "dead",
+          "zh": "adv. 完全地（不与 scared 连用表\"吓死\"）",
+          "correct": false
+        },
+        {
+          "word": "afraid",
+          "zh": "adj. 害怕的（不能紧接 scared 后）",
+          "correct": false
+        },
+        {
+          "word": "frightened",
+          "zh": "adj. 受惊的（不能紧接 scared 后）",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0043",
+      "theme": "价格费用",
+      "sentence": "Passengers complained that the bus ___ had risen sharply over the past year.",
+      "answer": "fare",
+      "translation": "乘客们抱怨说，过去一年里公交车票价大幅上涨了。",
+      "level": "cet4",
+      "explain": "四者都与‘费用/价格’相关，但搭配对象不同。fare 专指‘乘坐交通工具所付的车费、船费、票价’，bus/taxi/train fare 是固定搭配，乘客抱怨的正是乘车花的钱，故选 fare。price 指‘商品的售价’，the bus price 会被理解成‘买一辆公交车的价格’，与乘客抱怨的语境不符。fee 指‘为专业服务、报名、入场等支付的费用’（如 tuition fee, entrance fee），不用于日常乘车。fine 是‘罚款’，语义完全不符。",
+      "options": [
+        {
+          "word": "fare",
+          "zh": "n. (交通工具的)车费、票价",
+          "correct": true
+        },
+        {
+          "word": "price",
+          "zh": "n. (商品的)价格、售价",
+          "correct": false
+        },
+        {
+          "word": "fee",
+          "zh": "n. (服务/报名/入场)费用",
+          "correct": false
+        },
+        {
+          "word": "fine",
+          "zh": "n. 罚款",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0044",
+      "theme": "价格费用",
+      "sentence": "The lawyer ___ us 300 dollars an hour for her professional advice.",
+      "answer": "charged",
+      "translation": "这位律师就她的专业咨询按每小时300美元向我们收费。",
+      "level": "cet6",
+      "explain": "本题考查‘收费’这一动作。charge 作动词意为‘(向某人)索取、收取(费用)’，固定搭配 charge sb + 金额 + for sth，主语是收钱的一方，此处律师向我们收钱并有 for her advice 作补足，故选 charged。cost 作动词意为‘(某物)花费、价值为’，结构是 sth costs sb 金额，且 cost 不能再接 for sth，说 the lawyer cost us 300 dollars for her advice 是错的。pay 意为‘支付’，主语应是付钱的一方(我们)，与句中主语律师矛盾。spend 意为‘花费(钱/时间)’，主语须是人且后接 on sth 或 doing，结构也不符。",
+      "options": [
+        {
+          "word": "charged",
+          "zh": "vt. (向某人)收取(费用)",
+          "correct": true
+        },
+        {
+          "word": "cost",
+          "zh": "vt. (某物)花费、价值为",
+          "correct": false
+        },
+        {
+          "word": "paid",
+          "zh": "vt. 支付、付钱",
+          "correct": false
+        },
+        {
+          "word": "spent",
+          "zh": "vt. 花费(钱/时间)",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0045",
+      "theme": "价格费用",
+      "sentence": "Employees must keep all their receipts so that they can claim their travel ___ after the trip.",
+      "answer": "expenses",
+      "translation": "员工必须保留所有收据，以便出差结束后报销差旅费用。",
+      "level": "cet6",
+      "explain": "本题考查与 claim(报销、申领)搭配的‘开支’名词。expense(s) 指‘为某事所付出的钱、各项开销’，claim/reimburse one’s expenses、travel expenses 都是固定搭配，凭收据报销的正是这些实际支出，故选 expenses。cost 多指单项‘成本/费用’，常用 the cost of sth，不与 claim 连用，说 claim costs 不地道。fee 指‘专业服务费、手续费、报名费’，不指出差中住宿餐饮等零散开销。fare 仅指‘交通票价’，无法涵盖全部差旅支出，也不与 claim 这样搭配。",
+      "options": [
+        {
+          "word": "expenses",
+          "zh": "n. 开支、花费、各项支出",
+          "correct": true
+        },
+        {
+          "word": "fee",
+          "zh": "n. (服务/手续/报名)费用",
+          "correct": false
+        },
+        {
+          "word": "fare",
+          "zh": "n. (交通工具的)车费、票价",
+          "correct": false
+        },
+        {
+          "word": "cost",
+          "zh": "n. 成本、(单项)费用",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0046",
+      "theme": "数量",
+      "sentence": "A large ___ of work was needed to clear the debris after the storm.",
+      "answer": "amount",
+      "translation": "暴风雨过后，需要做大量的工作来清理废墟。",
+      "level": "cet4",
+      "explain": "四词都涉及‘数量’，但搭配的名词和语义不同。空格后是抽象不可数名词 work，amount 专门修饰不可数名词表示总量，a large amount of work（大量工作）地道准确，故选 amount。number 只能接可数名词复数（a number of tasks），不能修饰不可数的 work，搭配错误。quantity 虽也接不可数名词，但多用于具体、可计量、可成批的物质或货物（a quantity of water/oil/goods），用于抽象的‘工作量’很不自然，故排除。sum 专指‘金额、款项’（a sum of money），与 work 语义不符。",
+      "options": [
+        {
+          "word": "amount",
+          "zh": "n. 数量；总量（接不可数名词）",
+          "correct": true
+        },
+        {
+          "word": "number",
+          "zh": "n. 数目（接可数名词复数）",
+          "correct": false
+        },
+        {
+          "word": "quantity",
+          "zh": "n. 数量（多指可计量的具体物质/货物）",
+          "correct": false
+        },
+        {
+          "word": "sum",
+          "zh": "n. 金额；款项；总和",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0047",
+      "theme": "数量",
+      "sentence": "A growing ___ of students now choose to study abroad after graduation.",
+      "answer": "number",
+      "translation": "如今越来越多的学生选择毕业后出国留学。",
+      "level": "cet4",
+      "explain": "本句空格后是可数名词复数 students，只有 number 能搭配：a (growing) number of students 意为‘（越来越多的）许多学生’，谓语用复数，故选 number。amount 接不可数名词，不能修饰可数的 students，搭配错误。quantity 主要用于可计量的物质或成批货物（large quantities of goods），用于‘人’极不自然。sum 专指金钱款项，与‘学生’语义完全不符。a growing number of 还是表示‘越来越多的……’的固定地道表达。",
+      "options": [
+        {
+          "word": "number",
+          "zh": "n. 数目（接可数名词复数）",
+          "correct": true
+        },
+        {
+          "word": "amount",
+          "zh": "n. 数量；总量（接不可数名词）",
+          "correct": false
+        },
+        {
+          "word": "quantity",
+          "zh": "n. 数量（多指成批货物/物质）",
+          "correct": false
+        },
+        {
+          "word": "sum",
+          "zh": "n. 金额；总和",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0048",
+      "theme": "数量",
+      "sentence": "An anonymous donor left the hospital a six-figure ___ in his will.",
+      "answer": "sum",
+      "translation": "一位匿名捐赠者在遗嘱中给这家医院留下了一笔六位数的钱款。",
+      "level": "cet6",
+      "explain": "四词都可表数量，但本句语境是一笔具体金额的钱款（six-figure 六位数的），最精准的固定搭配是 a six-figure/large sum，sum 专指‘金额、款项、一笔钱’，故为唯一答案。amount 虽可说 an amount of money，但 six-figure 是金额的固定修饰，且此处指‘一笔款项’而非泛泛的‘总量’，用 sum 才地道。quantity 强调可计量、可成批的具体物质或货物（a quantity of oil/rice），不用于‘钱款’这一概念，故排除。number 只接可数名词复数，不能单独表示‘一笔钱’，搭配错误。",
+      "options": [
+        {
+          "word": "sum",
+          "zh": "n. 金额；款项；一笔钱",
+          "correct": true
+        },
+        {
+          "word": "amount",
+          "zh": "n. 数量；总量（接不可数名词）",
+          "correct": false
+        },
+        {
+          "word": "quantity",
+          "zh": "n. 数量（多指可计量的具体物质/货物）",
+          "correct": false
+        },
+        {
+          "word": "number",
+          "zh": "n. 数目（接可数名词复数）",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0049",
+      "theme": "借",
+      "sentence": "Could you ___ me your bicycle for the weekend? I'll return it on Monday.",
+      "answer": "lend",
+      "translation": "你能把自行车借给我用一个周末吗？我周一就还。",
+      "level": "cet4",
+      "explain": "四词都与‘借/欠’有关，但方向和搭配不同。空格主语是车主（你），动作是‘把车给我用’，即‘借出’，且后接双宾 me your bicycle，正是 lend sb sth 的固定句型，故选 lend。borrow 是‘借入’（向别人借来），方向相反，且只能说 borrow sth from sb，绝不能说 borrow me，语法不通。loan 虽也表‘借出’，但属正式用语，多指钱款或贵重财物的正式借贷，把自行车这种日常小物‘借给人用’口语里几乎只用 lend，loan 在此既不自然也偏书面。owe 意为‘欠（钱/人情）’，‘欠你自行车’不合逻辑，与‘临时借用’的语境完全不符。",
+      "options": [
+        {
+          "word": "lend",
+          "zh": "vt. 借出（把东西给某人用）",
+          "correct": true
+        },
+        {
+          "word": "borrow",
+          "zh": "vt. 借入（向某人借来）",
+          "correct": false
+        },
+        {
+          "word": "loan",
+          "zh": "vt./n. (正式)借出；贷款",
+          "correct": false
+        },
+        {
+          "word": "owe",
+          "zh": "vt. 欠（钱/人情）",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0050",
+      "theme": "借",
+      "sentence": "She had to ___ some money from a friend to pay this month's rent.",
+      "answer": "borrow",
+      "translation": "她不得不向朋友借了些钱来付这个月的房租。",
+      "level": "cet4",
+      "explain": "本句方向由介词 from 锁定：钱是‘从朋友那里’到她手里，即‘借入’。borrow 表‘借入’，固定搭配 borrow sth from sb，与 from a friend 完全吻合，故选 borrow。lend 是‘借出’，方向相反，须搭配 to sb（lend sth to sb），与 from 连用不通。loan 作动词意为‘借出（钱给别人）’，同样要求‘借出方’作主语并搭配 to/双宾，配 from a friend 矛盾。owe 意为‘欠’，owe money to sb 表示尚未偿还的欠款状态，并非‘借取’这一动作，与‘借钱来付房租’的取得动作不符。",
+      "options": [
+        {
+          "word": "borrow",
+          "zh": "vt. 借入（向某人借来）",
+          "correct": true
+        },
+        {
+          "word": "lend",
+          "zh": "vt. 借出（给某人）",
+          "correct": false
+        },
+        {
+          "word": "loan",
+          "zh": "vt./n. (正式)借出；贷款",
+          "correct": false
+        },
+        {
+          "word": "owe",
+          "zh": "vt. 欠（钱/人情）",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0051",
+      "theme": "借",
+      "sentence": "He has long since spent the money, but he still ___ his colleague fifty dollars and feels guilty about it.",
+      "answer": "owes",
+      "translation": "那笔钱他早就花掉了，但他仍欠同事五十美元，并为此感到愧疚。",
+      "level": "cet6",
+      "explain": "句子用‘has long since spent the money’（钱早已花光）和‘still…and feels guilty’描绘的是一种持续未还的‘亏欠’状态，而非一次性的借取动作。owe 表‘欠（钱/人情）’，搭配 owe sb sth（owes his colleague fifty dollars），强调款项尚未偿还，与 still、feels guilty 完美呼应，主语为第三人称单数现在时故用 owes。borrow 是‘借入’，须搭配 from（borrow … from sb），此处无 from 且语义是‘已欠下’而非‘正借入’，代入既不合搭配也不合逻辑。lend 与 loan 都表‘借出’，主语应是出借方；‘他借出/借给同事五十美元’与下文‘钱早花光、心怀愧疚’的‘他是欠债方’语境正好相反，故均排除。只有 owe 既合 owe sb sth 搭配又合‘仍亏欠’之意。",
+      "options": [
+        {
+          "word": "owes",
+          "zh": "vt. 欠（钱/人情）",
+          "correct": true
+        },
+        {
+          "word": "borrows",
+          "zh": "vt. 借入（向某人借来）",
+          "correct": false
+        },
+        {
+          "word": "lends",
+          "zh": "vt. 借出（给某人）",
+          "correct": false
+        },
+        {
+          "word": "loans",
+          "zh": "vt. (正式)借出；贷出",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0052",
+      "theme": "到达/达到",
+      "sentence": "After a twelve-hour delay, the exhausted passengers finally ___ at the airport.",
+      "answer": "arrived",
+      "translation": "经过十二个小时的延误，疲惫不堪的乘客终于抵达了机场。",
+      "level": "cet4",
+      "explain": "四词都与‘到达/达到’有关，但只有 arrive 是不及物动词、可直接接介词短语，arrive at/in + 地点表示‘到达某地’，故选 arrived。reach 是及物动词，须直接接宾语 reach the airport，其后不能再加 at，代入 reached at 语法不通。get 表‘到达’须连用 to，应为 got to the airport，本句空格后是 at 而非 to，故 got 不成立。attain 意为‘(经努力)达到、获得(抽象目标/水平)’，宾语是成就而非具体地点，attain at the airport 既不搭配也讲不通。",
+      "options": [
+        {
+          "word": "arrived",
+          "zh": "vi. 到达，抵达",
+          "correct": true
+        },
+        {
+          "word": "reached",
+          "zh": "vt. 到达；够到",
+          "correct": false
+        },
+        {
+          "word": "got",
+          "zh": "vi. (与to连用)到达",
+          "correct": false
+        },
+        {
+          "word": "attained",
+          "zh": "vt. (经努力)达到，获得",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0053",
+      "theme": "到达/达到",
+      "sentence": "Through years of hard training, she finally ___ the highest level of skill in her field.",
+      "answer": "attained",
+      "translation": "经过多年的刻苦训练，她终于达到了本领域最高的技艺水平。",
+      "level": "cet6",
+      "explain": "本句宾语是 the highest level of skill(抽象的最高水平)，且语境强调‘经长期努力而达成’，attain a level/standard 正是此义且语气正式，故选 attained。arrive 是不及物动词，不能直接接宾语，须 arrive at，代入 arrived the highest level 语法不通。get 表‘到达’也不及物，须 get to，代入 got the highest level 缺 to 且不地道。come 表‘来到’同为不及物动词，须 come to，代入 came the highest level 语法错误；本题三个干扰项都因不及物、缺介词而失败，唯有及物的 attain 能直接搭配抽象的‘水平’。",
+      "options": [
+        {
+          "word": "attained",
+          "zh": "vt. (经努力)达到，获得",
+          "correct": true
+        },
+        {
+          "word": "arrived",
+          "zh": "vi. 到达(需接at/in)",
+          "correct": false
+        },
+        {
+          "word": "got",
+          "zh": "vi. (与to连用)到达",
+          "correct": false
+        },
+        {
+          "word": "came",
+          "zh": "vi. 来到(需接to)",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0054",
+      "theme": "到达/达到",
+      "sentence": "We worked overtime for weeks and eventually ___ our quarterly sales target.",
+      "answer": "achieved",
+      "translation": "我们连续加班数周，最终实现了季度销售目标。",
+      "level": "cet4",
+      "explain": "本句宾语是 target(目标/指标)，最地道的搭配是 achieve a target，强调‘努力后成功实现目标’，与 worked overtime 的奋斗语境呼应，故选 achieved。arrive 不及物，不能直接接 target，须 arrive at，代入 arrived our target 语法不通。get 表‘到达’也不及物，须 get to，代入 got our target 缺 to 且 get a target 并非地道表达。fetch 意为‘去取来、把…拿来(某物)’，对象是可拿取的实物，与抽象的‘销售目标’语义完全不搭，fetch our sales target 讲不通；故唯有 achieve 在搭配与语义上都成立。",
+      "options": [
+        {
+          "word": "achieved",
+          "zh": "vt. 实现，达成(目标)",
+          "correct": true
+        },
+        {
+          "word": "arrived",
+          "zh": "vi. 到达(需接at/in)",
+          "correct": false
+        },
+        {
+          "word": "got",
+          "zh": "vi. (与to连用)到达",
+          "correct": false
+        },
+        {
+          "word": "fetched",
+          "zh": "vt. (去)取来，拿来",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0055",
+      "theme": "包含",
+      "sentence": "Please note that the price does not ___ the cost of insurance.",
+      "answer": "include",
+      "translation": "请注意，此价格不包含保险费用。",
+      "level": "cet4",
+      "explain": "四词都有‘包含’义。include 指‘把某一部分作为整体的一部分包括进去’，强调整体含有其中一项（不一定是全部），固定说法 The price includes/does not include sth，正合此句‘价格（不）含其中一项费用’。contain 强调‘容器或物体内部装有、含有某物’（瓶子装水、文件含信息），不用于‘价格含某费用’这种把项目计入总额的关系，说 the price contains the cost 不地道。comprise 意为‘由……组成’，主语须是被组成的整体、宾语须是全部组成部分（The team comprises ten members），不能只接其中一项费用，也极少用于否定。consist 不及物，必须接 of（consist of），写成 consist the cost 语法不通。故仅 include 正确。",
+      "options": [
+        {
+          "word": "include",
+          "zh": "vt. 包括，包含(整体中的一项)",
+          "correct": true
+        },
+        {
+          "word": "contain",
+          "zh": "vt. (容器/物体内)装有，含有",
+          "correct": false
+        },
+        {
+          "word": "comprise",
+          "zh": "vt. 由……组成(接全部成分)",
+          "correct": false
+        },
+        {
+          "word": "consist",
+          "zh": "vi. (consist of)由……构成",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0056",
+      "theme": "包含",
+      "sentence": "The United Kingdom ___ of England, Scotland, Wales and Northern Ireland.",
+      "answer": "consists",
+      "translation": "英国由英格兰、苏格兰、威尔士和北爱尔兰构成。",
+      "level": "cet6",
+      "explain": "四词都涉及‘构成/包含’。空格后紧跟 of，只有 consist 能与之搭配成固定短语 consist of（由……组成）；consist 是不及物动词，必须靠 of 接宾语，故 consists of 完全吻合。include 是及物动词，直接接宾语（include sth），后面不能加 of，includes of 语法错误。comprise 同为及物动词，正确用法是 comprise sth（The UK comprises England...），后面不能加 of（comprise of 是常见误用），故接 of 时不能选。contain 也是及物动词，语义偏‘内部装有’，既不接 of，也不用于‘国家由几部分构成’这种枚举全部组成部分的语境。故仅 consists 正确。",
+      "options": [
+        {
+          "word": "consists",
+          "zh": "vi. (consist of)由……构成",
+          "correct": true
+        },
+        {
+          "word": "comprises",
+          "zh": "vt. 由……组成(后不加of)",
+          "correct": false
+        },
+        {
+          "word": "includes",
+          "zh": "vt. 包括(整体中的一项)",
+          "correct": false
+        },
+        {
+          "word": "contains",
+          "zh": "vt. (内部)含有，装有",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0057",
+      "theme": "包含",
+      "sentence": "According to the label, this herbal drink ___ no caffeine at all, so it is safe to drink at night.",
+      "answer": "contains",
+      "translation": "根据标签，这款草本饮品完全不含咖啡因，所以晚上喝也很安全。",
+      "level": "cet4",
+      "explain": "四词都有‘含有/包含’义。contain 强调‘某物质内部含有某种成分’，是描述食品、饮料是否含某成分的标准用词（contains sugar / contains no caffeine），与‘标签上标明饮品（不）含咖啡因’的成分语境完全吻合，故选 contains。include 指把某项列入整体清单，多用于可枚举的项目，且暗含‘除此之外还有别的项’，用于‘咖啡因含量’这种成分判断不地道。comprise 意为‘由……(全部)组成’，主语须是整体、宾语须列全部成分，不能说饮品 comprise 咖啡因这单一成分。consist 不及物，须接 of（consist of），不能直接接 no caffeine，语法不通。故仅 contains 正确。",
+      "options": [
+        {
+          "word": "contains",
+          "zh": "vt. (内部)含有(某成分)",
+          "correct": true
+        },
+        {
+          "word": "includes",
+          "zh": "vt. 包括(整体清单中的一项)",
+          "correct": false
+        },
+        {
+          "word": "comprises",
+          "zh": "vt. 由……(全部)组成",
+          "correct": false
+        },
+        {
+          "word": "consists",
+          "zh": "vi. (consist of)由……构成",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0058",
+      "theme": "花费",
+      "sentence": "It will ___ you at least three hundred dollars to repair the engine.",
+      "answer": "cost",
+      "translation": "修理这台发动机至少要花你三百美元。",
+      "level": "cet4",
+      "explain": "四词都与\"花费/支付\"有关，但句法不同。本句以形式主语 it 开头，所花的是\"钱(三百美元)\"，且直接以人称代词 you 作宾语，正是 cost 的固定句型 it/sth costs sb + 钱 (to do)。spend 的主语必须是人(sb spends 钱/时间 on sth / (in) doing)，不能用 it 作主语，也不说 spend you，故不通。take 表\"花费\"时主语多为 it 但后接\"时间\"(it takes sb time to do)，不接钱数，语义不符。pay 表\"支付\"，主语是人(sb pays 钱 for sth / pays sb 钱)，不能用 it 作主语，句法不符。",
+      "options": [
+        {
+          "word": "cost",
+          "zh": "vt. 花费(钱)；使付出",
+          "correct": true
+        },
+        {
+          "word": "spend",
+          "zh": "vt. 花费(钱/时间)，主语为人",
+          "correct": false
+        },
+        {
+          "word": "take",
+          "zh": "vt. 花费(时间)，常用it作主语",
+          "correct": false
+        },
+        {
+          "word": "pay",
+          "zh": "vt./vi. 支付，主语为人",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0059",
+      "theme": "花费",
+      "sentence": "She ___ nearly two hours every day commuting between home and office.",
+      "answer": "spends",
+      "translation": "她每天花将近两个小时往返于家和办公室之间。",
+      "level": "cet4",
+      "explain": "四词都含\"花费\"义，关键看主语与搭配。本句主语是人 she，后接\"时间(two hours)\"并用\"doing sth\"结构(spend time doing)，完全符合 spend 的句型 sb spends 时间/钱 (in) doing sth，故选 spends。cost 的主语应是物/事，宾语接人(it costs sb 钱)而非\"时间+doing\"，说 she costs 不通。take 表\"花时间\"时主语通常是\"事情或形式主语 it\"(it takes sb time to do)，而非以人作主语去接\"doing\"，she takes two hours commuting 不地道。pay 意为\"支付(钱)\"，宾语应是金钱或人，不能接\"两小时\"，语义不符。",
+      "options": [
+        {
+          "word": "spends",
+          "zh": "vt. 花费(时间/钱)，主语为人",
+          "correct": true
+        },
+        {
+          "word": "costs",
+          "zh": "vt. 花费(钱)，主语为物/事",
+          "correct": false
+        },
+        {
+          "word": "takes",
+          "zh": "vt. 花费(时间)，常用it/事作主语",
+          "correct": false
+        },
+        {
+          "word": "pays",
+          "zh": "vt./vi. 支付(钱)",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0060",
+      "theme": "花费",
+      "sentence": "You should ___ more attention to the safety instructions before the experiment.",
+      "answer": "pay",
+      "translation": "在实验之前你应该多留意安全须知。",
+      "level": "cet6",
+      "explain": "本题考查\"花费\"类动词的固定搭配。pay 除\"支付金钱\"外，还构成固定短语 pay attention to(注意、留意)，是本句唯一地道的搭配，故选 pay。spend 只接金钱或时间作宾语(spend money/time)，不能说 spend attention，搭配错误。cost 意为\"使花费、使付出代价\"，后接钱或代价，不与 attention 搭配，且语义为\"耗费\"而非\"给予注意\"，不通。take 不能说 take attention to(正确说法是 take notice of / pay attention to)，与 attention 搭配不当，故排除。",
+      "options": [
+        {
+          "word": "pay",
+          "zh": "vt. 给予；支付(固定搭配pay attention to)",
+          "correct": true
+        },
+        {
+          "word": "spend",
+          "zh": "vt. 花费(钱/时间)",
+          "correct": false
+        },
+        {
+          "word": "cost",
+          "zh": "vt. 使花费，使付出(代价)",
+          "correct": false
+        },
+        {
+          "word": "take",
+          "zh": "vt. 花费；拿取",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0061",
+      "theme": "原因/导致",
+      "sentence": "Years of heavy smoking can eventually ___ serious damage to the lungs.",
+      "answer": "cause",
+      "translation": "多年的大量吸烟最终会对肺部造成严重损害。",
+      "level": "cet4",
+      "explain": "四者都与'原因/导致'相关。cause 是及物动词，可直接接宾语，常说 cause damage/harm/problems（造成损害/伤害/问题），与本句 serious damage 搭配最自然，故选 cause。reason 主要作名词'原因'，不是表'导致'的及物动词，不能说 reason damage（它常用于 the reason for/why）。result 作动词表'导致'时须接介词 in（result in damage），单独的 result 不能直接接宾语，故 result serious damage 不成立。lead 表'导致'须接 to（lead to damage），单独的 lead 也不能直接接 serious damage，故同样不成立。只有 cause 能直接带宾语。",
+      "options": [
+        {
+          "word": "cause",
+          "zh": "vt. 造成；导致",
+          "correct": true
+        },
+        {
+          "word": "reason",
+          "zh": "n. 原因；理由",
+          "correct": false
+        },
+        {
+          "word": "result",
+          "zh": "v. 导致（须接 in）",
+          "correct": false
+        },
+        {
+          "word": "lead",
+          "zh": "v. 导致（须接 to）",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0062",
+      "theme": "原因/导致",
+      "sentence": "Poor communication between departments often ___ to costly misunderstandings.",
+      "answer": "leads",
+      "translation": "部门之间沟通不畅常常导致代价高昂的误解。",
+      "level": "cet6",
+      "explain": "本句空格后紧跟介词 to，这是关键线索。lead to 是固定搭配，意为'导致、通向'，主语为单数 communication 时用 leads to，与句中 to 完美衔接，故选 leads。cause 与 result 虽也表'导致'，但 cause 直接接宾语（cause misunderstandings），不与 to 连用；result 表此义时须搭配 in（result in），而非 to，故 results to 不成立。reason 作名词'原因'，既不能接 to 表'导致'，也不符合此处需要谓语动词的语法结构。",
+      "options": [
+        {
+          "word": "leads",
+          "zh": "v. 导致（lead to）",
+          "correct": true
+        },
+        {
+          "word": "causes",
+          "zh": "vt. 造成（直接接宾语）",
+          "correct": false
+        },
+        {
+          "word": "results",
+          "zh": "v. 导致（result in）",
+          "correct": false
+        },
+        {
+          "word": "reasons",
+          "zh": "n. 原因；v. 推理",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0063",
+      "theme": "原因/导致",
+      "sentence": "The government's new policies are expected to ___ about lasting social change.",
+      "answer": "bring",
+      "translation": "政府的新政策有望带来持久的社会变革。",
+      "level": "postgrad",
+      "explain": "空格后紧跟 about，提示固定短语 bring about（带来、引起、促成），尤指促成抽象的变化或结果，与 social change 搭配地道，故选 bring。cause 表'导致'时直接接宾语（cause change），不与 about 连用，且多含消极色彩；lead 与 result 表此义须分别搭配 to 和 in（lead to / result in change），而非 about，故 lead about、result about 均不成立。只有 bring 能与 about 构成正确短语。",
+      "options": [
+        {
+          "word": "bring",
+          "zh": "vt. 带来（bring about 促成）",
+          "correct": true
+        },
+        {
+          "word": "cause",
+          "zh": "vt. 造成（直接接宾语）",
+          "correct": false
+        },
+        {
+          "word": "lead",
+          "zh": "v. 导致（lead to）",
+          "correct": false
+        },
+        {
+          "word": "result",
+          "zh": "v. 导致（result in）",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0064",
+      "theme": "有效/经济",
+      "sentence": "The antibiotic proved highly ___ against the stubborn bacterial infection, clearing it within days.",
+      "answer": "effective",
+      "translation": "这种抗生素对那种顽固的细菌感染非常有效，几天之内就将其清除了。",
+      "level": "cet4",
+      "explain": "四词词形相近但义项不同。effective 指‘有效的、能产生预期效果的’，固定搭配 effective against sth 表示‘对某物（疾病、病菌）有效’，与‘几天内清除感染’的疗效语境完全吻合，故唯一正确。efficient 指‘（人、机器、方法）高效率、不浪费时间精力的’，描述运作过程，不能说药物 efficient against 感染，搭配不成立。economic 意为‘经济（学）的、与国民经济有关的’（economic growth/policy），与药效无关。economical 意为‘节俭省钱的’，描述花费而非疗效，代入不通。",
+      "options": [
+        {
+          "word": "effective",
+          "zh": "adj. 有效的，能奏效的",
+          "correct": true
+        },
+        {
+          "word": "efficient",
+          "zh": "adj. 高效率的，效率高的",
+          "correct": false
+        },
+        {
+          "word": "economic",
+          "zh": "adj. 经济（学）的",
+          "correct": false
+        },
+        {
+          "word": "economical",
+          "zh": "adj. 节俭省钱的",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0065",
+      "theme": "有效/经济",
+      "sentence": "The new secretary is so ___ that she finishes a whole day's paperwork in just two hours.",
+      "answer": "efficient",
+      "translation": "这位新秘书效率极高，仅用两个小时就完成了一整天的文书工作。",
+      "level": "cet6",
+      "explain": "四词均含褒义但侧重不同，本句以‘两小时干完一整天的活’点明‘单位时间产出高、省时省力’，正是 efficient（高效率的）的核心义，故唯一正确。effective 侧重‘是否达到预期结果’，回答的是‘有没有用’而非‘快不快、省不省力’，与本句强调的速度对比不符，故不能选。economic 意为‘经济（学）的’，与个人办事效率无关。economical 意为‘节俭省钱的’，形容人时指‘会过日子、不乱花钱’，与‘干活快’无关。",
+      "options": [
+        {
+          "word": "efficient",
+          "zh": "adj. 高效率的，办事利落的",
+          "correct": true
+        },
+        {
+          "word": "effective",
+          "zh": "adj. 有效的，能奏效的",
+          "correct": false
+        },
+        {
+          "word": "economic",
+          "zh": "adj. 经济（学）的",
+          "correct": false
+        },
+        {
+          "word": "economical",
+          "zh": "adj. 节俭省钱的",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0066",
+      "theme": "有效/经济",
+      "sentence": "Cooking at home rather than eating out is far more ___, saving the family hundreds of dollars each month.",
+      "answer": "economical",
+      "translation": "在家做饭而不是下馆子要划算得多，每月能为这个家庭省下数百美元。",
+      "level": "cet4",
+      "explain": "四词词根相近，关键看‘省钱’这层含义。后半句‘每月省下数百美元’把语义牢牢锁定在‘花钱少、划算’上，正是 economical（节俭省钱的）的核心义，故唯一正确。economic 与 economical 同源，但意为‘经济（学）的、与国民经济有关的’（economic crisis/policy），不能表示‘个人省钱划算’，代入不通。efficient 指‘高效率、省时省力’，关注的是时间精力而非金钱，与‘省下数百美元’的金钱对比点不符。effective 指‘有效的’，关注是否达到效果，与‘省钱’无关。",
+      "options": [
+        {
+          "word": "economical",
+          "zh": "adj. 节俭的，划算省钱的",
+          "correct": true
+        },
+        {
+          "word": "economic",
+          "zh": "adj. 经济（学）的",
+          "correct": false
+        },
+        {
+          "word": "efficient",
+          "zh": "adj. 高效率的，省时省力的",
+          "correct": false
+        },
+        {
+          "word": "effective",
+          "zh": "adj. 有效的，能奏效的",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0067",
+      "theme": "敏感/明智",
+      "sentence": "Wearing a helmet on a building site is a perfectly ___ precaution.",
+      "answer": "sensible",
+      "translation": "在建筑工地上戴安全帽是一种完全明智合理的预防措施。",
+      "level": "cet4",
+      "explain": "四词词形相近极易混淆。sensible 意为‘明智的、合情合理的’，强调有判断力、合乎常理，常修饰 decision/choice/precaution/advice，与本句‘戴安全帽这一防护措施很合理’完全吻合，故选 sensible。sensitive 意为‘敏感的、灵敏的、易受刺激的’（sensitive skin/issue/instrument），说预防措施‘敏感’不通。sentimental 意为‘感伤的、有纪念意义的’（sentimental value），与‘防护措施’语义不符。sensitively 是副词，语法上不能作 precaution 的定语。",
+      "options": [
+        {
+          "word": "sensible",
+          "zh": "adj. 明智的；合乎情理的",
+          "correct": true
+        },
+        {
+          "word": "sensitive",
+          "zh": "adj. 敏感的；灵敏的",
+          "correct": false
+        },
+        {
+          "word": "sentimental",
+          "zh": "adj. 感伤的；多愁善感的",
+          "correct": false
+        },
+        {
+          "word": "sensitively",
+          "zh": "adv. 敏感地；体贴地",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0068",
+      "theme": "敏感/明智",
+      "sentence": "After the surgery, the skin around the wound stayed extremely ___ to the touch.",
+      "answer": "sensitive",
+      "translation": "手术之后，伤口周围的皮肤一碰就疼，仍然极其敏感。",
+      "level": "cet6",
+      "explain": "本句考查‘对触碰敏感’这一生理语义。sensitive 意为‘敏感的、易受刺激的’，固定搭配 sensitive to (the touch/light/cold)，描述皮肤受刺激即有反应，与语境精确匹配，故选 sensitive。sensible 是‘明智的、有判断力的’，说皮肤‘明智’讲不通，也不与 to the touch 搭配。sentimental 指‘多愁善感的、有纪念意义的’，用于情感色彩，不能形容皮肤的触觉反应。sensibly 为副词，不能作 stayed 的表语来描述皮肤状态。",
+      "options": [
+        {
+          "word": "sensitive",
+          "zh": "adj. 敏感的；易受刺激的",
+          "correct": true
+        },
+        {
+          "word": "sensible",
+          "zh": "adj. 明智的；合乎情理的",
+          "correct": false
+        },
+        {
+          "word": "sentimental",
+          "zh": "adj. 感伤的；多愁善感的",
+          "correct": false
+        },
+        {
+          "word": "sensibly",
+          "zh": "adv. 明智地；理智地",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0069",
+      "theme": "敏感/明智",
+      "sentence": "She kept her grandmother's old ring for purely ___ reasons, not for what it was worth.",
+      "answer": "sentimental",
+      "translation": "她保留祖母的旧戒指纯粹是出于情感上的原因，而不是因为它的价值。",
+      "level": "cet6",
+      "explain": "句中 purely ... not for what it was worth 点明了‘因情感寄托而非金钱价值’的对比。sentimental 意为‘有情感/纪念意义的、感情用事的’，固定搭配 sentimental reasons / sentimental value，正是‘出于眷恋之情’，故选 sentimental。sensible reasons 虽是常见搭配，但意为‘理性、务实的原因’，与 purely（纯粹）和后文‘并非看重其价值’的情感对比正好相反，代入不合逻辑。sensitive‘敏感的、棘手的’指对外界刺激反应强或话题尖锐，无法解释‘留戒指的原因’。sentiment 是名词‘情感’，不能作 reasons 的定语，语法不通。",
+      "options": [
+        {
+          "word": "sentimental",
+          "zh": "adj. 情感的；有纪念意义的",
+          "correct": true
+        },
+        {
+          "word": "sensible",
+          "zh": "adj. 明智的；务实的",
+          "correct": false
+        },
+        {
+          "word": "sensitive",
+          "zh": "adj. 敏感的；棘手的",
+          "correct": false
+        },
+        {
+          "word": "sentiment",
+          "zh": "n. 情感；情绪",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0070",
+      "theme": "尊敬系",
+      "sentence": "He always wears a suit to look ___ and presentable when meeting important clients.",
+      "answer": "respectable",
+      "translation": "他见重要客户时总是西装革履，以显得体面、得体。",
+      "level": "cet4",
+      "explain": "四词同根而义殊。respectable 意为‘体面的、像样的、说得过去的’，描述人的外表、收入或地位值得他人看得起，常与 presentable（衣着得体的）连用，本句‘穿西装显得体面得体’正合此义，故选 respectable。respectful 意为‘恭敬的、有礼貌的’，强调主语对他人怀有敬意（be respectful to sb），与并列词 presentable（外表得体）语义不搭，且本句讲的是‘外表给人的印象’而非‘对客户恭敬’，填入不当。respective 意为‘各自的、分别的’，只作定语修饰复数名词，不能作 look 的表语，语法不通。respected 意为‘受尊敬的’，指人已实际赢得尊敬，‘look respected’语义牵强（西装并不能让人‘看起来受人尊敬’），且与 presentable 不并列。故唯 respectable 成立。",
+      "options": [
+        {
+          "word": "respectable",
+          "zh": "adj. 体面的；像样的",
+          "correct": true
+        },
+        {
+          "word": "respectful",
+          "zh": "adj. 恭敬的；有礼貌的",
+          "correct": false
+        },
+        {
+          "word": "respective",
+          "zh": "adj. 各自的；分别的",
+          "correct": false
+        },
+        {
+          "word": "respected",
+          "zh": "adj. 受尊敬的",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0071",
+      "theme": "尊敬系",
+      "sentence": "Students should always be ___ to their teachers and listen carefully in class.",
+      "answer": "respectful",
+      "translation": "学生在课堂上应当始终对老师恭敬有礼，认真听讲。",
+      "level": "cet4",
+      "explain": "本题考查‘对某人怀有敬意’的表达。respectful 意为‘恭敬的、尊重的’，强调主语对他人表示敬意，固定搭配 be respectful to/towards sb，本句‘学生对老师恭敬’正是典型用法，故选 respectful。respectable 意为‘体面的、像样的’，指外表或地位值得看重，不能接 to sb 表示‘对……恭敬’，‘be respectable to their teachers’搭配与语义均不成立。respective 意为‘各自的’，只作定语修饰复数名词，不能作系动词 be 的表语。respecting 是介词，意为‘关于、就……而言’，放在 be 之后既不通语法也不合句意。故唯 respectful 既合搭配又合语义。",
+      "options": [
+        {
+          "word": "respectful",
+          "zh": "adj. 恭敬的；尊重的",
+          "correct": true
+        },
+        {
+          "word": "respectable",
+          "zh": "adj. 体面的；像样的",
+          "correct": false
+        },
+        {
+          "word": "respective",
+          "zh": "adj. 各自的",
+          "correct": false
+        },
+        {
+          "word": "respecting",
+          "zh": "prep. 关于",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0072",
+      "theme": "尊敬系",
+      "sentence": "When the meeting ended, the three managers each went back to their ___ offices.",
+      "answer": "respective",
+      "translation": "会议一结束，三位经理便各自回到了自己的办公室。",
+      "level": "cet6",
+      "explain": "本题考查‘各自的’这一独特义。respective 意为‘各自的、分别的’，专作定语修饰复数名词，与句中的 each 呼应，表示每个人对应属于自己的那一份，本句‘三位经理各回各自的办公室’正需此词，故选 respective。respectful 意为‘恭敬的’指对人有礼，‘respectful offices’（恭敬的办公室）语义不通。respecting 是介词‘关于’，不能作定语修饰 offices，语法不成立。respected 意为‘受尊敬的’，多用于人或机构，‘respected offices’搭配怪异，且无法表达与 each 呼应的‘各自’关系，不合语境。唯 respective 能准确表达每位经理回到属于自己的那间办公室。",
+      "options": [
+        {
+          "word": "respective",
+          "zh": "adj. 各自的；分别的",
+          "correct": true
+        },
+        {
+          "word": "respectful",
+          "zh": "adj. 恭敬的",
+          "correct": false
+        },
+        {
+          "word": "respecting",
+          "zh": "prep. 关于",
+          "correct": false
+        },
+        {
+          "word": "respected",
+          "zh": "adj. 受尊敬的",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0073",
+      "theme": "想象系",
+      "sentence": "Children often have an ___ friend they talk to when feeling lonely.",
+      "answer": "imaginary",
+      "translation": "孩子们在感到孤单时，常常会有一个想象出来的（假想）朋友跟他说话。",
+      "level": "cet4",
+      "explain": "四词同根但用法不同。imaginary 意为‘虚构的、想象中存在的（实际并不存在）’，描述事物本身是凭空想出来的；an imaginary friend（假想的朋友）是固定地道搭配，正合语境。imaginative 意为‘富有想象力的、有创意的’，修饰人或作品（an imaginative writer），说‘有创意的朋友’不地道，语义也不符。imaginable 意为‘可想象到的’，须后置且常与 every/最高级连用（every friend imaginable），不能前置修饰 friend。imagining 是 imagine 的现在分词，不能作前置定语，语法不通。故选 imaginary。",
+      "options": [
+        {
+          "word": "imaginary",
+          "zh": "adj. 虚构的，想象中的（实不存在）",
+          "correct": true
+        },
+        {
+          "word": "imaginative",
+          "zh": "adj. 富于想象力的，有创意的",
+          "correct": false
+        },
+        {
+          "word": "imaginable",
+          "zh": "adj. 可想象到的，想得出的",
+          "correct": false
+        },
+        {
+          "word": "imagining",
+          "zh": "v. 想象（imagine 的现在分词）",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0074",
+      "theme": "想象系",
+      "sentence": "Her ___ approach to teaching makes even dull topics fascinating for students.",
+      "answer": "imaginative",
+      "translation": "她富有想象力的教学方法，让连枯燥的话题对学生来说都变得引人入胜。",
+      "level": "cet6",
+      "explain": "四词区别在语义侧重。imaginative 意为‘富有想象力的、有创意的’，褒义地修饰人的能力、方法或作品（an imaginative approach/solution），强调创造性思维，与‘让枯燥话题变有趣’完全吻合。imaginary 意为‘虚构的、不存在的’，填入则成‘虚构的教学法’，语义荒谬。imaginable 意为‘可想象到的’，须后置并搭配最高级或 every，不能前置表‘有创意’。imagined（imagine 的过去分词）意为‘凭空设想的、并非真实的’，与下文‘真实地把枯燥话题变得引人入胜’的语境自相矛盾。故选 imaginative。",
+      "options": [
+        {
+          "word": "imaginative",
+          "zh": "adj. 富于想象力的，有创意的",
+          "correct": true
+        },
+        {
+          "word": "imaginary",
+          "zh": "adj. 虚构的，想象中的（实不存在）",
+          "correct": false
+        },
+        {
+          "word": "imaginable",
+          "zh": "adj. 可想象到的，想得出的",
+          "correct": false
+        },
+        {
+          "word": "imagined",
+          "zh": "adj./v. 凭空设想的（imagine 的过去分词）",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0075",
+      "theme": "想象系",
+      "sentence": "The rescue team tried every method ___ to reach the trapped miners.",
+      "answer": "imaginable",
+      "translation": "救援队为了救出被困矿工，尝试了一切能想到的办法。",
+      "level": "cet6",
+      "explain": "本题靠搭配与语序定答案。imaginable 意为‘可想象到的、想得出的’，习惯后置修饰名词，并常与 every/all 或最高级呼应（every method imaginable = 一切能想到的办法），与句中 every 构成固定搭配，是唯一正确选项。imaginative（有创意的）与 imaginary（虚构的）通常前置作定语，‘有创意的/虚构的方法’既不能后置于 method，也不与 every 搭配，语序、语义均不符。imagine 是动词，置于名词后既不合语法也不能作定语。故选 imaginable。",
+      "options": [
+        {
+          "word": "imaginable",
+          "zh": "adj. 可想象到的，想得出的",
+          "correct": true
+        },
+        {
+          "word": "imaginative",
+          "zh": "adj. 富于想象力的，有创意的",
+          "correct": false
+        },
+        {
+          "word": "imaginary",
+          "zh": "adj. 虚构的，想象中的（实不存在）",
+          "correct": false
+        },
+        {
+          "word": "imagine",
+          "zh": "vt. 想象，设想",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0076",
+      "theme": "怀疑",
+      "sentence": "The police strongly ___ that the manager stole the missing funds.",
+      "answer": "suspect",
+      "translation": "警方强烈怀疑是经理偷走了那笔不见的钱。",
+      "level": "cet4",
+      "explain": "四词均与‘怀疑’相关，但搭配和语义方向不同。suspect 表示‘怀疑（某人做了坏事）、认为某种（多为负面的）情况很可能属实’，可接 that 从句或 suspect sb of doing sth；本句警方认定经理‘很可能就是偷钱的人’，正是 suspect 的典型用法，故选它。doubt 意为‘怀疑、不相信（某事为真）’，在肯定句中 doubt that... 表示‘认为不太可能’，若填入则变成‘认为经理没偷钱’，与 strongly＋偷窃语境矛盾，方向相反。wonder 意为‘想知道、纳闷’，只接 if/whether/wh- 从句，不能接 that 从句，语法不通。query 意为‘对……提出疑问、质询’，是及物动词，直接接被质疑的内容（query a decision），不接 that 从句，语法和语义都不成立。",
+      "options": [
+        {
+          "word": "suspect",
+          "zh": "vt. 怀疑(某人有罪)、猜想(某坏事)为真",
+          "correct": true
+        },
+        {
+          "word": "doubt",
+          "zh": "vt. 怀疑、不相信(某事为真)",
+          "correct": false
+        },
+        {
+          "word": "wonder",
+          "zh": "vi./vt. 想知道、纳闷(接if/wh-)",
+          "correct": false
+        },
+        {
+          "word": "query",
+          "zh": "vt. 对……提出疑问、质询",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0077",
+      "theme": "怀疑",
+      "sentence": "I ___ whether he will keep his promise, given how many times he has lied to us.",
+      "answer": "doubt",
+      "translation": "考虑到他骗过我们那么多次，我怀疑他到底会不会信守诺言。",
+      "level": "cet6",
+      "explain": "本题靠搭配与语义方向定答案。doubt 意为‘怀疑、不相信’，可接 whether/if 从句表示‘觉得不太可能’；后半句‘他骗过我们那么多次’表明说话人持不信任态度，正合 doubt，故选它。suspect 表示‘怀疑（某坏事）属实’，通常接 that 从句陈述一个猜测，说 suspect whether 很别扭、不地道。distrust 意为‘不信任’，是及物动词，直接接人或物（distrust him / distrust his words），不能接 whether 从句，语法不通。deny 意为‘否认’，既不能接 whether 从句，语义上‘否认他是否守诺’也讲不通，故排除。",
+      "options": [
+        {
+          "word": "doubt",
+          "zh": "vt. 怀疑、不相信(某事为真)",
+          "correct": true
+        },
+        {
+          "word": "suspect",
+          "zh": "vt. 怀疑(某坏事)为真(接that)",
+          "correct": false
+        },
+        {
+          "word": "distrust",
+          "zh": "vt. 不信任(直接接人/物)",
+          "correct": false
+        },
+        {
+          "word": "deny",
+          "zh": "vt. 否认(不接whether从句)",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0078",
+      "theme": "怀疑",
+      "sentence": "Looking at the dark clouds, I ___ if it will rain before we get home.",
+      "answer": "wonder",
+      "translation": "望着乌云，我在想我们到家之前会不会下雨。",
+      "level": "cet4",
+      "explain": "本题靠语义中性与搭配定答案。wonder 意为‘想知道、纳闷、好奇’，wonder if/whether... 表示对未知结果的中性疑问；此处说话人只是在琢磨会不会下雨，并无不信任之意，故选 wonder。doubt 意为‘怀疑、认为不太可能’，doubt if it will rain 会变成‘我觉得多半不会下雨’，但前文‘望着乌云’恰恰暗示要下雨，语义矛盾。suspect 表示‘怀疑（某坏事）属实’，须接 that 从句，suspect if 不合语法，且‘下雨’这种中性事件也不用 suspect。query 意为‘对……提出疑问、质询’，及物，直接接被质疑的内容（query a bill），不接 if 从句，语法不通。",
+      "options": [
+        {
+          "word": "wonder",
+          "zh": "vi./vt. 想知道、好奇(中性疑问)",
+          "correct": true
+        },
+        {
+          "word": "doubt",
+          "zh": "vt. 怀疑、认为不太可能",
+          "correct": false
+        },
+        {
+          "word": "suspect",
+          "zh": "vt. 怀疑(某坏事)为真(接that)",
+          "correct": false
+        },
+        {
+          "word": "query",
+          "zh": "vt. 对……提出疑问、质询",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0079",
+      "theme": "工作/职业",
+      "sentence": "She gave up a well-paid job in finance to pursue a ___ in teaching.",
+      "answer": "career",
+      "translation": "她放弃了金融业一份高薪的工作，转而投身于教师这一职业生涯。",
+      "level": "cet4",
+      "explain": "四者都与“工作/职业”有关，但侧重不同。career 指贯穿一生、有发展阶段的“职业生涯、事业道路”，pursue a career in (teaching/medicine...) 是固定地道搭配，表示“投身于某一行业的长期事业”，与本句“放弃高薪工作去从事教师事业”的整条道路转变完全吻合，故选 career；句中前半的 job（金融岗位）与后半的 career（教师事业）恰好形成“一份具体工作”对“一生事业”的对照。job 指具体的一份工作/岗位，不与 pursue...in teaching 搭配表示投身某行业（pursue a job 不地道）。work 是不可数名词，不能说 a work，pursue a work 语法不通。occupation 较正式，多用于填表，且 pursue an occupation in teaching 不是地道搭配。",
+      "options": [
+        {
+          "word": "career",
+          "zh": "n. 职业生涯，事业（长期发展轨迹）",
+          "correct": true
+        },
+        {
+          "word": "job",
+          "zh": "n. （一份具体的）工作，岗位",
+          "correct": false
+        },
+        {
+          "word": "work",
+          "zh": "n. 工作，劳动（不可数）",
+          "correct": false
+        },
+        {
+          "word": "occupation",
+          "zh": "n. 职业，行当（正式）",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0080",
+      "theme": "工作/职业",
+      "sentence": "Please write your name, age and ___ in the blanks on this form.",
+      "answer": "occupation",
+      "translation": "请在表格的空白处填写你的姓名、年龄和职业。",
+      "level": "cet4",
+      "explain": "四者都涉及“工作/职业”。occupation 是正式书面用语，专指填表、问卷、官方文件中要求填写的“职业”一栏（如 name, age, occupation），与本句“在表格空白处填写”的正式登记语境完全吻合，故选 occupation。job 太口语化，指某份具体工作，不是表格里规范的栏目用词。career 强调一生的事业发展轨迹，是抽象概念，不用于表格上填“现从事何种职业”这一栏。profession 特指需要高等教育或专门训练的“专业性职业”（如医生、律师），范围太窄，并非表格通用栏目，填上会以偏概全且不地道。",
+      "options": [
+        {
+          "word": "occupation",
+          "zh": "n. 职业（正式，表格用语）",
+          "correct": true
+        },
+        {
+          "word": "job",
+          "zh": "n. （口语）一份工作",
+          "correct": false
+        },
+        {
+          "word": "career",
+          "zh": "n. 职业生涯，事业",
+          "correct": false
+        },
+        {
+          "word": "profession",
+          "zh": "n. （需专门训练的）专业性职业",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0081",
+      "theme": "工作/职业",
+      "sentence": "He is looking for a part-time ___ to help pay his tuition fees.",
+      "answer": "job",
+      "translation": "他正在找一份兼职工作来帮助支付学费。",
+      "level": "cet4",
+      "explain": "四者都与“工作”相关。job 是可数名词，指一份具体的、可计数的工作岗位，a part-time job（一份兼职工作）是固定地道搭配，符合“找一份打工挣学费”的语境，故选 job。work 表“工作”时是不可数名词，前面不能加 a，也不说 a part-time work（语法不通）。profession 指医生、律师等需专门训练的专业性职业，与“勤工俭学的临时兼职”语义不符。career 指长期的事业生涯，强调发展前途，与“为挣学费而找的短期、非发展性兼职”语义冲突，且不说 a part-time career。",
+      "options": [
+        {
+          "word": "job",
+          "zh": "n. （可数）一份工作，岗位",
+          "correct": true
+        },
+        {
+          "word": "work",
+          "zh": "n. 工作（不可数）",
+          "correct": false
+        },
+        {
+          "word": "profession",
+          "zh": "n. 专业性职业（需专门训练）",
+          "correct": false
+        },
+        {
+          "word": "career",
+          "zh": "n. 职业生涯，事业",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0082",
+      "theme": "旅行",
+      "sentence": "It was a small wooden ship, yet it survived a perilous ___ around the Cape of Good Hope.",
+      "answer": "voyage",
+      "translation": "那是一艘小木船，却挺过了绕过好望角的一段险象环生的航行。",
+      "level": "cet6",
+      "explain": "四者都与‘旅行’有关，但搭配和语义侧重不同。voyage 特指‘船只在海上的长途航行’，与 wooden ship、around the Cape of Good Hope 这一航海语境是固定搭配，故为唯一正解。journey 虽可泛指长途旅程，但典型用于‘陆上’或抽象旅程，描述帆船绕过好望角的远洋航程时，地道英语首选 voyage 而非 journey。trip 指短途、往返的小出行，与‘险象环生的远洋’矛盾。tour 指‘逐点观光、巡回游览’，一艘木船绕好望角并非观光，语义不符。",
+      "options": [
+        {
+          "word": "voyage",
+          "zh": "n. (海上/太空的)航行",
+          "correct": true
+        },
+        {
+          "word": "journey",
+          "zh": "n. (陆上)长途旅程",
+          "correct": false
+        },
+        {
+          "word": "trip",
+          "zh": "n. (短途)出行",
+          "correct": false
+        },
+        {
+          "word": "tour",
+          "zh": "n. 观光；巡回游览",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0083",
+      "theme": "旅行",
+      "sentence": "I'm just popping out for a quick ___ to the supermarket; I'll be back soon.",
+      "answer": "trip",
+      "translation": "我只是出去快速跑一趟超市，很快就回来。",
+      "level": "cet4",
+      "explain": "四者均表‘外出’。trip 指‘短途、往返的小出行’，a trip to the supermarket 为固定搭配，与 quick、be back soon 等‘很快折返’的语境完全吻合，是唯一地道选择。journey 强调‘距离远、耗时长的旅程’，与‘quick、去超市’相悖。voyage 专指海上航行，去超市用它荒谬。tour 指有计划的观光游览，去超市买东西并非游览，搭配不当。",
+      "options": [
+        {
+          "word": "trip",
+          "zh": "n. (短途)出行；一趟",
+          "correct": true
+        },
+        {
+          "word": "journey",
+          "zh": "n. (长途)旅程",
+          "correct": false
+        },
+        {
+          "word": "voyage",
+          "zh": "n. 海上航行",
+          "correct": false
+        },
+        {
+          "word": "tour",
+          "zh": "n. 观光游览",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0084",
+      "theme": "旅行",
+      "sentence": "The band is currently on ___ , performing in a different city every night.",
+      "answer": "tour",
+      "translation": "这支乐队目前正在巡演，每晚在不同的城市演出。",
+      "level": "cet6",
+      "explain": "四者皆与‘行程’相关，但只有 tour 能进入 on tour（巡回演出/巡回访问）这一固定搭配，且‘每晚换一座城市演出’正是‘巡回’的典型特征，故为唯一正解。journey 多指单程的长途旅行，没有 on journey 这种说法，也不含‘逐城巡回’之意。voyage 专指海上航行，与陆上乐队巡演不符。trip 指一次性的短途出行，无法表达‘持续辗转多城’的巡回概念，且不说 on trip。",
+      "options": [
+        {
+          "word": "tour",
+          "zh": "n. 巡回(演出/访问)",
+          "correct": true
+        },
+        {
+          "word": "journey",
+          "zh": "n. (单程)长途旅程",
+          "correct": false
+        },
+        {
+          "word": "voyage",
+          "zh": "n. 海上航行",
+          "correct": false
+        },
+        {
+          "word": "trip",
+          "zh": "n. (一次性)短途出行",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0085",
+      "theme": "偷/抢/骗",
+      "sentence": "Someone broke into our house last night and ___ all my mother's jewellery.",
+      "answer": "stole",
+      "translation": "昨晚有人闯进我们家，偷走了我母亲所有的首饰。",
+      "level": "cet4",
+      "explain": "四词都与‘非法取得’有关，但搭配对象不同。steal 的宾语是‘被偷的东西’（steal sth from sb），此处宾语是 jewellery（首饰），完全吻合，故选 stole。rob 的宾语必须是‘人或场所’（rob sb / rob a bank of sth），不能直接说 rob the jewellery，搭配错误。cheat 意为‘作弊、骗取’，宾语是被骗的人（cheat sb out of sth），不能直接带‘首饰’这种物品。deceive 意为‘欺骗、使误信’，强调让人产生错误判断，也以人为宾语，无法说 deceive the jewellery。",
+      "options": [
+        {
+          "word": "stole",
+          "zh": "vt. 偷(steal的过去式)，宾语为所偷之物",
+          "correct": true
+        },
+        {
+          "word": "robbed",
+          "zh": "vt. 抢劫(宾语为人或地点)",
+          "correct": false
+        },
+        {
+          "word": "cheated",
+          "zh": "vt. 欺骗；作弊(宾语为被骗的人)",
+          "correct": false
+        },
+        {
+          "word": "deceived",
+          "zh": "vt. 欺骗，使误信(宾语为人)",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0086",
+      "theme": "偷/抢/骗",
+      "sentence": "Two armed men ___ the bank in broad daylight and escaped with the cash.",
+      "answer": "robbed",
+      "translation": "两名持械男子在光天化日之下抢劫了那家银行，带着现金逃走了。",
+      "level": "cet6",
+      "explain": "四词都涉及‘非法夺取’，区别在搭配与语义。rob 的宾语是‘被抢的人或场所’，bank（银行）正是典型对象，rob the bank 是固定搭配，且暗含使用暴力或威胁，与 armed men（持械男子）的语境吻合，故选 robbed。steal 的宾语必须是‘被偷的东西’，应说 steal the money，不能说 steal the bank（偷走银行说不通），搭配不当。cheat 指‘骗取、作弊’，靠欺诈而非暴力，与‘持械、光天化日抢钱逃跑’的暴力语境不符。deceive 指‘蒙骗、使误信’，并不涉及夺取财物，更无法与 the bank 搭配。",
+      "options": [
+        {
+          "word": "robbed",
+          "zh": "vt. 抢劫(宾语为人或地点，含暴力)",
+          "correct": true
+        },
+        {
+          "word": "stole",
+          "zh": "vt. 偷(steal过去式，宾语为所偷之物)",
+          "correct": false
+        },
+        {
+          "word": "cheated",
+          "zh": "vt. 骗取；作弊(靠欺诈)",
+          "correct": false
+        },
+        {
+          "word": "deceived",
+          "zh": "vt. 欺骗，使误信(宾语为人)",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0087",
+      "theme": "偷/抢/骗",
+      "sentence": "He was caught ___ in the final exam and was expelled from school.",
+      "answer": "cheating",
+      "translation": "他在期末考试中作弊被抓，结果被学校开除了。",
+      "level": "cet4",
+      "explain": "四词都含‘欺骗/不正当手段’之意，但用法差别明显。cheat 有‘考试作弊’的固定用法 cheat in/on an exam，常作不及物动词使用，与 in the final exam（在期末考试中）搭配地道，且作弊被开除合情合理，故选 cheating。deceive 意为‘欺骗某人使其信以为真’，是及物动词，必须带宾语（deceive sb），不能说 deceive in the exam，语法和搭配都不通。steal 是‘偷东西’，须带所偷之物，‘在考试中偷’语义不完整、不合语境。rob 是‘抢劫人或场所’，含暴力，与考场作弊毫无关联。",
+      "options": [
+        {
+          "word": "cheating",
+          "zh": "vi. 作弊(cheat in/on an exam)",
+          "correct": true
+        },
+        {
+          "word": "deceiving",
+          "zh": "vt. 欺骗(及物，须带宾语)",
+          "correct": false
+        },
+        {
+          "word": "stealing",
+          "zh": "vt./vi. 偷窃(宾语为所偷之物)",
+          "correct": false
+        },
+        {
+          "word": "robbing",
+          "zh": "vt. 抢劫(宾语为人或地点)",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0088",
+      "theme": "适应/采纳",
+      "sentence": "It took the explorers several weeks to ___ to the thin air at such a high altitude.",
+      "answer": "adapt",
+      "translation": "探险队员花了好几周才适应如此高海拔处稀薄的空气。",
+      "level": "cet4",
+      "explain": "四词都与“适应/采用”相关，但本句考查“(生物体)适应自然环境”这一核心义，且为不及物用法 adapt to sth。adapt to 强调生物或人为了生存而对新环境(气候、海拔、饮食等)做出整体性、长期性的适应，adapt to the thin air/climate 是标准搭配，故选 adapt。adopt 意为“采纳、采取、收养”，是及物动词(adopt sth)，不与 to 连用，更不能表示“适应空气”，语义和句型都不通。adjust 虽可说 adjust to sth，但侧重对具体、可量化方面的“调节、校准”(如 adjust to a new schedule)，用于“稀薄空气”这种身体机能层面的生理适应不如 adapt 地道。accustom 是及物动词，须用 accustom oneself to sth，不能直接 accustom to，此处缺少宾语 oneself，语法不成立。",
+      "options": [
+        {
+          "word": "adapt",
+          "zh": "vi./vt. (使)适应；改编",
+          "correct": true
+        },
+        {
+          "word": "adopt",
+          "zh": "vt. 采纳；采取；收养",
+          "correct": false
+        },
+        {
+          "word": "adjust",
+          "zh": "vt./vi. 调整；调节",
+          "correct": false
+        },
+        {
+          "word": "accustom",
+          "zh": "vt. 使（某人）习惯于",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0089",
+      "theme": "适应/采纳",
+      "sentence": "After much debate, the committee voted to ___ the new policy and put it into effect next month.",
+      "answer": "adopt",
+      "translation": "经过多番讨论，委员会投票通过了这项新政策，并将于下月起实施。",
+      "level": "cet6",
+      "explain": "四词形近，但本句宾语是 the new policy，且后接“put it into effect(付诸实施)”，锁定“正式通过/采纳”之义。adopt sth 意为“(经表决)采纳、通过(政策、提案、决议)”，与 vote to、put into effect 语境高度吻合，故选 adopt。adapt 意为“(使)适应”或“改编”，“改编一项政策”不合逻辑，且若理解为“修改政策”则与下文“随即付诸实施”相矛盾，因为“通过”才是表决投票的结果。adjust 意为“调整、微调”，vote to adjust the policy 表示“决定修改政策”，同样与“投票通过并实施”的语境冲突。accustom 意为“使习惯于”，须接 oneself/sb to sth，不能直接接 the policy，语法不通。",
+      "options": [
+        {
+          "word": "adopt",
+          "zh": "vt. 采纳；(表决)通过；收养",
+          "correct": true
+        },
+        {
+          "word": "adapt",
+          "zh": "vt./vi. (使)适应；改编",
+          "correct": false
+        },
+        {
+          "word": "adjust",
+          "zh": "vt./vi. 调整；调节",
+          "correct": false
+        },
+        {
+          "word": "accustom",
+          "zh": "vt. 使（某人）习惯于",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "cloze-0090",
+      "theme": "适应/采纳",
+      "sentence": "You can ___ the brightness of the screen by sliding this small bar.",
+      "answer": "adjust",
+      "translation": "你可以通过滑动这个小滑块来调节屏幕的亮度。",
+      "level": "cet4",
+      "explain": "四词中本句宾语为 brightness(亮度)，且强调“通过滑块”做精细的程度变化，搭配锁定答案。adjust 意为“调节、调整”(数值、程度、设置等可量化的细微变化)，adjust the brightness/volume/temperature 是标准搭配，故选 adjust。adapt 强调“(使)适应”或“改编”，“改编/适应亮度”语义不通。adopt 意为“采纳、采取”，针对方案/政策/办法，“采纳亮度”讲不通。accustom 意为“使习惯于”，须用 accustom sb/oneself to sth，不能直接接 the brightness，语法和语义皆不成立。",
+      "options": [
+        {
+          "word": "adjust",
+          "zh": "vt./vi. 调节；调整",
+          "correct": true
+        },
+        {
+          "word": "adapt",
+          "zh": "vt./vi. (使)适应；改编",
+          "correct": false
+        },
+        {
+          "word": "adopt",
+          "zh": "vt. 采纳；采取；收养",
+          "correct": false
+        },
+        {
+          "word": "accustom",
+          "zh": "vt. 使（某人）习惯于",
+          "correct": false
+        }
+      ]
+    }
+  ]
+}

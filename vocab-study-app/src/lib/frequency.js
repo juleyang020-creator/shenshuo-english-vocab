@@ -43,7 +43,13 @@ export const WORD_TYPE_BUCKETS = [
   { id: 'other', label: '其他', detail: '混合或特殊' },
 ];
 
+// Memoized because typeScopes useMemo iterates all 5390 entries on every
+// study change, each call triggering compactDefinition (20+ regex passes).
+const wordTypeIdsCache = new WeakMap();
+
 export function getWordTypeIds(entry) {
+  if (!entry) return [];
+  if (wordTypeIdsCache.has(entry)) return wordTypeIdsCache.get(entry);
   const definition = compactDefinition(entry).toLowerCase();
   const word = entry?.word?.toLowerCase() || '';
   const types = new Set();
@@ -54,7 +60,9 @@ export function getWordTypeIds(entry) {
     types.add('function');
   }
   if (!types.size) types.add('other');
-  return [...types];
+  const result = [...types];
+  wordTypeIdsCache.set(entry, result);
+  return result;
 }
 
 export function getDifficultyStage(entry) {

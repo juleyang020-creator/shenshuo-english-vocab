@@ -205,27 +205,56 @@ export function isLikelyOcrNoiseLine(line) {
   return false;
 }
 
+// Entries from vocab.json are static object references, so WeakMap gives us
+// an O(1) memoization without leaking memory. compactDefinition runs 20+ regex
+// passes per call, and is called for every entry during search / type-scope
+// construction / option pool filtering — caching turns repeated O(N×regex)
+// scans into a single pass.
+const cleanLinesCache = new WeakMap();
+const compactCache = new WeakMap();
+const shortCache = new WeakMap();
+const usableCache = new WeakMap();
+
 export function cleanDefinitionLines(entry) {
+  if (!entry) return [];
+  if (cleanLinesCache.has(entry)) return cleanLinesCache.get(entry);
   const override = getDefinitionOverride(entry);
-  if (override) return [override];
-  const lines = entry?.definitionLines?.length ? entry.definitionLines : [entry?.definition || ''];
-  const cleaned = lines
-    .map(cleanDefinitionText)
-    .filter((line) => line && !isLikelyOcrNoiseLine(line));
-  return [...new Set(cleaned)];
+  let result;
+  if (override) {
+    result = [override];
+  } else {
+    const lines = entry?.definitionLines?.length ? entry.definitionLines : [entry?.definition || ''];
+    const cleaned = lines
+      .map(cleanDefinitionText)
+      .filter((line) => line && !isLikelyOcrNoiseLine(line));
+    result = [...new Set(cleaned)];
+  }
+  cleanLinesCache.set(entry, result);
+  return result;
 }
 
 export function compactDefinition(entry) {
   if (!entry) return '';
-  return cleanDefinitionLines(entry).join(' ').replace(/\s+/g, ' ').trim();
+  if (compactCache.has(entry)) return compactCache.get(entry);
+  const result = cleanDefinitionLines(entry).join(' ').replace(/\s+/g, ' ').trim();
+  compactCache.set(entry, result);
+  return result;
 }
 
 export function shortDefinition(entry) {
+  if (!entry) return '释义待核对';
+  if (shortCache.has(entry)) return shortCache.get(entry);
   const text = compactDefinition(entry) || '释义待核对';
-  return text.length > 86 ? `${text.slice(0, 86)}...` : text;
+  const result = text.length > 86 ? `${text.slice(0, 86)}...` : text;
+  shortCache.set(entry, result);
+  return result;
 }
 
 export function hasUsableChineseDefinition(entry) {
+  if (!entry) return false;
+  if (usableCache.has(entry)) return usableCache.get(entry);
   const definition = compactDefinition(entry);
-  return (definition.match(/[㐀-鿿]/g) || []).length >= 2;
+  const result = (definition.match(/[㐀-鿿]/g) || []).length >= 2;
+  usableCache.set(entry, result);
+  return result;
 }

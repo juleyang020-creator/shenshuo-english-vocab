@@ -24,6 +24,7 @@ export function defaultStudyState() {
     words: {},
     notes: {},
     daily: {},
+    cloze: { seen: 0, correct: 0 },
     settings: {
       ...DEFAULT_SETTINGS,
       shuffleSeed: getTodayKey(),
@@ -32,11 +33,11 @@ export function defaultStudyState() {
   };
 }
 
-function migrate(stored) {
-  if (!stored || typeof stored !== 'object') return defaultStudyState();
-  const fromVersion = Number(stored.schemaVersion) || 1;
-  let state = stored;
-
+// Multi-step migration: each step bumps the schema by one version. Running
+// them in a loop means a v1 payload can be upgraded to vN even if the user
+// skipped intermediate releases. Add new steps here when SCHEMA_VERSION
+// increments.
+function migrateStep(state, fromVersion) {
   if (fromVersion < 2) {
     const words = state.words || {};
     const upgraded = {};
@@ -50,9 +51,27 @@ function migrate(stored) {
         interval: raw.interval ?? (previousScore ? Math.max(1, previousScore) : 0),
       };
     }
-    state = { ...state, words: upgraded, schemaVersion: 2 };
+    return { ...state, words: upgraded, schemaVersion: 2 };
   }
+  return state;
+}
 
+function migrate(stored) {
+  if (!stored || typeof stored !== 'object') return defaultStudyState();
+  let state = stored;
+  let version = Number(state.schemaVersion) || 1;
+  while (version < SCHEMA_VERSION) {
+    const next = migrateStep(state, version);
+    const nextVersion = Number(next.schemaVersion) || version + 1;
+    if (nextVersion <= version) {
+      // Guard against a buggy step that doesn't bump the version, otherwise
+      // we'd loop forever.
+      state = next;
+      break;
+    }
+    state = next;
+    version = nextVersion;
+  }
   return state;
 }
 

@@ -2211,3 +2211,156 @@ button {
   font-size: 12.5px;
   letter-spacing: 0.02em;
 }
+
+/* ====== 近义辨析 (cloze) module ====== */
+.cloze-body {
+  padding: 22px 30px 8px;
+}
+
+.cloze-sentence {
+  margin: 6px 0 20px;
+  font-family: "Source Serif Pro", "Charter", Georgia, serif;
+  font-size: 21px;
+  line-height: 1.7;
+  color: var(--text);
+  text-align: center;
+}
+
+.cloze-blank {
+  display: inline-block;
+  min-width: 92px;
+  margin: 0 6px;
+  padding: 0 8px;
+  border-bottom: 2px solid var(--accent);
+  text-align: center;
+  font-weight: 700;
+  color: var(--accent-strong);
+}
+.cloze-blank.is-filled {
+  border-bottom-color: var(--green);
+  color: var(--green);
+}
+
+.cloze-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.cloze-option {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 10px;
+  min-height: 52px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+  padding: 10px 14px;
+  text-align: left;
+  transition: border-color 120ms ease, background 120ms ease, transform 120ms ease;
+}
+.cloze-option:hover:not(:disabled) {
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+.cloze-option__key {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  background: var(--surface-soft);
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 700;
+}
+.cloze-option__word {
+  font-family: "Source Serif Pro", "Charter", Georgia, serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text);
+}
+.cloze-option__zh {
+  grid-column: 2;
+  color: var(--muted);
+  font-size: 12.5px;
+}
+.cloze-option.is-correct {
+  border-color: var(--green);
+  background: #e7f3ea;
+}
+.cloze-option.is-correct .cloze-option__key { background: var(--green); color: #fff; }
+.cloze-option.is-wrong {
+  border-color: var(--red);
+  background: #fbe9e7;
+}
+.cloze-option.is-wrong .cloze-option__key { background: var(--red); color: #fff; }
+.cloze-option.is-dimmed { opacity: 0.65; }
+.cloze-option:disabled { cursor: default; }
+
+.cloze-hint {
+  margin-top: 16px;
+  text-align: center;
+  color: var(--subtle);
+  font-size: 12.5px;
+  letter-spacing: 0.04em;
+}
+
+.cloze-feedback {
+  margin-top: 18px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 14px 16px;
+  background: var(--bg-deep);
+  display: grid;
+  gap: 10px;
+}
+.cloze-feedback.is-correct { border-color: #b9e3c8; }
+.cloze-feedback.is-wrong { border-color: #f0c5bd; }
+.cloze-feedback__head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 700;
+  font-size: 14.5px;
+}
+.cloze-feedback.is-correct .cloze-feedback__head { color: var(--green); }
+.cloze-feedback.is-wrong .cloze-feedback__head { color: var(--red); }
+.cloze-translation {
+  margin: 0;
+  color: var(--text-soft);
+  font-size: 14px;
+}
+.cloze-explain {
+  display: grid;
+  gap: 4px;
+  border-top: 1px dashed var(--line);
+  padding-top: 10px;
+}
+.cloze-explain__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--accent-strong);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+.cloze-explain p {
+  margin: 0;
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.7;
+}
+.cloze-acc {
+  color: var(--muted);
+  font-size: 12.5px;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 760px) {
+  .cloze-body { padding: 16px 16px 4px; }
+  .cloze-sentence { font-size: 18px; }
+  .cloze-options { grid-template-columns: 1fr; }
+}

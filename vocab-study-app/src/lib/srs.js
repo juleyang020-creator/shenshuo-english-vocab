@@ -8,6 +8,8 @@
 //   correct -> 4
 //   wrong   -> 1
 
+import { clamp } from './math.js';
+
 const DAY_MS = 86_400_000;
 const MIN_EF = 1.3;
 const DEFAULT_EF = 2.5;
@@ -35,11 +37,7 @@ export function progressDefaults() {
   };
 }
 
-function clamp(value, min, max) {
-  return Math.min(Math.max(value, min), max);
-}
-
-export function applyReview(previous, result, now = Date.now()) {
+export function applyReview(previous, result, now = Date.now(), random = Math.random) {
   const base = { ...progressDefaults(), ...(previous || {}) };
   const quality = QUALITY_BY_RESULT[result] ?? 3;
 
@@ -59,7 +57,7 @@ export function applyReview(previous, result, now = Date.now()) {
   if (easiness < MIN_EF) easiness = MIN_EF;
 
   const intervalMs = interval * DAY_MS;
-  const jitter = Math.floor((Math.random() - 0.5) * Math.min(intervalMs * 0.05, DAY_MS / 2));
+  const jitter = Math.floor((random() - 0.5) * Math.min(intervalMs * 0.05, DAY_MS / 2));
 
   const scoreDelta = quality >= 4 ? 1 : quality <= 2 ? -1 : 0;
   const nextScore = clamp((base.score || 0) + scoreDelta, -4, 12);
