@@ -1,4 +1,13 @@
-import { BookOpen, Layers3, ListChecks, PencilLine, Replace, RotateCcw, Star } from 'lucide-react';
+import {
+  BookOpen,
+  FileText,
+  Layers3,
+  ListChecks,
+  PencilLine,
+  Replace,
+  RotateCcw,
+  Star,
+} from 'lucide-react';
 import { ScopeButton } from './ScopeButton.jsx';
 
 export const MODES = [
@@ -7,6 +16,7 @@ export const MODES = [
   { id: 'quiz', label: '单词测试', icon: ListChecks },
   { id: 'spelling', label: '拼写练习', icon: PencilLine },
   { id: 'cloze', label: '近义辨析', icon: Replace },
+  { id: 'reading', label: '短文精读', icon: FileText },
   { id: 'browse', label: '生词本', icon: BookOpen },
 ];
 

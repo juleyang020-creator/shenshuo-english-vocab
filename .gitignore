@@ -14,14 +14,6 @@ vocab-study-app/.playwright-cli/
 vocab-study-app/output/
 tmp/
 
-# ── iOS generated (regenerate: xcodegen generate / make-web.sh) ─
-ios/ShenShuoVocab.xcodeproj/
-ios/build/
-ios/DerivedData/
-ios/web/
-*.xcuserstate
-xcuserdata/
-
 # ── Windows packaging output (regenerate: tools/package-windows.sh) ─
 dist-windows/
 *.zip
@@ -32,3 +24,7 @@ vocab-study-app/public/data/vocab.tesseract-backup.json
 
 # ── Copyrighted exam syllabus PDF (OCR source, not redistributed) ─
 *.pdf
+
+# ── Cloze/reading generation intermediates (regenerable; final data is in public/data) ─
+vocab-study-app/.cloze-gen/
+vocab-study-app/.reading-gen/

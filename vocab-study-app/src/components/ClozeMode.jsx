@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { CheckCircle2, ChevronLeft, ChevronRight, Lightbulb, XCircle } from 'lucide-react';
 import { EmptyState } from './EmptyState.jsx';
+import { GlossedText } from './GlossedText.jsx';
 import { stableShuffle, seededRandom } from '../lib/shuffle.js';
 import { useKeyboardShortcuts } from '../hooks/useKeyboardShortcuts.js';
 
@@ -8,6 +9,8 @@ const LEVEL_LABEL = {
   gaokao: '高考',
   cet4: '四级',
   cet6: '六级',
+  master: '申硕',
+  advanced: '拔高',
   postgrad: '考研',
 };
 
@@ -18,22 +21,22 @@ function shuffleOptions(options, seed) {
   return array.map((x) => x.opt);
 }
 
-function SentenceWithBlank({ sentence, answered, answerWord }) {
+function SentenceWithBlank({ sentence, answered, answerWord, glossary, knownWords }) {
   const idx = sentence.indexOf('___');
   const before = idx >= 0 ? sentence.slice(0, idx) : sentence;
   const after = idx >= 0 ? sentence.slice(idx + 3) : '';
   return (
     <p className="cloze-sentence">
-      <span>{before}</span>
+      <span><GlossedText text={before} glossary={glossary} knownWords={knownWords} /></span>
       <span className={`cloze-blank ${answered ? 'is-filled' : ''}`.trim()}>
         {answered ? answerWord : ' '}
       </span>
-      <span>{after}</span>
+      <span><GlossedText text={after} glossary={glossary} knownWords={knownWords} /></span>
     </p>
   );
 }
 
-export function ClozeMode({ items, loading, error, shuffleSeed, stats, onAnswer }) {
+export function ClozeMode({ items, loading, error, shuffleSeed, stats, onAnswer, glossary, knownWords }) {
   const queue = useMemo(
     () => (items.length ? stableShuffle(items, `${shuffleSeed}:cloze`) : []),
     [items, shuffleSeed],
@@ -78,6 +81,10 @@ export function ClozeMode({ items, loading, error, shuffleSeed, stats, onAnswer 
       2: () => options[1] && pick(options[1].word),
       3: () => options[2] && pick(options[2].word),
       4: () => options[3] && pick(options[3].word),
+      a: () => options[0] && pick(options[0].word),
+      b: () => options[1] && pick(options[1].word),
+      c: () => options[2] && pick(options[2].word),
+      d: () => options[3] && pick(options[3].word),
     },
     { enabled: Boolean(current) },
   );
@@ -120,7 +127,7 @@ export function ClozeMode({ items, loading, error, shuffleSeed, stats, onAnswer 
       </div>
 
       <div className="cloze-body">
-        <SentenceWithBlank sentence={current.sentence} answered={answered} answerWord={correctOption?.word} />
+        <SentenceWithBlank sentence={current.sentence} answered={answered} answerWord={correctOption?.word} glossary={glossary} knownWords={knownWords} />
 
         <div className="cloze-options">
           {options.map((opt, i) => {

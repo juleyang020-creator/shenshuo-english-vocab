@@ -5,6 +5,7 @@ import { StudyCard } from './components/StudyCard.jsx';
 import { DetailTabs } from './components/DetailTabs.jsx';
 import { RightRail } from './components/RightRail.jsx';
 import { ClozeMode } from './components/ClozeMode.jsx';
+import { ReadingMode } from './components/ReadingMode.jsx';
 import {
   defaultStudyState,
   loadStudyState,
@@ -19,9 +20,11 @@ import { makeRanges, STAGE_CHUNK_SIZE } from './lib/scope.js';
 import { shuffle, stableShuffle } from './lib/shuffle.js';
 import { chooseEnglishVoice, getEnglishVoices, speakWord } from './lib/speech.js';
 import { diffSpelling } from './lib/spelling.js';
+import { buildGlossary } from './lib/glossary.js';
 import { clamp } from './lib/math.js';
 import { useVocab } from './hooks/useVocab.js';
 import { useCloze } from './hooks/useCloze.js';
+import { useReading } from './hooks/useReading.js';
 import { useSpeechVoices } from './hooks/useSpeechVoices.js';
 import { useKeyboardShortcuts } from './hooks/useKeyboardShortcuts.js';
 
@@ -49,9 +52,10 @@ const INITIAL_LAST_SESSION = INITIAL_STUDY.settings?.lastSession || {};
 
 export default function App() {
   const { payload, error: loadError, loading } = useVocab();
-  const { items: clozeItems, error: clozeError, loading: clozeLoading } = useCloze();
   const [study, setStudy] = useState(INITIAL_STUDY);
   const [mode, setMode] = useState(INITIAL_LAST_SESSION.mode || 'study');
+  const { items: clozeItems, error: clozeError, loading: clozeLoading } = useCloze({ enabled: mode === 'cloze' });
+  const { items: readingItems, error: readingError, loading: readingLoading } = useReading({ enabled: mode === 'reading' });
   // Default to the gaokao stage — the user's baseline is high-school English,
   // so we start with the words they probably saw before and need to relearn.
   const [activeScope, setActiveScope] = useState(
@@ -91,6 +95,18 @@ export default function App() {
   const learnerEntries = entries;
   const shuffleSeed = study.settings.shuffleSeed || todayKey;
   const ranges = useMemo(() => makeRanges(learnerEntries), [learnerEntries]);
+
+  // Glossary (word -> Chinese) is built once from the vocab; the known-word set
+  // recomputes as the learner marks words known, so example-sentence markings
+  // shrink over time.
+  const glossary = useMemo(() => buildGlossary(entries), [entries]);
+  const knownWords = useMemo(() => {
+    const set = new Set();
+    for (const entry of entries) {
+      if (isKnown(study.words[entry.id])) set.add((entry.word || '').toLowerCase());
+    }
+    return set;
+  }, [entries, study.words]);
 
   const frequencyScopes = useMemo(
     () =>
@@ -467,6 +483,21 @@ export default function App() {
     });
   }
 
+  function recordReading(correct) {
+    setStudy((previous) => {
+      const current = previous.daily[todayKey] || { seen: 0, known: 0, weak: 0, quiz: 0 };
+      const reading = previous.reading || { seen: 0, correct: 0 };
+      return {
+        ...previous,
+        reading: { seen: reading.seen + 1, correct: reading.correct + (correct ? 1 : 0) },
+        daily: {
+          ...previous.daily,
+          [todayKey]: { ...current, reading: (current.reading || 0) + 1 },
+        },
+      };
+    });
+  }
+
   function updateDaily(result) {
     setStudy((previous) => {
       const current = previous.daily[todayKey] || { seen: 0, known: 0, weak: 0, quiz: 0 };
@@ -682,7 +713,18 @@ export default function App() {
               <div className="notice">词库加载中，请稍候…</div>
             ) : null}
 
-            {mode === 'cloze' ? (
+            {mode === 'reading' ? (
+              <ReadingMode
+                items={readingItems}
+                loading={readingLoading}
+                error={readingError}
+                shuffleSeed={shuffleSeed}
+                stats={study.reading}
+                onAnswer={recordReading}
+                glossary={glossary}
+                knownWords={knownWords}
+              />
+            ) : mode === 'cloze' ? (
               <ClozeMode
                 items={clozeItems}
                 loading={clozeLoading}
@@ -690,6 +732,8 @@ export default function App() {
                 shuffleSeed={shuffleSeed}
                 stats={study.cloze}
                 onAnswer={recordCloze}
+                glossary={glossary}
+                knownWords={knownWords}
               />
             ) : (
             <>
