@@ -12,7 +12,7 @@ import {
   saveStudyState,
   normalizeSpeechSettings,
 } from './lib/storage.js';
-import { applyReview, hasStartedLearning, isDue, isKnown, isWeak, progressDefaults } from './lib/srs.js';
+import { applyReview, hasStartedLearning, isDue, isKnown, isMastered, isWeak, progressDefaults } from './lib/srs.js';
 import { computeCurrentStreak, computeLongestStreak, getTodayKey } from './lib/streak.js';
 import { compactDefinition, hasUsableChineseDefinition, shortDefinition } from './lib/definition.js';
 import { FREQUENCY_BUCKETS, WORD_TYPE_BUCKETS, getExamFrequencyId, getWordTypeIds } from './lib/frequency.js';
@@ -211,12 +211,21 @@ export default function App() {
   }, [activeScope, frequencyScopes, learnerEntries, ranges, typeScopes]);
 
   const rangeEntries = activeScopeMeta?.entries || [];
+  // Words the learner marked 认识 are retired here — this is the single choke
+  // point feeding review mode (including its "nothing due -> show everything"
+  // fallback) and the 待复习 rail panel, so excluding them once covers both.
+  const isReviewable = (entry) => {
+    const progress = getWordProgress(study, entry);
+    return hasStartedLearning(progress) && !isMastered(progress);
+  };
   const reviewableEntries = useMemo(
-    () => learnerEntries.filter((entry) => hasStartedLearning(getWordProgress(study, entry))),
+    () => learnerEntries.filter(isReviewable),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [learnerEntries, study],
   );
   const reviewableRangeEntries = useMemo(
-    () => rangeEntries.filter((entry) => hasStartedLearning(getWordProgress(study, entry))),
+    () => rangeEntries.filter(isReviewable),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [rangeEntries, study],
   );
 
@@ -257,6 +266,21 @@ export default function App() {
   }, [entries, rangeEntries, debouncedSearchTerm, searchFilter, study]);
 
   const lockedChoiceEntryId = choiceResult?.entryId || '';
+
+  // Shuffle the whole scope ONCE, then filter — never the reverse. stableShuffle
+  // is a seeded Fisher-Yates whose permutation depends on the input LENGTH, so
+  // shuffling an already-filtered pool re-permutes the ENTIRE queue every time a
+  // word leaves it. Measured on a 300-word scope: ~18% of removals surfaced a
+  // word the learner had already seen in that same pass. Shuffling the stable
+  // scope list and filtering afterwards makes a removal a true delete-in-place,
+  // which is exactly what the cursor logic in masterCurrent relies on. It also
+  // keeps the expensive shuffle off the hot path — it now reruns only when the
+  // scope or seed changes, not on every answer.
+  const shuffledRangeEntries = useMemo(
+    () => stableShuffle(rangeEntries, `${shuffleSeed}:study:${activeScopeMeta.key}`),
+    [rangeEntries, shuffleSeed, activeScopeMeta.key],
+  );
+
   const queue = useMemo(() => {
     const now = Date.now();
     if (mode === 'browse') {
@@ -281,11 +305,8 @@ export default function App() {
         `${shuffleSeed}:${mode}:${activeScopeMeta.key}`,
       );
     }
-    return stableShuffle(
-      rangeEntries.filter(
-        (entry) => !isKnown(getWordProgress(study, entry)) || entry.id === lockedChoiceEntryId,
-      ),
-      `${shuffleSeed}:study:${activeScopeMeta.key}`,
+    return shuffledRangeEntries.filter(
+      (entry) => !isKnown(getWordProgress(study, entry)) || entry.id === lockedChoiceEntryId,
     );
   }, [
     activeScopeMeta.key,
@@ -297,6 +318,7 @@ export default function App() {
     rangeEntries,
     reviewableRangeEntries,
     searchedEntries,
+    shuffledRangeEntries,
     shuffleSeed,
     study,
   ]);
@@ -324,7 +346,10 @@ export default function App() {
   const weakEntries = useMemo(
     () =>
       learnerEntries
-        .filter((entry) => isWeak(getWordProgress(study, entry)))
+        .filter((entry) => {
+          const progress = getWordProgress(study, entry);
+          return isWeak(progress) && !isMastered(progress);
+        })
         .sort(
           (left, right) =>
             (getWordProgress(study, right).wrong || 0) -
@@ -724,6 +749,42 @@ export default function App() {
     markEntry(correct ? 'correct' : 'wrong', { advance: false });
   }
 
+  // 「认识」— only reachable after a correct answer. Retires the word instead of
+  // re-grading it: the correct answer already recorded the attempt, so a second
+  // applyReview here would double-count it.
+  function masterCurrent() {
+    if (!currentEntry || !choiceResult?.correct) return;
+    updateWord(currentEntry, (word) => ({
+      ...progressDefaults(),
+      ...word,
+      mastered: true,
+    }));
+    // Deliberately NOT advancing the cursor. Mastering drops this word out of
+    // the study queue, and because the queue is shuffled-then-filtered (see
+    // shuffledRangeEntries) that removal is a true delete-in-place: the rest of
+    // the order is untouched, so this same index now points at the next word.
+    // Incrementing would skip one. This is load-bearing on that invariant —
+    // filtering before shuffling would make the landing word arbitrary.
+    setShowMeaning(false);
+    setQuizChoice(null);
+    setChoiceResult(null);
+  }
+
+  // 「不认识」— skip the guess, reveal the answer, and push the word into the
+  // review rotation. selectedId stays null so no option is painted as "wrong".
+  function revealAnswer() {
+    if (!currentEntry || answeredChoice) return;
+    setQuizChoice(null);
+    setChoiceResult({
+      entryId: currentEntry.id,
+      selectedId: null,
+      correct: false,
+      revealed: true,
+    });
+    setShowMeaning(true);
+    markEntry('forgot', { advance: false });
+  }
+
   function playCurrentWord() {
     speakWord(currentEntry?.word, speechSettings, speechVoices);
   }
@@ -765,12 +826,16 @@ export default function App() {
     },
     k: () => {
       if (decisionEnabled) markEntry('know');
+      // In 学习新词 the same key means "认识 — retire it", available once the
+      // learner has proved it with a correct answer.
+      else if (mode === 'study' && choiceResult?.correct) masterCurrent();
     },
     u: () => {
       if (decisionEnabled) markEntry('unsure');
     },
     f: () => {
       if (decisionEnabled) markEntry('forgot');
+      else if (mode === 'study' && !answeredChoice) revealAnswer();
     },
     '/': () => {
       setActiveTab('search');
@@ -864,6 +929,8 @@ export default function App() {
               onPlay={playCurrentWord}
               onToggleFavorite={() => toggleFavorite()}
               onChoice={handleChoice}
+              onMaster={masterCurrent}
+              onReveal={revealAnswer}
               onMark={markEntry}
               onToggleMeaning={() => setShowMeaning((value) => !value)}
               onPrevious={goPrevious}

@@ -748,6 +748,80 @@ button {
   background: var(--bg-deep);
 }
 
+/* 学习新词 only: retire-or-reveal, sitting under the four options. */
+.mastery-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.mastery {
+  display: grid;
+  grid-template-columns: 22px 1fr;
+  align-items: center;
+  min-height: 52px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--surface);
+  padding: 9px 14px;
+  transition: border-color 120ms ease, background 120ms ease, opacity 120ms ease;
+}
+
+.mastery svg {
+  grid-row: 1 / 3;
+  grid-column: 1;
+}
+
+.mastery span {
+  grid-column: 2;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-align: left;
+  padding-left: 10px;
+}
+
+.mastery small {
+  grid-column: 2;
+  padding-left: 10px;
+  color: var(--subtle);
+  font-size: 11px;
+  text-align: left;
+}
+
+.mastery--known {
+  color: var(--green);
+}
+
+.mastery--unknown {
+  color: var(--red);
+}
+
+.mastery:not(:disabled):hover {
+  border-color: currentColor;
+  background: var(--bg-deep);
+}
+
+.mastery:disabled {
+  color: var(--subtle);
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.mastered-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 1px 8px;
+  border-radius: 3px;
+  font-size: 10.5px;
+  font-weight: 600;
+  line-height: 1.6;
+  color: var(--green);
+  background: transparent;
+  border: 1px solid var(--green);
+}
+
 .decision {
   display: grid;
   grid-template-rows: auto auto;
@@ -2736,4 +2810,76 @@ button {
 
 @media (max-width: 760px) {
   .reading-levels { padding: 12px 16px 0; }
+}
+
+/* ---------------------------------------------------------------------------
+   Phone polish. Measured on a 375x812 viewport: the layout had no horizontal
+   overflow, but 19 controls sat under the 44px touch-target floor and ~65px of
+   vertical space went to things a phone user can't act on.
+   --------------------------------------------------------------------------- */
+@media (max-width: 760px) {
+  /* Keyboard shortcuts can't be pressed on a phone — this line was pure noise
+     between the answer buttons and the bottom tab bar. */
+  .keyboard-hint {
+    display: none;
+  }
+
+  /* Source/page references (PDF 第 N 页 · 书页 N · 附录一 词汇表) are desk-study
+     lookups. They ate ~200px of the meta row on a 375px screen; the difficulty,
+     exam and 已掌握 chips all carry a class and stay. */
+  .word-meta > span:not([class]) {
+    display: none;
+  }
+
+  /* ---- Touch targets up to 44px+ ---- */
+  .icon-button {
+    width: 44px;
+    height: 44px;
+  }
+
+  .card-footer button,
+  .ghost-button {
+    min-height: 46px;
+  }
+
+  .tabs {
+    gap: 4px;
+  }
+
+  .tabs button {
+    min-height: 46px;
+    flex: 1 1 0;
+    padding: 0 4px;
+  }
+
+  .chunk-button {
+    min-height: 44px;
+  }
+
+  .topbar input[type='number'] {
+    min-height: 44px;
+  }
+
+  .favorite-link,
+  .text-action,
+  .reset-progress,
+  .level-tab,
+  .cloze-option,
+  .reading-option,
+  .search-filter,
+  .reading-toggle {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  /* Two-up 认识 / 不认识 keeps them thumb-reachable side by side; just make sure
+     the labels never crowd on the narrowest phones. */
+  .mastery {
+    padding: 9px 10px;
+  }
+
+  .mastery span {
+    letter-spacing: 0.02em;
+  }
 }

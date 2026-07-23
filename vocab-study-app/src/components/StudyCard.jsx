@@ -101,6 +101,8 @@ export function StudyCard({
   onPlay,
   onToggleFavorite,
   onChoice,
+  onMaster,
+  onReveal,
   onMark,
   onToggleMeaning,
   onPrevious,
@@ -151,6 +153,11 @@ export function StudyCard({
                   COCA {currentEntry.cocaBand}
                 </span>
               ) : null}
+              {currentProgress.mastered ? (
+                <span className="mastered-chip" title="已标记认识，不再进入复习">
+                  已掌握
+                </span>
+              ) : null}
               <span>PDF 第 {currentEntry.pdfPage} 页</span>
               <span>书页 {currentEntry.printedPage}</span>
               <span>{currentEntry.source}</span>
@@ -198,8 +205,40 @@ export function StudyCard({
             ) : null}
             {isChoiceMode && answeredChoice ? (
               <div className={`choice-feedback ${choiceResult.correct ? 'is-correct' : 'is-wrong'}`.trim()}>
-                <strong>{choiceResult.correct ? '回答正确' : '选错了'}</strong>
+                <strong>
+                  {choiceResult.correct
+                    ? '回答正确'
+                    : choiceResult.revealed
+                      ? '先记住它，之后会再考你'
+                      : '选错了'}
+                </strong>
                 <span>正确释义：{shortDefinition(currentEntry)}</span>
+              </div>
+            ) : null}
+            {mode === 'study' ? (
+              <div className="mastery-row">
+                <button
+                  className="mastery mastery--known"
+                  type="button"
+                  disabled={!choiceResult?.correct}
+                  onClick={onMaster}
+                  title={choiceResult?.correct ? '这个词以后不再出现' : '答对之后才能选'}
+                >
+                  <CheckCircle2 size={20} />
+                  <span>认识</span>
+                  <small>{choiceResult?.correct ? '不再复习 · K' : '答对后可选'}</small>
+                </button>
+                <button
+                  className="mastery mastery--unknown"
+                  type="button"
+                  disabled={answeredChoice}
+                  onClick={onReveal}
+                  title="直接看答案，并加入之后的复习"
+                >
+                  <XCircle size={20} />
+                  <span>不认识</span>
+                  <small>看答案 · F</small>
+                </button>
               </div>
             ) : null}
             {mode === 'spelling' ? (

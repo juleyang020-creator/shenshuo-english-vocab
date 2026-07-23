@@ -34,6 +34,10 @@ export function progressDefaults() {
     lastSeen: 0,
     nextReview: 0,
     favorite: false,
+    // Set when the learner explicitly says 认识 after answering correctly:
+    // the word retires from the study queue AND from review, so easy words
+    // stop taking up slots. Cleared automatically by any sub-4 result below.
+    mastered: false,
   };
 }
 
@@ -73,11 +77,23 @@ export function applyReview(previous, result, now = Date.now(), random = Math.ra
     wrong: base.wrong + (quality <= 2 ? 1 : 0),
     lastSeen: now,
     nextReview: now + intervalMs + jitter,
+    // Any answer below "correct" retracts mastery — otherwise a mis-tapped 认识
+    // would bury the word forever with no way back. Meeting it again in 生词本
+    // (or getting it wrong in 辨析) puts it straight back into rotation.
+    mastered: quality >= 4 ? Boolean(base.mastered) : false,
   };
+}
+
+// Explicitly retired by the learner. Kept separate from isKnown because the two
+// answer different questions: isKnown means "don't drill this as a new word",
+// isMastered additionally means "never schedule it for review".
+export function isMastered(progress) {
+  return Boolean(progress?.mastered);
 }
 
 export function isKnown(progress) {
   if (!progress) return false;
+  if (progress.mastered) return true;
   return (progress.repetitions || 0) >= 3 || (progress.score || 0) >= 3;
 }
 
