@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { fetchJsonWithRetry } from '../lib/fetchJson.js';
 
 // Base-aware so it works from the domain root (iOS scheme / Windows) and a
 // GitHub Pages project sub-path alike.
@@ -39,11 +40,7 @@ export function useCloze({ enabled = true, url = DEFAULT_CLOZE_URL } = {}) {
     fetchedRef.current = true;
     setLoading(true);
     setError('');
-    fetch(url)
-      .then((response) => {
-        if (!response.ok) throw new Error(`辨析题库读取失败：${response.status}`);
-        return response.json();
-      })
+    fetchJsonWithRetry(url, { label: '辨析题库' })
       .then((data) => {
         setItems(validateClozeItems(data));
         setLoading(false);

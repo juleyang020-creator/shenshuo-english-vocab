@@ -11,14 +11,9 @@ import {
 import { IconButton } from './IconButton.jsx';
 import { EmptyState } from './EmptyState.jsx';
 import { cleanDefinitionLines, shortDefinition } from '../lib/definition.js';
-import { DIFFICULTY_STAGES, getExamTags } from '../lib/frequency.js';
+import { DIFFICULTY_STAGES, LEVEL_LABEL, getExamTags } from '../lib/frequency.js';
 
 const STAGE_LABEL = Object.fromEntries(DIFFICULTY_STAGES.map((stage) => [stage.id, stage.label]));
-const TAG_LABEL = {
-  gaokao: '高考',
-  cet4: '四级',
-  cet6: '六级',
-};
 
 function SpellingPrompt({ entry, onPlay }) {
   return (
@@ -148,7 +143,7 @@ export function StudyCard({
               ) : null}
               {getExamTags(currentEntry).map((tag) => (
                 <span className={`exam-chip exam-chip--${tag}`} key={tag}>
-                  {TAG_LABEL[tag] || tag}
+                  {LEVEL_LABEL[tag] || tag}
                 </span>
               ))}
               {currentEntry.cocaBand ? (

@@ -9,7 +9,6 @@ const LEVELS = [
   { id: 'cet4', label: '四级' },
   { id: 'cet6', label: '六级' },
 ];
-const LEVEL_LABEL = { gaokao: '高考', cet4: '四级', cet6: '六级', postgrad: '考研' };
 // Finishing this many passages at a level unlocks the next — a light gate that
 // keeps a beginner on level-appropriate material instead of a wall of unknowns.
 const UNLOCK_AFTER = 6;

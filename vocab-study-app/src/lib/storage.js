@@ -1,7 +1,7 @@
 import { progressDefaults } from './srs.js';
 import { getTodayKey } from './streak.js';
 
-const STORAGE_KEY = 'shen-shuo-vocab-study-v1';
+export const STORAGE_KEY = 'shen-shuo-vocab-study-v1';
 const SCHEMA_VERSION = 2;
 
 export const DEFAULT_SPEECH_SETTINGS = {

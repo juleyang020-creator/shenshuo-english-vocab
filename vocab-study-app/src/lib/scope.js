@@ -17,20 +17,4 @@ export function makeRanges(entries) {
   });
 }
 
-export function makeStageChunks(stageEntries) {
-  if (!stageEntries?.length) return [];
-  const count = Math.max(1, Math.ceil(stageEntries.length / STAGE_CHUNK_SIZE));
-  return Array.from({ length: count }, (_, index) => {
-    const start = index * STAGE_CHUNK_SIZE;
-    const end = Math.min(stageEntries.length, start + STAGE_CHUNK_SIZE);
-    return {
-      index,
-      start,
-      end,
-      label: `第 ${index + 1} 段`,
-      detail: `${start + 1}-${end}`,
-      entries: stageEntries.slice(start, end),
-    };
-  });
-}
 

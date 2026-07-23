@@ -4,15 +4,7 @@ import { EmptyState } from './EmptyState.jsx';
 import { GlossedText } from './GlossedText.jsx';
 import { stableShuffle, seededRandom } from '../lib/shuffle.js';
 import { useKeyboardShortcuts } from '../hooks/useKeyboardShortcuts.js';
-
-const LEVEL_LABEL = {
-  gaokao: '高考',
-  cet4: '四级',
-  cet6: '六级',
-  master: '申硕',
-  advanced: '拔高',
-  postgrad: '考研',
-};
+import { LEVEL_LABEL } from '../lib/frequency.js';
 
 function shuffleOptions(options, seed) {
   const random = seededRandom(seed);

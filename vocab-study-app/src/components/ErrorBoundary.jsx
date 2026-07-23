@@ -1,4 +1,5 @@
 import React from 'react';
+import { STORAGE_KEY } from '../lib/storage.js';
 
 // Top-level error boundary. Without this, any render-time throw in App or
 // its children leaves the whole root blank — the user sees an empty page
@@ -25,7 +26,7 @@ export class ErrorBoundary extends React.Component {
 
   handleResetProgress = () => {
     try {
-      window.localStorage.removeItem('shen-shuo-vocab-study-v1');
+      window.localStorage.removeItem(STORAGE_KEY);
     } catch {
       // ignore
     }

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { fetchJsonWithRetry } from '../lib/fetchJson.js';
 
 const FALLBACK_PAYLOAD = {
   meta: {
@@ -75,22 +76,6 @@ async function writeCache(payload) {
   }
 }
 
-async function fetchWithRetry(url, attempts) {
-  let lastError;
-  for (let i = 0; i < attempts; i += 1) {
-    try {
-      const response = await fetch(url, { cache: 'no-cache' });
-      if (!response.ok) throw new Error(`词库读取失败：${response.status}`);
-      return await response.json();
-    } catch (err) {
-      lastError = err;
-      // brief backoff before retry
-      if (i < attempts - 1) await new Promise((r) => setTimeout(r, 300 * (i + 1)));
-    }
-  }
-  throw lastError;
-}
-
 export function useVocab(url = DEFAULT_VOCAB_URL) {
   const [payload, setPayload] = useState(FALLBACK_PAYLOAD);
   const [error, setError] = useState('');
@@ -111,7 +96,7 @@ export function useVocab(url = DEFAULT_VOCAB_URL) {
       }
       // 2. Refresh in background; fall back to cache silently on failure.
       try {
-        const data = await fetchWithRetry(url, MAX_RETRY);
+        const data = await fetchJsonWithRetry(url, { attempts: MAX_RETRY, label: '词库' });
         if (cancelled) return;
         if (mounted) {
           setPayload(data);

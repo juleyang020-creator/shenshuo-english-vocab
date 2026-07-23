@@ -35,6 +35,20 @@ export const DIFFICULTY_STAGES = [
 // Back-compat: some call sites still import FREQUENCY_BUCKETS.
 export const FREQUENCY_BUCKETS = DIFFICULTY_STAGES;
 
+// Single source of truth for the SHORT difficulty/exam labels used on chips and
+// badges across the app (StudyCard, DetailTabs, ClozeMode, ReadingMode). This is
+// deliberately the union of every id any surface can encounter — vocab stages
+// (gaokao/cet4/cet6/master/advanced) plus the cloze/reading-only `postgrad`.
+// It's distinct from DIFFICULTY_STAGES' LONG labels (高考基础/四级核心/…).
+export const LEVEL_LABEL = {
+  gaokao: '高考',
+  cet4: '四级',
+  cet6: '六级',
+  master: '申硕',
+  advanced: '拔高',
+  postgrad: '考研',
+};
+
 export const WORD_TYPE_BUCKETS = [
   { id: 'verb', label: '动词', detail: 'v. / vt. / vi.' },
   { id: 'noun', label: '名词', detail: 'n.' },
@@ -76,13 +90,4 @@ export function getExamFrequencyId(entry) {
 
 export function getExamTags(entry) {
   return entry?.examTags || [];
-}
-
-export function getCocaBand(entry) {
-  return entry?.cocaBand || null;
-}
-
-export function describeDifficulty(entry) {
-  const stage = DIFFICULTY_STAGES.find((item) => item.id === getDifficultyStage(entry));
-  return stage?.label || '未分级';
 }

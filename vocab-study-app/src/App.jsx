@@ -64,6 +64,11 @@ export default function App() {
   const [currentIndex, setCurrentIndex] = useState(INITIAL_LAST_SESSION.currentIndex || 0);
   const lastEntryIdRef = useRef(INITIAL_LAST_SESSION.currentEntryId || null);
   const restoredFromLastSessionRef = useRef(false);
+  // Armed right before a search-result pick flips mode to 'browse', so the
+  // scope/mode reset effect skips zeroing the cursor that one time and the picked
+  // word stays selected. Only armed when the pick actually changes mode (see
+  // onPickSearchResult) — otherwise the flag would dangle and swallow a later reset.
+  const skipNextResetRef = useRef(false);
   // Meaning starts hidden in the testing modes (study/quiz/spelling) so the
   // answer isn't visible the moment the app opens — only revealed after the
   // learner responds or taps 提示. The reset effect skips the very first mount
@@ -340,6 +345,12 @@ export default function App() {
   // skipped so that the persisted currentIndex / lastEntryId survive a reload.
   useEffect(() => {
     if (!restoredFromLastSessionRef.current) return;
+    // A search-result pick sets its own cursor and flips to browse; honour that
+    // one jump instead of zeroing over it.
+    if (skipNextResetRef.current) {
+      skipNextResetRef.current = false;
+      return;
+    }
     setCurrentIndex(0);
     setShowMeaning(mode === 'review' || mode === 'browse');
     setQuizChoice(null);
@@ -381,6 +392,11 @@ export default function App() {
     currentIndex,
     currentEntryId: currentEntry?.id || null,
   };
+  // Mirror the latest study into a ref so the page-close flush can persist the
+  // most recent state synchronously without routing through setStudy (a state
+  // update during unload never commits, so its follow-up save would be lost).
+  const studyRef = useRef(study);
+  studyRef.current = study;
   useEffect(() => {
     const timer = setTimeout(() => {
       const next = lastSessionIntentRef.current;
@@ -408,34 +424,39 @@ export default function App() {
   // Also flush lastSession when the page is being closed so the final
   // position is saved even if the user closes within the debounce window.
   useEffect(() => {
-    function flush() {
+    // Persist synchronously via saveStudyState (not setStudy): during page
+    // teardown a state update never commits, so the debounced [study] save that
+    // would follow it never runs and the final position is lost. Writing the
+    // merged state straight to storage side-steps React entirely.
+    function persistLastSession() {
       const next = lastSessionIntentRef.current;
       if (!next) return;
-      setStudy((previous) => {
-        const prev = previous.settings?.lastSession || {};
-        if (
-          prev.mode === next.mode
-          && prev.currentIndex === next.currentIndex
-          && prev.currentEntryId === next.currentEntryId
-          && prev.activeScope?.kind === next.activeScope.kind
-          && prev.activeScope?.value === next.activeScope.value
-        ) {
-          return previous;
-        }
-        return {
-          ...previous,
-          settings: { ...previous.settings, lastSession: next },
-        };
-      });
+      const current = studyRef.current;
+      const prev = current.settings?.lastSession || {};
+      if (
+        prev.mode === next.mode
+        && prev.currentIndex === next.currentIndex
+        && prev.currentEntryId === next.currentEntryId
+        && prev.activeScope?.kind === next.activeScope.kind
+        && prev.activeScope?.value === next.activeScope.value
+      ) {
+        return;
+      }
+      saveStudyState(
+        { ...current, settings: { ...current.settings, lastSession: next } },
+        { immediate: true },
+      );
     }
-    window.addEventListener('beforeunload', flush);
-    window.addEventListener('pagehide', flush);
-    document.addEventListener('visibilitychange', () => {
-      if (document.visibilityState === 'hidden') flush();
-    });
+    function handleVisibilityChange() {
+      if (document.visibilityState === 'hidden') persistLastSession();
+    }
+    window.addEventListener('beforeunload', persistLastSession);
+    window.addEventListener('pagehide', persistLastSession);
+    document.addEventListener('visibilitychange', handleVisibilityChange);
     return () => {
-      window.removeEventListener('beforeunload', flush);
-      window.removeEventListener('pagehide', flush);
+      window.removeEventListener('beforeunload', persistLastSession);
+      window.removeEventListener('pagehide', persistLastSession);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
   }, []);
 
@@ -611,16 +632,19 @@ export default function App() {
     );
     if (!confirmed) return;
     const fresh = defaultStudyState();
-    setStudy((previous) => ({
+    // Preserve audio + target preferences so the user doesn't have to redo their
+    // settings. Build the preserved state once and use it for BOTH the in-memory
+    // update and the immediate save, so the synchronous write isn't a settings-
+    // less `fresh` that a later debounced save then has to correct.
+    const preserved = {
       ...fresh,
-      // Preserve audio + target preferences so the user doesn't have to redo
-      // their settings.
       settings: {
         ...fresh.settings,
-        dailyTarget: previous.settings?.dailyTarget || fresh.settings.dailyTarget,
-        speech: previous.settings?.speech || fresh.settings.speech,
+        dailyTarget: study.settings?.dailyTarget || fresh.settings.dailyTarget,
+        speech: study.settings?.speech || fresh.settings.speech,
       },
-    }));
+    };
+    setStudy(preserved);
     setMode('study');
     setActiveScope({ kind: 'frequency', value: 'gaokao' });
     setCurrentIndex(0);
@@ -630,7 +654,7 @@ export default function App() {
     setSpellingInput('');
     setSpellingFeedback(null);
     lastEntryIdRef.current = null;
-    saveStudyState(fresh, { immediate: true });
+    saveStudyState(preserved, { immediate: true });
   }
 
   function handleChoice(option) {
@@ -694,8 +718,11 @@ export default function App() {
       setActiveTab('search');
       requestAnimationFrame(() => searchInputRef.current?.focus());
     },
-    // The cloze module owns its own keyboard handlers (1-4 / arrows).
-  }, { enabled: mode !== 'cloze' });
+    // The cloze module owns its own keyboard handlers (1-4 / arrows); the reading
+    // module has no keyboard controls, so disable these global keys there too —
+    // otherwise a stray 1/2/3/K/U/F/S/arrow press would silently grade or move a
+    // word in the hidden study queue behind the passage.
+  }, { enabled: mode !== 'cloze' && mode !== 'reading' });
 
   return (
     <div className="app-shell">
@@ -810,9 +837,19 @@ export default function App() {
               searchRegisterFocus={searchInputRef}
               getWordProgress={(entry) => getWordProgress(study, entry)}
               onPickSearchResult={(entry) => {
+                const index = Math.max(
+                  searchedEntries.findIndex((item) => item.id === entry.id),
+                  0,
+                );
+                // Only arm the reset-skip when this pick actually changes mode;
+                // if we're already in browse, setMode is a no-op so the reset
+                // effect never fires and an armed flag would dangle.
+                if (mode !== 'browse') {
+                  skipNextResetRef.current = true;
+                  setShowMeaning(true);
+                }
                 setMode('browse');
-                const index = searchedEntries.findIndex((item) => item.id === entry.id);
-                setCurrentIndex(Math.max(index, 0));
+                setCurrentIndex(index);
               }}
             />
             </>

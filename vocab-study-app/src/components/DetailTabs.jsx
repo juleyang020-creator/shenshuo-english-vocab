@@ -2,7 +2,8 @@ import { useMemo, useState } from 'react';
 import { ExternalLink, Search, Volume2 } from 'lucide-react';
 import { getSpeechText } from '../lib/speech.js';
 import { shortDefinition } from '../lib/definition.js';
-import { DIFFICULTY_STAGES } from '../lib/frequency.js';
+import { DIFFICULTY_STAGES, LEVEL_LABEL } from '../lib/frequency.js';
+import { analyseAffixes } from '../lib/affixes.js';
 
 const TABS = [
   ['source', '原书释义'],
@@ -13,7 +14,6 @@ const TABS = [
 ];
 
 const STAGE_LABEL = Object.fromEntries(DIFFICULTY_STAGES.map((s) => [s.id, s.label]));
-const TAG_LABEL = { gaokao: '高考', cet4: '四级', cet6: '六级' };
 
 function escapeRegExp(value) {
   return String(value).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -73,7 +73,7 @@ function annotateEtymology(text) {
   if (!text) return null;
   const pattern = new RegExp(
     `\\b(${ETYMOLOGY_GLOSSES
-      .map(([key]) => key.replace(/[.*+?^${}()|[\\]\\\\]/g, '\\$&'))
+      .map(([key]) => escapeRegExp(key))
       .join('|')})\\b`,
     'g',
   );
@@ -94,6 +94,46 @@ function annotateEtymology(text) {
   }
   if (cursor < text.length) out.push(text.slice(cursor));
   return out;
+}
+
+// Morphology breakdown: split the current word into prefix / root(s) / suffix
+// with concise Chinese glosses, so the learner memorises by structure ("review
+// = re-(再) + view(看)") instead of rote. Returns null when nothing recognisable
+// matches, so it stays out of the way for opaque or very short words.
+function AffixPanel({ entry }) {
+  const word = entry?.word || '';
+  const analysis = useMemo(() => analyseAffixes(word), [word]);
+  if (!entry || !analysis) return null;
+  const { prefix, suffix, roots } = analysis;
+  // Spread first, then override — otherwise `...prefix`/`...suffix` would clobber
+  // the position-decorated `form` (inter-, -al) with the bare stem.
+  const parts = [];
+  if (prefix) parts.push({ ...prefix, kind: '前缀', form: `${prefix.form}-` });
+  for (const root of roots) parts.push({ ...root, kind: '词根', form: root.root });
+  if (suffix) parts.push({ ...suffix, kind: '后缀', form: `-${suffix.form}` });
+  if (!parts.length) return null;
+  return (
+    <div className="affix">
+      <div className="affix__title">
+        <span>词根词缀</span>
+        <small>拆开记，不靠死背</small>
+      </div>
+      <ul className="affix__list">
+        {parts.map((part, index) => (
+          <li className="affix__item" key={`${part.kind}-${part.form}-${index}`}>
+            <code className="affix__form">{part.form}</code>
+            <span className={`affix__kind affix__kind--${part.kind === '前缀' ? 'prefix' : part.kind === '后缀' ? 'suffix' : 'root'}`}>
+              {part.kind}
+            </span>
+            <span className="affix__meaning">{part.meaning}</span>
+            {part.examples?.length ? (
+              <span className="affix__eg">如 {part.examples.slice(0, 2).join('、')}</span>
+            ) : null}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
 }
 
 function EtymologyPanel({ entry }) {
@@ -323,7 +363,10 @@ export function DetailTabs({
           {meaningLocked ? (
             <LockedPanel label="词源已隐藏" />
           ) : (
-            <EtymologyPanel entry={currentEntry} />
+            <>
+              <AffixPanel entry={currentEntry} />
+              <EtymologyPanel entry={currentEntry} />
+            </>
           )}
           <label className="note-pane__label">个人笔记</label>
           <textarea
@@ -386,7 +429,7 @@ export function DetailTabs({
                     ) : null}
                     {(entry.examTags || []).slice(0, 2).map((tag) => (
                       <span className={`exam-chip exam-chip--${tag}`} key={tag}>
-                        {TAG_LABEL[tag] || tag}
+                        {LEVEL_LABEL[tag] || tag}
                       </span>
                     ))}
                     {progress.favorite ? <span className="search-flag">⭐</span> : null}

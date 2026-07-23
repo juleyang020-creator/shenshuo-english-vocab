@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { fetchJsonWithRetry } from '../lib/fetchJson.js';
 
 // Base-aware so it works from the domain root and a GitHub Pages sub-path alike.
 const DEFAULT_READING_URL = `${import.meta.env.BASE_URL}data/passages.json`;
@@ -45,11 +46,7 @@ export function useReading({ enabled = true, url = DEFAULT_READING_URL } = {}) {
     fetchedRef.current = true;
     setLoading(true);
     setError('');
-    fetch(url)
-      .then((response) => {
-        if (!response.ok) throw new Error(`精读题库读取失败：${response.status}`);
-        return response.json();
-      })
+    fetchJsonWithRetry(url, { label: '精读题库' })
       .then((data) => {
         setItems(validatePassages(data));
         setLoading(false);

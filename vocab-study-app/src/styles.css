@@ -1893,6 +1893,91 @@ button {
   letter-spacing: 0.02em;
 }
 
+.affix {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #fbfdfd;
+  padding: 12px 16px;
+  display: grid;
+  gap: 10px;
+}
+
+.affix__title {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.affix__title span {
+  font-weight: 600;
+  color: var(--text);
+}
+
+.affix__title small {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.affix__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.affix__item {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.affix__form {
+  font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  font-weight: 700;
+  color: var(--accent-strong);
+  background: var(--accent-soft);
+  padding: 1px 8px;
+  border-radius: 6px;
+}
+
+.affix__kind {
+  font-size: 11px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0 7px;
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+.affix__kind--prefix {
+  color: var(--accent);
+  border-color: var(--accent-soft);
+}
+
+.affix__kind--root {
+  color: var(--gold);
+  border-color: #e8dcc0;
+}
+
+.affix__kind--suffix {
+  color: var(--amber);
+  border-color: #ecd9bf;
+}
+
+.affix__meaning {
+  color: var(--text-soft);
+}
+
+.affix__eg {
+  color: var(--subtle);
+  font-size: 12px;
+  margin-left: auto;
+}
+
 .etymology {
   border: 1px solid var(--line);
   border-radius: 10px;
