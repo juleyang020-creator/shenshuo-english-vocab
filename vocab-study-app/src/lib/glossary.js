@@ -40,7 +40,9 @@ export function buildGlossary(entries) {
     if (raw.includes('(')) forms.add(raw.replace(/\([^)]*\)/g, '').trim());
     for (const f of forms) {
       const key = f.replace(/[^a-z-]/g, '');
-      if (key.length >= 2 && !map.has(key)) map.set(key, { zh, word: entry.word });
+      // `id` lets callers map a looked-up token back to its vocab entry, so a
+      // word met in a sentence can feed the learner's SRS state.
+      if (key.length >= 2 && !map.has(key)) map.set(key, { zh, word: entry.word, id: entry.id });
     }
   }
   return map;

@@ -20,7 +20,7 @@ import { makeRanges, STAGE_CHUNK_SIZE } from './lib/scope.js';
 import { shuffle, stableShuffle } from './lib/shuffle.js';
 import { chooseEnglishVoice, getEnglishVoices, speakWord } from './lib/speech.js';
 import { diffSpelling } from './lib/spelling.js';
-import { buildGlossary } from './lib/glossary.js';
+import { buildGlossary, lookupGloss } from './lib/glossary.js';
 import { clamp } from './lib/math.js';
 import { useVocab } from './hooks/useVocab.js';
 import { useCloze } from './hooks/useCloze.js';
@@ -34,6 +34,25 @@ function normalizeSearch(value) {
 
 function getWordProgress(study, entry) {
   return study.words[entry?.id] || {};
+}
+
+// Coarse word classes, keyed by the part-of-speech marker a definition STARTS
+// with. Bucketing has to key off the leading marker of the very string the
+// option renders (`shortDefinition`), not off getWordTypeIds — that one reports
+// in detection order (verb first), so a "verb" entry whose text reads
+// "n. 矛盾 vt. 反驳" would still visibly lead with "n." and give the answer away.
+const POS_CLASS = {
+  v: 'verb', vi: 'verb', vt: 'verb',
+  n: 'noun',
+  a: 'modifier', ad: 'modifier', adv: 'modifier',
+  prep: 'function', conj: 'function', pron: 'function',
+  aux: 'function', art: 'function', int: 'function',
+};
+
+function distractorKey(entry) {
+  const match = (shortDefinition(entry) || '').match(/^\s*([a-z]+)\./);
+  const cls = match && POS_CLASS[match[1]];
+  return cls ? `${getExamFrequencyId(entry)}|${cls}` : null;
 }
 
 function getLearningStats(items, study) {
@@ -324,16 +343,46 @@ export default function App() {
   );
   const longestStreak = useMemo(() => computeLongestStreak(study.daily), [study.daily]);
 
+  // Distractors used to be drawn from the whole ~5.3k pool, so the four options
+  // routinely mixed word types and registers ("n. 水壶" next to "vt. 放弃"). The
+  // part-of-speech marker is printed at the head of every option, so a learner
+  // could rule out 2-3 options without knowing the word at all — and SRS then
+  // banked that guess as a genuine "correct". Bucketing by difficulty stage +
+  // primary word type keeps all four plausible. `other` is a noisy catch-all,
+  // so it falls through to the full pool instead of drawing from its handful.
+  const distractorBuckets = useMemo(() => {
+    const buckets = new Map();
+    for (const entry of usableOptionEntries) {
+      const key = distractorKey(entry);
+      if (!key) continue;
+      const list = buckets.get(key);
+      if (list) list.push(entry);
+      else buckets.set(key, [entry]);
+    }
+    return buckets;
+  }, [usableOptionEntries]);
+
   const quizOptions = useMemo(() => {
     if (!currentEntry || learnerEntries.length < 4 || !isChoiceMode) return [];
-    const distractorPool = usableOptionEntries.filter((entry) => entry.id !== currentEntry.id);
-    const wrongOptions = shuffle(distractorPool).slice(0, 3);
+    const key = distractorKey(currentEntry);
+    const bucket = key ? distractorBuckets.get(key) : null;
+    let wrongOptions =
+      bucket && bucket.length > 3
+        ? shuffle(bucket.filter((entry) => entry.id !== currentEntry.id)).slice(0, 3)
+        : [];
+    if (wrongOptions.length < 3) {
+      // Thin bucket (or an `other`-typed word): top up from the full pool.
+      const taken = new Set(wrongOptions.map((entry) => entry.id));
+      taken.add(currentEntry.id);
+      const filler = shuffle(usableOptionEntries.filter((entry) => !taken.has(entry.id)));
+      wrongOptions = [...wrongOptions, ...filler.slice(0, 3 - wrongOptions.length)];
+    }
     return shuffle([currentEntry, ...wrongOptions]).map((entry) => ({
       id: entry.id,
       word: entry.word,
       definition: shortDefinition(entry),
     }));
-  }, [currentEntry, isChoiceMode, learnerEntries.length, usableOptionEntries]);
+  }, [currentEntry, distractorBuckets, isChoiceMode, learnerEntries.length, usableOptionEntries]);
 
   // A stable "user intent" key for the current scope. We deliberately don't
   // use activeScopeMeta.key here because that one can shift on initial render
@@ -489,7 +538,7 @@ export default function App() {
     });
   }
 
-  function recordCloze(correct) {
+  function recordCloze(correct, answerWord) {
     setStudy((previous) => {
       const current = previous.daily[todayKey] || { seen: 0, known: 0, weak: 0, quiz: 0 };
       const cloze = previous.cloze || { seen: 0, correct: 0 };
@@ -502,6 +551,15 @@ export default function App() {
         },
       };
     });
+    // A wrong 辨析 answer is real evidence the learner doesn't own that word, so
+    // fold it into the memory schedule instead of letting it vanish into a
+    // counter. Only the correct answer is graded — the distractor they picked
+    // isn't necessarily the gap. Answers we can't resolve to an entry (irregular
+    // forms, words outside the syllabus list) simply no-op.
+    if (correct || !answerWord) return;
+    const hit = lookupGloss(answerWord, glossary);
+    if (!hit?.id) return;
+    updateWord({ id: hit.id }, (word) => applyReview(word, 'wrong'));
   }
 
   function recordReading(correct) {

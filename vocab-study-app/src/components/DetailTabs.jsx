@@ -96,6 +96,24 @@ function annotateEtymology(text) {
   return out;
 }
 
+// The example is mined from the 辨析 bank, where the headword often appears
+// inflected ("benefit" -> "benefits"), so allow a common suffix when highlighting
+// rather than demanding an exact match. A miss just renders plain text.
+function ExampleSentence({ word, sentence }) {
+  const base = String(word || '').split('/')[0].replace(/\([^)]*\)/g, '').trim();
+  if (!base) return <>{sentence}</>;
+  const alts = [`${escapeRegExp(base)}(?:s|es|d|ed|ing)?`];
+  if (base.endsWith('y')) alts.push(`${escapeRegExp(base.slice(0, -1))}ies`);
+  const parts = String(sentence).split(new RegExp(`\\b(${alts.join('|')})\\b`, 'ig'));
+  return (
+    <>
+      {parts.map((part, index) =>
+        index % 2 === 1 ? <b key={index}>{part}</b> : <span key={index}>{part}</span>,
+      )}
+    </>
+  );
+}
+
 // Morphology breakdown: split the current word into prefix / root(s) / suffix
 // with concise Chinese glosses, so the learner memorises by structure ("review
 // = re-(再) + view(看)") instead of rote. Returns null when nothing recognisable
@@ -257,11 +275,28 @@ export function DetailTabs({
         meaningLocked ? (
           <LockedPanel label="原书释义已隐藏" />
         ) : (
-          <div className="source-lines">
-            {(currentEntry?.definitionLines || []).map((line, index) => (
-              <p key={`${currentEntry.id}-source-${index}`}>{line}</p>
-            ))}
-          </div>
+          <>
+            <div className="source-lines">
+              {(currentEntry?.definitionLines || []).map((line, index) => (
+                <p key={`${currentEntry.id}-source-${index}`}>{line}</p>
+              ))}
+            </div>
+            {/* The example contains the headword verbatim, so it must stay hidden
+                while the learner is being asked to spell that very word. Labelled
+                as coming from the 辨析 bank so it isn't mistaken for 大纲 content. */}
+            {currentEntry?.example && !spellingLocked ? (
+              <div className="example">
+                <div className="example__title">
+                  <span>例句</span>
+                  <small>来自辨析题库</small>
+                </div>
+                <p className="example__en">
+                  <ExampleSentence word={currentEntry.word} sentence={currentEntry.example.en} />
+                </p>
+                <p className="example__zh">{currentEntry.example.zh}</p>
+              </div>
+            ) : null}
+          </>
         )
       ) : null}
 

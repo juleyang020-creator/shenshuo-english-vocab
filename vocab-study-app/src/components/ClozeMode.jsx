@@ -13,15 +13,27 @@ function shuffleOptions(options, seed) {
   return array.map((x) => x.opt);
 }
 
+// A few source sentences write the inflection OUTSIDE the blank ("that ___ s use
+// echolocation"). Fold it into the blank so the sentence reads "bats use …" and
+// not "bat s use …". None of these are standalone English words, so re-attaching
+// is unambiguous.
+const DETACHED_SUFFIX = /^\s+(s|es|ed|d|ing|ly)\b/;
+
 function SentenceWithBlank({ sentence, answered, answerWord, glossary, knownWords }) {
   const idx = sentence.indexOf('___');
   const before = idx >= 0 ? sentence.slice(0, idx) : sentence;
-  const after = idx >= 0 ? sentence.slice(idx + 3) : '';
+  let after = idx >= 0 ? sentence.slice(idx + 3) : '';
+  let filled = answerWord;
+  const suffix = after.match(DETACHED_SUFFIX);
+  if (suffix && answerWord && !answerWord.toLowerCase().endsWith(suffix[1])) {
+    filled = answerWord + suffix[1];
+    after = after.slice(suffix[0].length);
+  }
   return (
     <p className="cloze-sentence">
       <span><GlossedText text={before} glossary={glossary} knownWords={knownWords} /></span>
       <span className={`cloze-blank ${answered ? 'is-filled' : ''}`.trim()}>
-        {answered ? answerWord : ' '}
+        {answered ? filled : ' '}
       </span>
       <span><GlossedText text={after} glossary={glossary} knownWords={knownWords} /></span>
     </p>
@@ -51,7 +63,9 @@ export function ClozeMode({ items, loading, error, shuffleSeed, stats, onAnswer,
     if (answered || !current) return;
     setSelected(word);
     const correct = current.options.some((o) => o.word === word && o.correct);
-    onAnswer?.(Boolean(correct));
+    // Pass the answer word up too: getting it wrong is real evidence about THAT
+    // word, so the parent can fold it into the learner's memory schedule.
+    onAnswer?.(Boolean(correct), current.answer);
   }
 
   function next() {

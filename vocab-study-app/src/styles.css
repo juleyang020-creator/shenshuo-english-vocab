@@ -1893,6 +1893,52 @@ button {
   letter-spacing: 0.02em;
 }
 
+.example {
+  margin-top: 14px;
+  border-left: 3px solid var(--accent-soft);
+  background: #fbfdfd;
+  border-radius: 0 8px 8px 0;
+  padding: 10px 14px;
+  display: grid;
+  gap: 6px;
+}
+
+.example__title {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.example__title span {
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--text);
+}
+
+.example__title small {
+  color: var(--subtle);
+  font-size: 11px;
+}
+
+.example__en {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--text);
+}
+
+.example__en b {
+  color: var(--accent-strong);
+  font-weight: 700;
+}
+
+.example__zh {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
 .affix {
   border: 1px solid var(--line);
   border-radius: 10px;
