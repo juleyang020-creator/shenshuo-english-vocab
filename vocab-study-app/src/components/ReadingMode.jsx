@@ -1,20 +1,75 @@
-import { useEffect, useMemo, useState } from 'react';
-import { CheckCircle2, ChevronLeft, ChevronRight, Languages, Scissors, XCircle } from 'lucide-react';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { CheckCircle2, ChevronLeft, ChevronRight, Languages, Lock, Scissors, XCircle } from 'lucide-react';
 import { EmptyState } from './EmptyState.jsx';
 import { GlossedText } from './GlossedText.jsx';
 import { stableShuffle } from '../lib/shuffle.js';
 
+const LEVELS = [
+  { id: 'gaokao', label: '高考' },
+  { id: 'cet4', label: '四级' },
+  { id: 'cet6', label: '六级' },
+];
 const LEVEL_LABEL = { gaokao: '高考', cet4: '四级', cet6: '六级', postgrad: '考研' };
+// Finishing this many passages at a level unlocks the next — a light gate that
+// keeps a beginner on level-appropriate material instead of a wall of unknowns.
+const UNLOCK_AFTER = 6;
 
-export function ReadingMode({ items, loading, error, shuffleSeed, stats, onAnswer, glossary, knownWords }) {
-  const queue = useMemo(
-    () => (items.length ? stableShuffle(items, `${shuffleSeed}:reading`) : []),
-    [items, shuffleSeed],
-  );
+function countByLevel(items, doneMap) {
+  const total = {};
+  const done = {};
+  for (const it of items) {
+    total[it.level] = (total[it.level] || 0) + 1;
+    if (doneMap[it.id]) done[it.level] = (done[it.level] || 0) + 1;
+  }
+  return { total, done };
+}
+
+function isUnlocked(levelId, done) {
+  const idx = LEVELS.findIndex((l) => l.id === levelId);
+  if (idx <= 0) return true;
+  const prev = LEVELS[idx - 1].id;
+  return (done[prev] || 0) >= UNLOCK_AFTER;
+}
+
+function pickDefaultLevel(items, doneMap) {
+  const { total, done } = countByLevel(items, doneMap);
+  // lowest unlocked level that still has unread passages
+  for (const { id } of LEVELS) {
+    if (isUnlocked(id, done) && (done[id] || 0) < (total[id] || 0)) return id;
+  }
+  // else highest unlocked level
+  let fallback = 'gaokao';
+  for (const { id } of LEVELS) if (isUnlocked(id, done)) fallback = id;
+  return fallback;
+}
+
+export function ReadingMode({ items, loading, error, shuffleSeed, stats, onAnswer, onComplete, glossary, knownWords }) {
+  const doneMap = stats?.done || {};
+  const [level, setLevel] = useState('gaokao');
   const [index, setIndex] = useState(0);
   const [answers, setAnswers] = useState({});
   const [showTranslation, setShowTranslation] = useState(false);
   const [showParse, setShowParse] = useState(false);
+  const initedRef = useRef(false);
+
+  // Pick a sensible starting level once passages load (e.g. jump to 四级 if the
+  // learner already finished 高考).
+  useEffect(() => {
+    if (initedRef.current || !items.length) return;
+    initedRef.current = true;
+    setLevel(pickDefaultLevel(items, doneMap));
+  }, [items, doneMap]);
+
+  const counts = useMemo(() => countByLevel(items, doneMap), [items, doneMap]);
+
+  // Queue: this level's passages, unread ones first, deterministically shuffled.
+  const queue = useMemo(() => {
+    const pool = items.filter((it) => it.level === level);
+    const shuffled = stableShuffle(pool, `${shuffleSeed}:reading:${level}`);
+    const unread = shuffled.filter((it) => !doneMap[it.id]);
+    const read = shuffled.filter((it) => doneMap[it.id]);
+    return [...unread, ...read];
+  }, [items, level, shuffleSeed, doneMap]);
 
   const current = queue.length ? queue[Math.min(index, queue.length - 1)] : null;
 
@@ -24,6 +79,12 @@ export function ReadingMode({ items, loading, error, shuffleSeed, stats, onAnswe
     setShowParse(false);
   }, [current?.id]);
 
+  function chooseLevel(id, unlocked) {
+    if (!unlocked || id === level) return;
+    setLevel(id);
+    setIndex(0);
+  }
+
   if (loading) {
     return (
       <div className="card primary-card">
@@ -31,7 +92,7 @@ export function ReadingMode({ items, loading, error, shuffleSeed, stats, onAnswe
       </div>
     );
   }
-  if (error || !queue.length) {
+  if (error || !items.length) {
     return (
       <div className="card primary-card">
         <EmptyState
@@ -42,7 +103,7 @@ export function ReadingMode({ items, loading, error, shuffleSeed, stats, onAnswe
     );
   }
 
-  const questions = Array.isArray(current.questions) ? current.questions : [];
+  const questions = Array.isArray(current?.questions) ? current.questions : [];
   const answeredCount = Object.keys(answers).length;
   const allAnswered = answeredCount >= questions.length && questions.length > 0;
   const correctCount = questions.reduce(
@@ -50,13 +111,18 @@ export function ReadingMode({ items, loading, error, shuffleSeed, stats, onAnswe
     0,
   );
   const accuracy = stats?.seen ? Math.round((stats.correct / stats.seen) * 100) : null;
-  const paragraphs = String(current.passage).split(/\n{2,}/).filter(Boolean);
-  const translationParagraphs = String(current.translation || '').split(/\n{2,}/).filter(Boolean);
+  const paragraphs = String(current?.passage || '').split(/\n{2,}/).filter(Boolean);
+  const translationParagraphs = String(current?.translation || '').split(/\n{2,}/).filter(Boolean);
 
   function pick(qIndex, optIndex) {
-    if (answers[qIndex] !== undefined) return;
-    setAnswers((prev) => ({ ...prev, [qIndex]: optIndex }));
+    if (!current || answers[qIndex] !== undefined) return;
+    const next = { ...answers, [qIndex]: optIndex };
+    setAnswers(next);
     onAnswer?.(questions[qIndex].answer === optIndex);
+    if (Object.keys(next).length === questions.length) {
+      const correct = questions.reduce((n, q, i) => n + (next[i] === q.answer ? 1 : 0), 0);
+      onComplete?.(current, correct);
+    }
   }
   function go(delta) {
     setIndex((i) => (queue.length ? (i + delta + queue.length) % queue.length : 0));
@@ -67,24 +133,50 @@ export function ReadingMode({ items, loading, error, shuffleSeed, stats, onAnswe
       <div className="card-toolbar">
         <div>
           <strong>短文精读</strong>
-          <span>{current.topic}</span>
-          {current.level ? (
-            <span className="queue-badge">{LEVEL_LABEL[current.level] || current.level}</span>
-          ) : null}
+          {current?.topic ? <span>{current.topic}</span> : null}
         </div>
         <div className="toolbar-center">
-          第 {index + 1} / {queue.length} 篇
+          第 {queue.length ? index + 1 : 0} / {queue.length} 篇
         </div>
         <div className="toolbar-actions">
           {accuracy !== null ? <span className="cloze-acc">正确率 {accuracy}%</span> : null}
         </div>
       </div>
 
+      <div className="reading-levels">
+        {LEVELS.map(({ id, label }) => {
+          const unlocked = isUnlocked(id, counts.done);
+          const total = counts.total[id] || 0;
+          const done = counts.done[id] || 0;
+          const prevLabel = LEVELS[LEVELS.findIndex((l) => l.id === id) - 1]?.label;
+          return (
+            <button
+              key={id}
+              type="button"
+              className={`level-tab ${level === id ? 'is-active' : ''} ${unlocked ? '' : 'is-locked'}`.replace(/\s+/g, ' ').trim()}
+              disabled={!unlocked}
+              onClick={() => chooseLevel(id, unlocked)}
+              title={unlocked ? '' : `完成 ${UNLOCK_AFTER} 篇${prevLabel}后解锁`}
+            >
+              {!unlocked ? <Lock size={12} /> : null}
+              <span>{label}</span>
+              <em>{unlocked ? `${done}/${total}` : `完成${UNLOCK_AFTER}篇${prevLabel}解锁`}</em>
+            </button>
+          );
+        })}
+      </div>
+
+      {!current ? (
+        <div className="reading-body">
+          <EmptyState title="这个难度还没有材料" detail="换个难度试试。" />
+        </div>
+      ) : (
       <div className="reading-body">
         <h3 className="reading-title">{current.title}</h3>
         <div className="reading-meta">
           {current.wordCount ? <span>{current.wordCount} words</span> : null}
           {questions.length ? <span>{questions.length} 题</span> : null}
+          {doneMap[current.id] ? <span className="reading-done">已读过</span> : null}
           {allAnswered ? <span className="reading-score">本篇 {correctCount}/{questions.length}</span> : null}
         </div>
 
@@ -205,12 +297,13 @@ export function ReadingMode({ items, loading, error, shuffleSeed, stats, onAnswe
           </div>
         ) : null}
       </div>
+      )}
 
       <div className="card-footer">
-        <button type="button" onClick={() => go(-1)}>
+        <button type="button" onClick={() => go(-1)} disabled={!current}>
           <ChevronLeft size={18} /> 上一篇
         </button>
-        <button type="button" onClick={() => go(1)}>
+        <button type="button" onClick={() => go(1)} disabled={!current}>
           下一篇 <ChevronRight size={18} />
         </button>
       </div>

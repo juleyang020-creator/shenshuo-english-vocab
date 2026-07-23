@@ -25,7 +25,7 @@ export function defaultStudyState() {
     notes: {},
     daily: {},
     cloze: { seen: 0, correct: 0 },
-    reading: { seen: 0, correct: 0 },
+    reading: { seen: 0, correct: 0, done: {} },
     settings: {
       ...DEFAULT_SETTINGS,
       shuffleSeed: getTodayKey(),

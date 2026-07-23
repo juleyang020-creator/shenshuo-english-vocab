@@ -498,6 +498,27 @@ export default function App() {
     });
   }
 
+  function recordReadingComplete(passage, correctCount) {
+    if (!passage) return;
+    setStudy((previous) => {
+      const reading = previous.reading || { seen: 0, correct: 0, done: {} };
+      return {
+        ...previous,
+        reading: {
+          ...reading,
+          done: {
+            ...(reading.done || {}),
+            [passage.id]: {
+              level: passage.level,
+              correct: correctCount,
+              total: (passage.questions || []).length,
+            },
+          },
+        },
+      };
+    });
+  }
+
   function updateDaily(result) {
     setStudy((previous) => {
       const current = previous.daily[todayKey] || { seen: 0, known: 0, weak: 0, quiz: 0 };
@@ -721,6 +742,7 @@ export default function App() {
                 shuffleSeed={shuffleSeed}
                 stats={study.reading}
                 onAnswer={recordReading}
+                onComplete={recordReadingComplete}
                 glossary={glossary}
                 knownWords={knownWords}
               />

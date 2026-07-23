@@ -2556,3 +2556,53 @@ button {
   font-size: 12px;
   letter-spacing: 0.02em;
 }
+
+/* ====== 精读难度分层 tabs ====== */
+.reading-levels {
+  display: flex;
+  gap: 8px;
+  padding: 12px 28px 0;
+  flex-wrap: wrap;
+}
+.level-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  border-radius: 999px;
+  padding: 5px 14px;
+  color: var(--text-soft);
+  font-size: 13px;
+  font-weight: 600;
+  transition: border-color 120ms ease, background 120ms ease, color 120ms ease;
+}
+.level-tab em {
+  font-style: normal;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--subtle);
+  font-variant-numeric: tabular-nums;
+}
+.level-tab:hover:not(:disabled) { border-color: var(--accent); color: var(--accent-strong); }
+.level-tab.is-active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fdf9f0;
+}
+.level-tab.is-active em { color: #d8e9e6; }
+.level-tab.is-locked {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background: var(--bg-deep);
+}
+.level-tab.is-locked em { color: var(--muted); }
+
+.reading-done {
+  color: var(--accent-strong);
+  font-weight: 600;
+}
+
+@media (max-width: 760px) {
+  .reading-levels { padding: 12px 16px 0; }
+}
