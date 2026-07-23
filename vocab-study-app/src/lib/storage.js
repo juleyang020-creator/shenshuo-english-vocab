@@ -24,8 +24,11 @@ export function defaultStudyState() {
     words: {},
     notes: {},
     daily: {},
-    cloze: { seen: 0, correct: 0 },
-    reading: { seen: 0, correct: 0, done: {} },
+    // lastItemId / lastPassageId remember where you were INSIDE these modules.
+    // settings.lastSession only tracks the word-queue cursor, so without these
+    // the 辨析 / 精读 modules restarted at item 1 on every open.
+    cloze: { seen: 0, correct: 0, lastItemId: null },
+    reading: { seen: 0, correct: 0, done: {}, lastPassageId: null, level: null },
     settings: {
       ...DEFAULT_SETTINGS,
       shuffleSeed: getTodayKey(),
@@ -130,6 +133,19 @@ export function saveStudyState(state, { immediate = false } = {}) {
     flushPending();
   } else {
     saveTimer = setTimeout(flushPending, 400);
+  }
+}
+
+// Ask the browser to treat our storage as persistent. Progress lives entirely in
+// localStorage + IndexedDB, and browsers evict "best-effort" storage under disk
+// pressure — iOS Safari also clears it for sites left unopened for ~7 days, which
+// would silently wipe every word the learner has studied. Best-effort and safe:
+// unsupported browsers just no-op, and it never prompts on its own.
+export function requestPersistentStorage() {
+  try {
+    navigator.storage?.persist?.().catch(() => {});
+  } catch {
+    // ignore — persistence is an optimisation, never a requirement
   }
 }
 

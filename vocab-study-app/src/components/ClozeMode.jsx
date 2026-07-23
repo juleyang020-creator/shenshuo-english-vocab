@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { CheckCircle2, ChevronLeft, ChevronRight, Lightbulb, XCircle } from 'lucide-react';
 import { EmptyState } from './EmptyState.jsx';
 import { GlossedText } from './GlossedText.jsx';
@@ -40,7 +40,7 @@ function SentenceWithBlank({ sentence, answered, answerWord, glossary, knownWord
   );
 }
 
-export function ClozeMode({ items, loading, error, shuffleSeed, stats, onAnswer, glossary, knownWords }) {
+export function ClozeMode({ items, loading, error, shuffleSeed, stats, onAnswer, onPositionChange, glossary, knownWords }) {
   const queue = useMemo(
     () => (items.length ? stableShuffle(items, `${shuffleSeed}:cloze`) : []),
     [items, shuffleSeed],
@@ -68,13 +68,32 @@ export function ClozeMode({ items, loading, error, shuffleSeed, stats, onAnswer,
     onAnswer?.(Boolean(correct), current.answer);
   }
 
-  function next() {
+  // Jump back to the question we left off on, once the queue exists. Runs at
+  // most once, and only reports positions afterwards so the restore can't be
+  // overwritten by the initial render's position.
+  const restoredRef = useRef(false);
+  useEffect(() => {
+    if (restoredRef.current || !queue.length) return;
+    restoredRef.current = true;
+    const targetId = stats?.lastItemId;
+    if (!targetId) return;
+    const idx = queue.findIndex((item) => item.id === targetId);
+    if (idx >= 0) setIndex(idx);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [queue]);
+
+  function go(delta) {
+    if (!queue.length) return;
+    const nextIndex = (index + delta + queue.length) % queue.length;
     setSelected(null);
-    setIndex((i) => (queue.length ? (i + 1) % queue.length : 0));
+    setIndex(nextIndex);
+    onPositionChange?.(queue[nextIndex]?.id);
+  }
+  function next() {
+    go(1);
   }
   function previous() {
-    setSelected(null);
-    setIndex((i) => (queue.length ? (i - 1 + queue.length) % queue.length : 0));
+    go(-1);
   }
 
   useKeyboardShortcuts(

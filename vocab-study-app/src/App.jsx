@@ -569,7 +569,9 @@ export default function App() {
       const cloze = previous.cloze || { seen: 0, correct: 0 };
       return {
         ...previous,
-        cloze: { seen: cloze.seen + 1, correct: cloze.correct + (correct ? 1 : 0) },
+        // Spread first — this object also carries lastItemId, and rebuilding it
+        // from scratch would silently drop the saved position on every answer.
+        cloze: { ...cloze, seen: cloze.seen + 1, correct: cloze.correct + (correct ? 1 : 0) },
         daily: {
           ...previous.daily,
           [todayKey]: { ...current, cloze: (current.cloze || 0) + 1 },
@@ -590,15 +592,41 @@ export default function App() {
   function recordReading(correct) {
     setStudy((previous) => {
       const current = previous.daily[todayKey] || { seen: 0, known: 0, weak: 0, quiz: 0 };
-      const reading = previous.reading || { seen: 0, correct: 0 };
+      const reading = previous.reading || { seen: 0, correct: 0, done: {} };
       return {
         ...previous,
-        reading: { seen: reading.seen + 1, correct: reading.correct + (correct ? 1 : 0) },
+        // Spread first. Without it this wiped `done` on every answered question,
+        // and since recordReadingComplete chains onto the same click it then read
+        // an empty `done` — so finishing a passage erased every previously-read
+        // one, permanently pinning the 已读 count near 1 and making the 四级/六级
+        // unlock unreachable. It also drops lastPassageId/level.
+        reading: { ...reading, seen: reading.seen + 1, correct: reading.correct + (correct ? 1 : 0) },
         daily: {
           ...previous.daily,
           [todayKey]: { ...current, reading: (current.reading || 0) + 1 },
         },
       };
+    });
+  }
+
+  // Remember the position INSIDE the 辨析 / 精读 modules. Both keep their cursor
+  // in local component state, so without this they reopened at item 1 every time
+  // — with a 3522-question bank that meant re-grinding the same opening forever.
+  // Stored by id rather than index so it survives reshuffles and data updates.
+  function recordClozePosition(itemId) {
+    if (!itemId) return;
+    setStudy((previous) => {
+      const cloze = previous.cloze || { seen: 0, correct: 0 };
+      if (cloze.lastItemId === itemId) return previous;
+      return { ...previous, cloze: { ...cloze, lastItemId: itemId } };
+    });
+  }
+
+  function recordReadingPosition(passageId, level) {
+    setStudy((previous) => {
+      const reading = previous.reading || { seen: 0, correct: 0, done: {} };
+      if (reading.lastPassageId === passageId && reading.level === level) return previous;
+      return { ...previous, reading: { ...reading, lastPassageId: passageId, level } };
     });
   }
 
@@ -893,6 +921,7 @@ export default function App() {
                 stats={study.reading}
                 onAnswer={recordReading}
                 onComplete={recordReadingComplete}
+                onPositionChange={recordReadingPosition}
                 glossary={glossary}
                 knownWords={knownWords}
               />
@@ -904,6 +933,7 @@ export default function App() {
                 shuffleSeed={shuffleSeed}
                 stats={study.cloze}
                 onAnswer={recordCloze}
+                onPositionChange={recordClozePosition}
                 glossary={glossary}
                 knownWords={knownWords}
               />

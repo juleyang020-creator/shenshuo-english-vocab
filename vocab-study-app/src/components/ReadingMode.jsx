@@ -42,7 +42,7 @@ function pickDefaultLevel(items, doneMap) {
   return fallback;
 }
 
-export function ReadingMode({ items, loading, error, shuffleSeed, stats, onAnswer, onComplete, glossary, knownWords }) {
+export function ReadingMode({ items, loading, error, shuffleSeed, stats, onAnswer, onComplete, onPositionChange, glossary, knownWords }) {
   const doneMap = stats?.done || {};
   const [level, setLevel] = useState('gaokao');
   const [index, setIndex] = useState(0);
@@ -50,13 +50,25 @@ export function ReadingMode({ items, loading, error, shuffleSeed, stats, onAnswe
   const [showTranslation, setShowTranslation] = useState(false);
   const [showParse, setShowParse] = useState(false);
   const initedRef = useRef(false);
+  // The passage we owe the learner a jump back to. Held until a queue actually
+  // containing it shows up — the saved level is applied asynchronously, so the
+  // first queue we see may still be the default level's.
+  const pendingPassageRef = useRef(stats?.lastPassageId || null);
 
-  // Pick a sensible starting level once passages load (e.g. jump to 四级 if the
-  // learner already finished 高考).
+  // Restore the level tab last chosen (when it's still unlocked); otherwise pick
+  // the lowest unlocked level that still has unread passages.
   useEffect(() => {
     if (initedRef.current || !items.length) return;
     initedRef.current = true;
+    const saved = stats?.level;
+    const done = countByLevel(items, doneMap).done;
+    if (saved && LEVELS.some((l) => l.id === saved) && isUnlocked(saved, done)) {
+      setLevel(saved);
+      return;
+    }
+    pendingPassageRef.current = null; // saved level unusable — don't chase its passage
     setLevel(pickDefaultLevel(items, doneMap));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [items, doneMap]);
 
   const counts = useMemo(() => countByLevel(items, doneMap), [items, doneMap]);
@@ -72,6 +84,18 @@ export function ReadingMode({ items, loading, error, shuffleSeed, stats, onAnswe
 
   const current = queue.length ? queue[Math.min(index, queue.length - 1)] : null;
 
+  // Consume the pending restore as soon as a queue containing that passage
+  // appears (i.e. once the saved level has been applied).
+  useEffect(() => {
+    const targetId = pendingPassageRef.current;
+    if (!targetId || !queue.length) return;
+    const idx = queue.findIndex((item) => item.id === targetId);
+    if (idx >= 0) {
+      pendingPassageRef.current = null;
+      setIndex(idx);
+    }
+  }, [queue]);
+
   useEffect(() => {
     setAnswers({});
     setShowTranslation(false);
@@ -80,8 +104,10 @@ export function ReadingMode({ items, loading, error, shuffleSeed, stats, onAnswe
 
   function chooseLevel(id, unlocked) {
     if (!unlocked || id === level) return;
+    pendingPassageRef.current = null; // an explicit tab change outranks any restore
     setLevel(id);
     setIndex(0);
+    onPositionChange?.(null, id);
   }
 
   if (loading) {
@@ -124,7 +150,11 @@ export function ReadingMode({ items, loading, error, shuffleSeed, stats, onAnswe
     }
   }
   function go(delta) {
-    setIndex((i) => (queue.length ? (i + delta + queue.length) % queue.length : 0));
+    if (!queue.length) return;
+    const nextIndex = (index + delta + queue.length) % queue.length;
+    pendingPassageRef.current = null;
+    setIndex(nextIndex);
+    onPositionChange?.(queue[nextIndex]?.id, level);
   }
 
   return (
