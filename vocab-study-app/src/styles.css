@@ -1346,8 +1346,10 @@ button {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    /* leave room so content can scroll clear of the fixed bottom tab bar */
-    padding-bottom: calc(66px + env(safe-area-inset-bottom));
+    /* Leave room so content can scroll clear of the fixed bottom tab bar. Must
+       stay >= the bar's real height (59px + padding); the nav-item nowrap rule
+       below is what keeps that height from growing on narrow screens. */
+    padding-bottom: calc(68px + env(safe-area-inset-bottom));
   }
 
   .sidebar {
@@ -1426,7 +1428,7 @@ button {
     vertical-align: top;
   }
 
-  /* ---- Fixed bottom tab bar: the 5 study modes ---- */
+  /* ---- Fixed bottom tab bar: the 7 study modes ---- */
   .sidebar nav.nav-section {
     order: 9;
     position: fixed;
@@ -1450,6 +1452,9 @@ button {
     display: none;
   }
 
+  /* nowrap is load-bearing: .app-shell reserves a fixed 68px for this bar, so if
+     a label ever wraps to two lines the bar grows taller than the space reserved
+     and permanently covers the bottom of the page. */
   .sidebar nav.nav-section .nav-item {
     flex: 1 1 0;
     flex-direction: column;
@@ -1462,6 +1467,7 @@ button {
     font-weight: 600;
     border-radius: 10px;
     text-align: center;
+    white-space: nowrap;
   }
 
   /* ---- Card internals ---- */
@@ -1931,6 +1937,14 @@ button {
   color: var(--subtle);
   font-size: 10.5px;
   font-variant-numeric: tabular-nums;
+}
+
+/* Now stands alone at the foot of the rail (its 「词库概况」panel was removed),
+   so it brings its own right-alignment instead of inheriting the panel's. */
+.rail-danger {
+  display: flex;
+  justify-content: flex-end;
+  padding: 4px 2px 2px;
 }
 
 .reset-progress {
@@ -2842,14 +2856,31 @@ button {
     min-height: 46px;
   }
 
+  /* Give the detail tabs breathing room from the fixed bottom bar — they sat
+     ~1px apart and read as one merged double navigation. */
+  .detail-card {
+    margin-bottom: 10px;
+  }
+
   .tabs {
     gap: 4px;
   }
 
+  /* `flex: 1 1 0` alone forced 4-character 「原书释义」into the same width as
+     2-character 「发音」, wrapping it onto two lines. Sizing from content with a
+     smaller face keeps every label on one line while still filling the row. */
   .tabs button {
     min-height: 46px;
-    flex: 1 1 0;
-    padding: 0 4px;
+    flex: 1 1 auto;
+    /* min-width:0 lets a tab shrink below its nowrap content width if a wider
+       font or OS text-scaling ever pushes the five labels past the row, so the
+       row degrades by ellipsis instead of overflowing the page horizontally. */
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0 6px;
+    font-size: 12.5px;
+    white-space: nowrap;
   }
 
   .chunk-button {
@@ -2881,5 +2912,21 @@ button {
 
   .mastery span {
     letter-spacing: 0.02em;
+  }
+}
+
+/* Narrowest supported width (the app declares min-width: 320px). Seven 4-character
+   labels at 11px no longer fit the ~43px each tab gets, so shrink the type rather
+   than let it wrap — a wrapped label makes the fixed bar taller than the space
+   reserved for it and hides the bottom of the page. */
+@media (max-width: 355px) {
+  .sidebar nav.nav-section .nav-item {
+    font-size: 10px;
+    gap: 2px;
+    padding: 4px 1px;
+  }
+
+  .sidebar nav.nav-section {
+    gap: 1px;
   }
 }

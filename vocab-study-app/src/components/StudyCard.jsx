@@ -117,17 +117,20 @@ export function StudyCard({
           <span>{activeScopeMeta?.label || '词库'}</span>
           <span className="queue-badge">乱序</span>
         </div>
+        {/* An empty queue used to read 「第 0 / 0 词」, and the two icons stayed lit
+            while doing nothing — both handlers bail out with no current word. */}
         <div className="toolbar-center">
-          第 {queue.length ? currentIndex + 1 : 0} / {queue.length || 0} 词
+          {queue.length ? `第 ${currentIndex + 1} / ${queue.length} 词` : null}
         </div>
         <div className="toolbar-actions">
-          <IconButton label="发音 (P)" onClick={onPlay}>
+          <IconButton label="发音 (P)" onClick={onPlay} disabled={!currentEntry}>
             <Volume2 size={19} />
           </IconButton>
           <IconButton
             className={currentProgress.favorite ? 'is-favorite' : ''}
             label="收藏 (S)"
             onClick={onToggleFavorite}
+            disabled={!currentEntry}
           >
             <Star size={19} />
           </IconButton>

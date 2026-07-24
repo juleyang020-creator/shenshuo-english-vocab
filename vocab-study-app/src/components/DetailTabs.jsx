@@ -404,10 +404,14 @@ export function DetailTabs({
             </>
           )}
           <label className="note-pane__label">个人笔记</label>
+          {/* With no current word this was "fake alive": a controlled textarea whose
+              value is pinned to '' while onNoteChange early-returns, so typing put
+              nothing on screen and read as a frozen app. Disable it and say why. */}
           <textarea
             className="note-box"
-            placeholder="记录易混点、例句、口诀"
+            placeholder={currentEntry ? '记录易混点、例句、口诀' : '选中一个单词后才能记笔记'}
             value={noteValue}
+            disabled={!currentEntry}
             onChange={(event) => onNoteChange(event.target.value)}
           />
         </div>

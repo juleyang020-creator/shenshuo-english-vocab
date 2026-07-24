@@ -31,6 +31,7 @@ export function Sidebar({
   typeScopes,
   frequencyScopeStats,
   typeScopeStats,
+  onOpenFavorites,
 }) {
   return (
     <aside className="sidebar">
@@ -104,7 +105,10 @@ export function Sidebar({
         ))}
       </div>
 
-      <button className="favorite-link" type="button" onClick={() => setMode('browse')}>
+      {/* Used to be a second, identical door to 生词本 (both just setMode('browse')).
+          Now it earns its place: it lands in 生词本 with the list already filtered
+          to favourites. */}
+      <button className="favorite-link" type="button" onClick={onOpenFavorites}>
         <Star size={21} />
         我的收藏
       </button>

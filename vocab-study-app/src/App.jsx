@@ -287,7 +287,14 @@ export default function App() {
       const browsePool = debouncedSearchTerm ? searchedEntries : entries;
       return browsePool.filter((entry) => {
         const progress = getWordProgress(study, entry);
-        return debouncedSearchTerm || progress.favorite || isWeak(progress) || progress.attempts;
+        if (debouncedSearchTerm) return true;
+        // With no search term the pane is the 生词本 itself: normally everything
+        // the learner has touched. But an explicit chip narrows it — 「我的收藏」
+        // relies on this, otherwise picking it would still hand back the whole
+        // favourite-OR-weak-OR-attempted union and likely land on a weak word.
+        if (searchFilter === 'favorite') return Boolean(progress.favorite);
+        if (searchFilter === 'weak') return isWeak(progress);
+        return progress.favorite || isWeak(progress) || progress.attempts;
       });
     }
     if (mode === 'review') {
@@ -318,6 +325,7 @@ export default function App() {
     rangeEntries,
     reviewableRangeEntries,
     searchedEntries,
+    searchFilter,
     shuffledRangeEntries,
     shuffleSeed,
     study,
@@ -338,7 +346,6 @@ export default function App() {
     () => learnerEntries.filter((entry) => isKnown(getWordProgress(study, entry))).length,
     [learnerEntries, study],
   );
-  const activeStats = getLearningStats(rangeEntries, study);
   const usableOptionEntries = useMemo(
     () => learnerEntries.filter(hasUsableChineseDefinition),
     [learnerEntries],
@@ -888,6 +895,11 @@ export default function App() {
         typeScopes={typeScopes}
         frequencyScopeStats={frequencyScopeStats}
         typeScopeStats={typeScopeStats}
+        onOpenFavorites={() => {
+          setMode('browse');
+          setSearchFilter('favorite');
+          setActiveTab('search');
+        }}
       />
 
       <main className="workspace">
@@ -1016,10 +1028,7 @@ export default function App() {
             todayStats={todayStats}
             weakEntries={weakEntries}
             dueEntries={dueEntries}
-            learnerEntriesCount={learnerEntries.length}
-            activeStats={activeStats}
             stageCounts={payload.meta?.stageCounts || {}}
-            payload={payload}
             study={study}
             activeScope={activeScope}
             setMode={setMode}

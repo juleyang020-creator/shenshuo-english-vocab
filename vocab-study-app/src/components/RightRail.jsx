@@ -1,31 +1,27 @@
 import { useMemo } from 'react';
-import {
-  Bookmark,
-  BookOpen,
-  ChevronDown,
-  ChevronRight,
-  GraduationCap,
-  Target,
-  Trash2,
-} from 'lucide-react';
+import { ChevronDown, ChevronRight, Trash2 } from 'lucide-react';
 import { Panel } from './Panel.jsx';
 import { TaskRow } from './TaskRow.jsx';
 import { EmptyState } from './EmptyState.jsx';
-import { summarizeRecentDays } from '../lib/streak.js';
+import { dayTotal, summarizeRecentDays } from '../lib/streak.js';
 import { DIFFICULTY_STAGES } from '../lib/frequency.js';
 import { STAGE_CHUNK_SIZE } from '../lib/scope.js';
 import { clamp } from '../lib/math.js';
 
+// Bars count every module (words + 辨析 + 精读), matching the streak — otherwise
+// a day spent only on 辨析/精读 shows an empty bar while the streak counts it.
+// The 6% floor is deliberate: it keeps a "you did a little" day visible rather
+// than invisible, so don't raise it — an all-zero week gets a caption instead.
 function Sparkline({ days, max }) {
   if (!days?.length) return null;
-  const ceiling = Math.max(max || 0, 1, ...days.map((day) => day.seen || 0));
+  const ceiling = Math.max(max || 0, 1, ...days.map(dayTotal));
   return (
     <div className="sparkline">
       {days.map((day) => (
-        <div className="sparkline__col" key={day.key} title={`${day.key} · ${day.seen} 词`}>
+        <div className="sparkline__col" key={day.key} title={`${day.key} · ${dayTotal(day)} 次`}>
           <span
             className="sparkline__bar"
-            style={{ height: `${clamp(((day.seen || 0) / ceiling) * 100, 6, 100)}%` }}
+            style={{ height: `${clamp((dayTotal(day) / ceiling) * 100, 6, 100)}%` }}
           />
           <small>{day.key.slice(5)}</small>
         </div>
@@ -110,10 +106,7 @@ export function RightRail({
   todayStats,
   weakEntries,
   dueEntries,
-  learnerEntriesCount,
-  activeStats,
   stageCounts,
-  payload,
   study,
   activeScope,
   setMode,
@@ -122,27 +115,36 @@ export function RightRail({
   resetAllProgress,
 }) {
   const recentDays = useMemo(() => summarizeRecentDays(study.daily, 7), [study.daily]);
+  const hasRecentActivity = recentDays.some((day) => dayTotal(day) > 0);
   return (
     <aside className="right-rail">
-      <Panel title="今日任务">
+      {/* 「新词学习」used to live here too, but the top bar already shows that exact
+          pair as a ring AND as text. The remaining three are today's only display
+          of 复习/测试/答错 counts, so the panel stays — it just no longer repeats.
+          Denominators are the real totals: the old Math.max(20/10, …) floors made
+          the row read "3 / 10" while the panel below said 「薄弱词汇 (7)」. */}
+      <Panel title="今日完成">
         <div className="task-list">
-          <TaskRow label="新词学习" total={dailyTarget} value={todayStats.seen} />
           <TaskRow
             label="复习单词"
-            total={Math.max(20, dueEntries.length)}
-            value={Math.min(todayStats.known, Math.max(20, dueEntries.length))}
+            total={Math.max(1, dueEntries.length)}
+            value={Math.min(todayStats.known, Math.max(1, dueEntries.length))}
           />
           <TaskRow label="单词测试" total={30} value={todayStats.quiz} />
           <TaskRow
-            label="薄弱词汇"
-            total={Math.max(10, weakEntries.length)}
-            value={Math.min(todayStats.weak, Math.max(10, weakEntries.length))}
+            label="答错待巩固"
+            total={Math.max(1, weakEntries.length)}
+            value={Math.min(todayStats.weak, Math.max(1, weakEntries.length))}
           />
         </div>
       </Panel>
 
       <Panel title="近 7 天进度">
-        <Sparkline days={recentDays} max={dailyTarget} />
+        {hasRecentActivity ? (
+          <Sparkline days={recentDays} max={dailyTarget} />
+        ) : (
+          <EmptyState title="近 7 天还没有学习记录" detail="今天学几个词，这里就会亮起来。" />
+        )}
       </Panel>
 
       <Panel title="难度梯度（点击展开小段）">
@@ -194,37 +196,18 @@ export function RightRail({
         {!dueEntries.length ? <EmptyState title="没有到期词" /> : null}
       </Panel>
 
-      <Panel title="词库概况">
-        <div className="library-stats">
-          <div>
-            <Target size={20} />
-            <span>词库总数</span>
-            <strong>{learnerEntriesCount}</strong>
-          </div>
-          <div>
-            <Bookmark size={20} />
-            <span>当前分类</span>
-            <strong>
-              {activeStats.learned}/{activeStats.total}
-            </strong>
-          </div>
-          <div>
-            <GraduationCap size={20} />
-            <span>高考基础</span>
-            <strong>{stageCounts?.gaokao || 0}</strong>
-          </div>
-          <div>
-            <BookOpen size={20} />
-            <span>来源页</span>
-            <strong>
-              {payload.meta?.printedPages?.[0] || 88}-{payload.meta?.printedPages?.[1] || 282}
-            </strong>
-          </div>
-        </div>
+      {/* 「词库概况」removed: 词库总数 repeated the top bar, 当前分类 repeated the
+          highlighted sidebar scope, 高考基础 repeated the 难度梯度 panel above, and
+          「来源页 88-282」was a fixed page range from the paper syllabus — no use to
+          a learner. The reset button was its child and is the app's ONLY data-reset
+          entry point, so it stays, on its own, at the bottom where dangerous
+          actions belong (and still reachable on mobile, unlike the top-bar gear
+          which CSS hides below 1180px). */}
+      <div className="rail-danger">
         <button className="reset-progress" type="button" onClick={resetAllProgress}>
           <Trash2 size={15} /> 清除所有学习进度
         </button>
-      </Panel>
+      </div>
     </aside>
   );
 }

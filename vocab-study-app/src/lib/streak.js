@@ -23,8 +23,18 @@ function formatUtc(ms) {
   return `${date.getUTCFullYear()}-${pad2(date.getUTCMonth() + 1)}-${pad2(date.getUTCDate())}`;
 }
 
+// Total study actions on a day, across EVERY module. `seen` alone is not enough:
+// it's only incremented by markEntry (study/review/quiz/spelling), so a day spent
+// entirely on 近义辨析 or 短文精读 scored zero — silently breaking the streak and
+// leaving an empty bar in the 7-day chart, even though the app had recorded the
+// work. Exported so the chart and the streak can never disagree again.
+export function dayTotal(day) {
+  if (!day) return 0;
+  return (day.seen || 0) + (day.cloze || 0) + (day.reading || 0);
+}
+
 function dayCount(daily, key) {
-  return daily?.[key]?.seen || 0;
+  return dayTotal(daily?.[key]);
 }
 
 export function computeCurrentStreak(daily, todayKey = getTodayKey()) {
@@ -62,7 +72,7 @@ export function summarizeRecentDays(daily, days = 7, todayKey = getTodayKey()) {
   let cursor = parseKey(todayKey);
   for (let index = 0; index < days; index += 1) {
     const key = formatUtc(cursor);
-    const entry = daily?.[key] || { seen: 0, known: 0, weak: 0, quiz: 0 };
+    const entry = daily?.[key] || { seen: 0, known: 0, weak: 0, quiz: 0, cloze: 0, reading: 0 };
     result.unshift({ key, ...entry });
     cursor -= DAY_MS;
   }
