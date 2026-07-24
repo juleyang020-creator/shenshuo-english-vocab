@@ -79,6 +79,68 @@ function migrate(stored) {
   return state;
 }
 
+// Merge an arbitrary (possibly older) study payload onto the current defaults,
+// running the same migration chain a normal load uses. Shared by loadStudyState
+// and by importing a backup file, so an exported v1 file upgrades exactly the way
+// a v1 localStorage record would.
+function hydrate(raw) {
+  const migrated = migrate(raw);
+  const fallback = defaultStudyState();
+  // The spread below would happily carry a null/!object container through from a
+  // corrupt record and crash every consumer, so re-assert the containers the app
+  // dereferences unguarded. Belt and braces with parseImportedStudyState's checks:
+  // this also covers a localStorage record damaged outside the import path.
+  const container = (value, fallbackValue) =>
+    typeof value === 'object' && value !== null && !Array.isArray(value) ? value : fallbackValue;
+  return {
+    ...fallback,
+    ...migrated,
+    words: container(migrated.words, fallback.words),
+    notes: container(migrated.notes, fallback.notes),
+    daily: container(migrated.daily, fallback.daily),
+    cloze: container(migrated.cloze, fallback.cloze),
+    reading: container(migrated.reading, fallback.reading),
+    settings: {
+      ...fallback.settings,
+      ...(migrated.settings || {}),
+      shuffleSeed: migrated.settings?.shuffleSeed || getTodayKey(),
+      speech: { ...DEFAULT_SPEECH_SETTINGS, ...(migrated.settings?.speech || {}) },
+    },
+  };
+}
+
+// Accepts the parsed contents of a backup file and returns a usable study state,
+// or throws with a human-readable reason. Deliberately strict about the shape:
+// importing overwrites everything, so a wrong file must fail loudly rather than
+// silently wipe the learner's progress.
+// `typeof null === 'object'`, so a null check is mandatory here: a truncated or
+// hand-edited file with `"words": null` would otherwise pass, survive the spread
+// in hydrate (which only guards `settings`), and crash every render on
+// `study.words[id]` — AFTER the caller has already written it to localStorage,
+// leaving a crash loop whose only exit is wiping all progress.
+function isPlainObject(value) {
+  return typeof value === 'object' && value !== null && !Array.isArray(value);
+}
+
+export function parseImportedStudyState(parsed) {
+  const payload = isPlainObject(parsed?.study) ? parsed.study : parsed;
+  if (!isPlainObject(payload)) {
+    throw new Error('文件格式不对：不是学习记录备份');
+  }
+  const hasKnownShape =
+    payload.words !== undefined || payload.daily !== undefined || payload.settings !== undefined;
+  if (!hasKnownShape) {
+    throw new Error('文件里没有学习记录（缺少 words / daily / settings）');
+  }
+  // Every container the app dereferences without its own guard must be checked.
+  for (const key of ['words', 'daily', 'notes', 'settings', 'cloze', 'reading']) {
+    if (payload[key] !== undefined && !isPlainObject(payload[key])) {
+      throw new Error(`文件已损坏：${key} 不是对象`);
+    }
+  }
+  return hydrate(payload);
+}
+
 export function loadStudyState() {
   if (typeof window === 'undefined') return defaultStudyState();
   let raw = {};
@@ -87,18 +149,7 @@ export function loadStudyState() {
   } catch {
     return defaultStudyState();
   }
-  const migrated = migrate(raw);
-  const fallback = defaultStudyState();
-  return {
-    ...fallback,
-    ...migrated,
-    settings: {
-      ...fallback.settings,
-      ...(migrated.settings || {}),
-      shuffleSeed: migrated.settings?.shuffleSeed || getTodayKey(),
-      speech: { ...DEFAULT_SPEECH_SETTINGS, ...(migrated.settings?.speech || {}) },
-    },
-  };
+  return hydrate(raw);
 }
 
 let saveTimer = null;

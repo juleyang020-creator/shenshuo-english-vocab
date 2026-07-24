@@ -3,6 +3,7 @@ import {
   ChevronLeft,
   ChevronRight,
   CircleHelp,
+  Headphones,
   Lightbulb,
   Star,
   Volume2,
@@ -39,6 +40,27 @@ function SpellingPrompt({ entry, onPlay }) {
       <div className="spelling-prompt__hint">
         根据中文释义、音标和发音拼写出英文单词
       </div>
+    </div>
+  );
+}
+
+// 听力模式 prompt: audio only. Deliberately withholds the spelling AND the
+// phonetic — either one hands over the answer — while the four options still
+// carry the Chinese meanings, so this tests "can I recognise this word by ear".
+function ListenPrompt({ onPlay }) {
+  return (
+    <div className="listen-prompt">
+      <button
+        type="button"
+        className="spelling-prompt__audio"
+        onClick={onPlay}
+        aria-label="再听一次发音"
+        title="再听一次发音 (P)"
+      >
+        <Volume2 size={42} />
+        <span>点这里再听一次</span>
+      </button>
+      <div className="spelling-prompt__hint">听发音，选出对应的中文释义</div>
     </div>
   );
 }
@@ -108,7 +130,12 @@ export function StudyCard({
   onPrevious,
   onNext,
   entriesCount,
+  listenMode = false,
+  onToggleListen,
 }) {
+  // Hide the word only until they answer — afterwards they need to SEE the word
+  // they just heard, otherwise the round teaches nothing.
+  const listenHidden = mode === 'quiz' && listenMode && !answeredChoice;
   return (
     <div className="card primary-card">
       <div className="card-toolbar">
@@ -123,6 +150,17 @@ export function StudyCard({
           {queue.length ? `第 ${currentIndex + 1} / ${queue.length} 词` : null}
         </div>
         <div className="toolbar-actions">
+          {mode === 'quiz' ? (
+            <button
+              className={`listen-toggle ${listenMode ? 'is-on' : ''}`.trim()}
+              type="button"
+              onClick={onToggleListen}
+              aria-pressed={listenMode}
+              title={listenMode ? '关闭听力模式，显示单词' : '开启听力模式：藏起单词，只放发音'}
+            >
+              <Headphones size={15} /> 听力模式
+            </button>
+          ) : null}
           <IconButton label="发音 (P)" onClick={onPlay} disabled={!currentEntry}>
             <Volume2 size={19} />
           </IconButton>
@@ -167,6 +205,8 @@ export function StudyCard({
             </div>
             {mode === 'spelling' && !spellingFeedback ? (
               <SpellingPrompt entry={currentEntry} onPlay={onPlay} />
+            ) : listenHidden ? (
+              <ListenPrompt onPlay={onPlay} />
             ) : (
               <>
                 <button className="word-title" type="button" onClick={onPlay}>

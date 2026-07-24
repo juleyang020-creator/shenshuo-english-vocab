@@ -1,34 +1,10 @@
-import { useMemo } from 'react';
-import { ChevronDown, ChevronRight, Trash2 } from 'lucide-react';
+import { ChevronDown, ChevronRight, Download, Trash2, Upload } from 'lucide-react';
 import { Panel } from './Panel.jsx';
 import { TaskRow } from './TaskRow.jsx';
 import { EmptyState } from './EmptyState.jsx';
-import { dayTotal, summarizeRecentDays } from '../lib/streak.js';
+import { StudyStats } from './StudyStats.jsx';
 import { DIFFICULTY_STAGES } from '../lib/frequency.js';
 import { STAGE_CHUNK_SIZE } from '../lib/scope.js';
-import { clamp } from '../lib/math.js';
-
-// Bars count every module (words + 辨析 + 精读), matching the streak — otherwise
-// a day spent only on 辨析/精读 shows an empty bar while the streak counts it.
-// The 6% floor is deliberate: it keeps a "you did a little" day visible rather
-// than invisible, so don't raise it — an all-zero week gets a caption instead.
-function Sparkline({ days, max }) {
-  if (!days?.length) return null;
-  const ceiling = Math.max(max || 0, 1, ...days.map(dayTotal));
-  return (
-    <div className="sparkline">
-      {days.map((day) => (
-        <div className="sparkline__col" key={day.key} title={`${day.key} · ${dayTotal(day)} 次`}>
-          <span
-            className="sparkline__bar"
-            style={{ height: `${clamp((dayTotal(day) / ceiling) * 100, 6, 100)}%` }}
-          />
-          <small>{day.key.slice(5)}</small>
-        </div>
-      ))}
-    </div>
-  );
-}
 
 function StageBreakdown({ stageCounts, activeScope, setActiveScope, setMode }) {
   return (
@@ -113,9 +89,9 @@ export function RightRail({
   setActiveScope,
   getWordProgress,
   resetAllProgress,
+  onExport,
+  onImport,
 }) {
-  const recentDays = useMemo(() => summarizeRecentDays(study.daily, 7), [study.daily]);
-  const hasRecentActivity = recentDays.some((day) => dayTotal(day) > 0);
   return (
     <aside className="right-rail">
       {/* 「新词学习」used to live here too, but the top bar already shows that exact
@@ -139,12 +115,8 @@ export function RightRail({
         </div>
       </Panel>
 
-      <Panel title="近 7 天进度">
-        {hasRecentActivity ? (
-          <Sparkline days={recentDays} max={dailyTarget} />
-        ) : (
-          <EmptyState title="近 7 天还没有学习记录" detail="今天学几个词，这里就会亮起来。" />
-        )}
+      <Panel title="学习统计">
+        <StudyStats daily={study.daily} words={study.words} dailyTarget={dailyTarget} />
       </Panel>
 
       <Panel title="难度梯度（点击展开小段）">
@@ -203,11 +175,25 @@ export function RightRail({
           entry point, so it stays, on its own, at the bottom where dangerous
           actions belong (and still reachable on mobile, unlike the top-bar gear
           which CSS hides below 1180px). */}
-      <div className="rail-danger">
+      {/* All progress lives in this browser's localStorage — phone and laptop are
+          separate records and clearing site data wipes everything. Export is the
+          learner's only real backup, and the way to move a record between devices. */}
+      <Panel title="数据">
+        <p className="data-note">
+          进度只保存在这台设备的浏览器里。导出一份，换设备或清缓存后可以导入恢复。
+        </p>
+        <div className="data-actions">
+          <button className="data-action" type="button" onClick={onExport}>
+            <Download size={15} /> 导出学习记录
+          </button>
+          <button className="data-action" type="button" onClick={onImport}>
+            <Upload size={15} /> 导入备份
+          </button>
+        </div>
         <button className="reset-progress" type="button" onClick={resetAllProgress}>
           <Trash2 size={15} /> 清除所有学习进度
         </button>
-      </div>
+      </Panel>
     </aside>
   );
 }

@@ -21,6 +21,7 @@ import { shuffle, stableShuffle } from './lib/shuffle.js';
 import { chooseEnglishVoice, getEnglishVoices, speakWord } from './lib/speech.js';
 import { diffSpelling } from './lib/spelling.js';
 import { buildGlossary, lookupGloss } from './lib/glossary.js';
+import { describeBackup, exportStudyState, readBackupFile } from './lib/backup.js';
 import { clamp } from './lib/math.js';
 import { useVocab } from './hooks/useVocab.js';
 import { useCloze } from './hooks/useCloze.js';
@@ -103,6 +104,9 @@ export default function App() {
   const [choiceResult, setChoiceResult] = useState(null);
   const [spellingInput, setSpellingInput] = useState('');
   const [spellingFeedback, setSpellingFeedback] = useState(null);
+  // 听力模式: a switch inside 单词测试 rather than an eighth mode — it reuses the
+  // existing quiz options and speech engine, and the sidebar is crowded enough.
+  const [listenMode, setListenMode] = useState(false);
   const speechVoices = useSpeechVoices();
 
   useEffect(() => {
@@ -544,14 +548,19 @@ export default function App() {
   useEffect(() => {
     if (!currentEntry) return;
     // Spelling mode is essentially dictation, so we force auto-play there
-    // regardless of the user's general autoSpeak preference.
-    const shouldAutoPlay = speechSettings.autoSpeak || mode === 'spelling';
+    // regardless of the user's general autoSpeak preference. 听力模式 is the same
+    // deal — with the word hidden, the audio IS the question.
+    const shouldAutoPlay =
+      speechSettings.autoSpeak || mode === 'spelling' || (mode === 'quiz' && listenMode);
     if (!shouldAutoPlay) return;
     speakWord(currentEntry.word, speechSettings, speechVoices);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     currentEntry?.id,
     mode,
+    // Listed so flipping the switch plays the word already on screen, instead of
+    // staying silent until the learner advances.
+    listenMode,
     speechSettings.autoSpeak,
     speechSettings.accent,
     speechSettings.rate,
@@ -744,6 +753,63 @@ export default function App() {
     }));
   }
 
+  // Import overwrites EVERY record, so it confirms with a summary of what's in the
+  // file, and auto-exports the current state first — a mis-picked file should cost
+  // a few seconds, never the learner's history.
+  const importInputRef = useRef(null);
+
+  function handleExport() {
+    try {
+      const name = exportStudyState(studyRef.current);
+      window.alert(`已导出 ${name}\n\n换设备或清缓存后，用「导入备份」恢复。`);
+    } catch (error) {
+      window.alert(`导出失败：${error?.message || '未知错误'}`);
+    }
+  }
+
+  async function handleImportFile(event) {
+    const input = event.target;
+    const file = input.files?.[0];
+    // Clear immediately so picking the same file twice still fires onChange.
+    input.value = '';
+    if (!file) return;
+    let incoming;
+    try {
+      incoming = await readBackupFile(file);
+    } catch (error) {
+      window.alert(`导入失败：${error?.message || '文件无法读取'}`);
+      return;
+    }
+    const confirmed = window.confirm(
+      `即将用备份覆盖当前进度。\n\n备份内容：${describeBackup(incoming)}\n`
+      + `当前进度：${describeBackup(studyRef.current)}\n\n`
+      + '继续前会自动先导出一份当前进度作为保险。',
+    );
+    if (!confirmed) return;
+    try {
+      exportStudyState(studyRef.current);
+    } catch {
+      // A failed safety copy shouldn't block a deliberate restore.
+    }
+    setStudy(incoming);
+    saveStudyState(incoming, { immediate: true });
+    setMode('study');
+    setCurrentIndex(0);
+    // Reset the answer-reveal state explicitly, exactly as resetAllProgress does.
+    // Leaving it to the existing effects is not enough: the scope/mode reset only
+    // fires when mode/scope/seed actually change (importing a backup made earlier
+    // today changes none of them), and the per-entry effect clears the quiz/
+    // spelling fields but NOT showMeaning — so the next word would appear with its
+    // meaning already revealed.
+    setShowMeaning(false);
+    setQuizChoice(null);
+    setChoiceResult(null);
+    setSpellingInput('');
+    setSpellingFeedback(null);
+    lastEntryIdRef.current = null;
+    window.alert('导入完成。');
+  }
+
   function resetAllProgress() {
     const confirmed = window.confirm(
       '确认清除所有学习进度？\n\n会清空：单词记忆、薄弱词、每日记录、笔记、收藏\n会保留：发音偏好、每日目标'
@@ -884,6 +950,14 @@ export default function App() {
 
   return (
     <div className="app-shell">
+      {/* Hidden picker driven by the 导入备份 button in the rail. */}
+      <input
+        ref={importInputRef}
+        type="file"
+        accept="application/json,.json"
+        style={{ display: 'none' }}
+        onChange={handleImportFile}
+      />
       <Sidebar
         mode={mode}
         setMode={setMode}
@@ -915,6 +989,7 @@ export default function App() {
           reshuffleQueue={reshuffleQueue}
           openPronunciation={() => setActiveTab('pronunciation')}
           openReview={() => setMode('review')}
+          dueCount={dueEntries.length}
         />
 
         <div className="content-grid">
@@ -978,6 +1053,8 @@ export default function App() {
               onPrevious={goPrevious}
               onNext={goNext}
               entriesCount={entries.length}
+              listenMode={listenMode}
+              onToggleListen={() => setListenMode((value) => !value)}
             />
 
             <DetailTabs
@@ -1035,6 +1112,8 @@ export default function App() {
             setActiveScope={setActiveScope}
             getWordProgress={(entry) => getWordProgress(study, entry)}
             resetAllProgress={resetAllProgress}
+            onExport={handleExport}
+            onImport={() => importInputRef.current?.click()}
           />
         </div>
       </main>

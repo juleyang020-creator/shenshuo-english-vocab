@@ -1637,39 +1637,6 @@ button {
   border: 1px dashed #d4be8c;
 }
 
-.sparkline {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 8px;
-  align-items: end;
-  height: 96px;
-  padding: 8px 4px 0;
-}
-
-.sparkline__col {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-  height: 100%;
-  justify-content: flex-end;
-}
-
-.sparkline__bar {
-  width: 100%;
-  max-width: 18px;
-  background: linear-gradient(180deg, var(--accent) 0%, var(--accent-strong) 100%);
-  border-radius: 4px;
-  min-height: 4px;
-  transition: height 200ms ease;
-}
-
-.sparkline__col small {
-  color: var(--subtle);
-  font-size: 11px;
-  letter-spacing: 0.02em;
-}
-
 .metric small {
   display: block;
   color: var(--subtle);
@@ -1939,12 +1906,189 @@ button {
   font-variant-numeric: tabular-nums;
 }
 
-/* Now stands alone at the foot of the rail (its 「词库概况」panel was removed),
-   so it brings its own right-alignment instead of inheriting the panel's. */
-.rail-danger {
+/* ---- 学习统计 (calendar heatmap + figures) ---- */
+.stats {
+  display: grid;
+  gap: 12px;
+}
+
+.stats__figures {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.stats__figures > div {
+  display: grid;
+  gap: 2px;
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--bg-deep);
+}
+
+.stats__figures strong {
+  font-size: 21px;
+  line-height: 1.1;
+  color: var(--accent-strong);
+  font-variant-numeric: tabular-nums;
+}
+
+.stats__figures span {
+  font-size: 11.5px;
+  color: var(--muted);
+}
+
+.heatmap-wrap {
+  display: grid;
+  grid-template-columns: 14px minmax(0, 1fr);
+  gap: 4px;
+  align-items: start;
+}
+
+.heatmap__weekdays {
+  display: grid;
+  grid-template-rows: repeat(7, 1fr);
+  gap: 3px;
+  font-size: 9px;
+  color: var(--subtle);
+  line-height: 1;
+}
+
+.heatmap__weekdays span {
   display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+/* Column-first fill: each column is one week, each row one weekday — the cells
+   are emitted week by week, so grid-auto-flow: column lines them up correctly. */
+.heatmap {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-rows: repeat(7, 1fr);
+  gap: 3px;
+}
+
+.heat {
+  display: block;
+  aspect-ratio: 1;
+  border-radius: 2px;
+  background: var(--surface-soft);
+  border: 1px solid transparent;
+}
+
+.heat--0 { background: var(--surface-soft); }
+.heat--1 { background: #cfe0da; }
+.heat--2 { background: #94bdb1; }
+.heat--3 { background: #4c9083; }
+.heat--4 { background: var(--accent-strong); }
+
+.heatmap__legend {
+  display: flex;
+  align-items: center;
   justify-content: flex-end;
-  padding: 4px 2px 2px;
+  gap: 4px;
+  font-size: 10.5px;
+  color: var(--subtle);
+}
+
+.heatmap__legend .heat {
+  width: 10px;
+  height: 10px;
+  aspect-ratio: auto;
+}
+
+/* ---- 数据 panel ---- */
+.data-note {
+  margin: 0 0 10px;
+  font-size: 11.5px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.data-actions {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.data-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 36px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--text-soft);
+  font-size: 12px;
+  font-weight: 600;
+  transition: border-color 120ms ease, color 120ms ease, background 120ms ease;
+}
+
+.data-action:hover {
+  border-color: var(--accent);
+  color: var(--accent-strong);
+  background: var(--accent-soft);
+}
+
+/* ---- 听力模式 ---- */
+.listen-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 34px;
+  padding: 0 10px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 600;
+  transition: border-color 120ms ease, color 120ms ease, background 120ms ease;
+}
+
+.listen-toggle:hover {
+  border-color: var(--accent);
+  color: var(--accent-strong);
+}
+
+.listen-toggle.is-on {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+}
+
+.listen-prompt {
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+  padding: 18px 0 6px;
+}
+
+/* ---- Bell badge ---- */
+.icon-button.has-badge {
+  position: relative;
+  overflow: visible;
+}
+
+.icon-badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  min-width: 17px;
+  height: 17px;
+  padding: 0 4px;
+  border-radius: 9px;
+  background: var(--red);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 17px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
 }
 
 .reset-progress {

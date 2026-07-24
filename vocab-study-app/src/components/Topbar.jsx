@@ -14,6 +14,7 @@ export function Topbar({
   reshuffleQueue,
   openPronunciation,
   openReview,
+  dueCount = 0,
 }) {
   return (
     <header className="topbar">
@@ -54,8 +55,15 @@ export function Topbar({
         <IconButton label="重新乱序" onClick={reshuffleQueue}>
           <Shuffle size={20} />
         </IconButton>
-        <IconButton label="去复习" onClick={openReview}>
+        {/* The bell was a plain shortcut to review; the count turns it into actual
+            information. Capped at 99+ so a long backlog can't blow out the pill. */}
+        <IconButton
+          className={dueCount ? 'has-badge' : ''}
+          label={dueCount ? `去复习（${dueCount} 词待复习）` : '去复习'}
+          onClick={openReview}
+        >
           <Bell size={20} />
+          {dueCount ? <span className="icon-badge">{dueCount > 99 ? '99+' : dueCount}</span> : null}
         </IconButton>
         <IconButton label="发音设置" onClick={openPronunciation}>
           <Settings size={20} />
