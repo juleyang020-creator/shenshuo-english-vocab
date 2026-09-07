@@ -7,6 +7,7 @@ import {
   Replace,
   RotateCcw,
   Star,
+  MoreHorizontal,
 } from 'lucide-react';
 import { ScopeButton } from './ScopeButton.jsx';
 
@@ -15,7 +16,7 @@ export const MODES = [
   { id: 'review', label: '复习巩固', icon: RotateCcw },
   { id: 'quiz', label: '单词测试', icon: ListChecks },
   { id: 'spelling', label: '拼写练习', icon: PencilLine },
-  { id: 'cloze', label: '近义辨析', icon: Replace },
+  { id: 'cloze', label: '语境辨析', icon: Replace },
   { id: 'reading', label: '短文精读', icon: FileText },
   { id: 'browse', label: '生词本', icon: BookOpen },
 ];
@@ -51,23 +52,31 @@ export function Sidebar({
           const Icon = item.icon;
           return (
             <button
-              className={`nav-item ${mode === item.id ? 'is-active' : ''}`.trim()}
+              className={`nav-item ${['quiz', 'spelling', 'browse'].includes(item.id) ? 'nav-extra' : ''} ${mode === item.id ? 'is-active' : ''}`.trim()}
               key={item.id}
               type="button"
               onClick={() => setMode(item.id)}
+              aria-current={mode === item.id ? 'page' : undefined}
             >
               <Icon size={20} />
               <span>{item.label}</span>
             </button>
           );
         })}
+        <details className="mobile-more">
+          <summary className={['quiz', 'spelling', 'browse'].includes(mode) ? 'is-active' : ''}><MoreHorizontal size={20} /><span>更多</span></summary>
+          <div className="mobile-more__menu">
+            {MODES.filter((item) => ['quiz', 'spelling', 'browse'].includes(item.id)).map((item) => <button key={item.id} type="button" aria-current={mode === item.id ? 'page' : undefined} onClick={(event) => { setMode(item.id); event.currentTarget.closest('details').open = false; }}>{item.label}</button>)}
+            <button type="button" onClick={(event) => { onOpenFavorites(); event.currentTarget.closest('details').open = false; }}>我的收藏</button>
+          </div>
+        </details>
       </nav>
 
       <div className="nav-section scope-list">
         <span className="section-label">按难度梯度</span>
         {frequencyScopes.map((scope, index) => (
           <ScopeButton
-            active={activeScope.kind === 'frequency' && activeScope.value === scope.id}
+            active={(activeScope.kind === 'frequency' && activeScope.value === scope.id) || (activeScope.kind === 'stage-chunk' && String(activeScope.value).startsWith(`${scope.id}:`))}
             detail={scope.detail}
             key={scope.id}
             label={scope.label}
@@ -77,8 +86,8 @@ export function Sidebar({
         ))}
       </div>
 
-      <div className="nav-section scope-list">
-        <span className="section-label">按词汇类型</span>
+      <details className="nav-section scope-list scope-disclosure">
+        <summary className="section-label">按词汇类型</summary>
         {typeScopes.map((scope, index) => (
           <ScopeButton
             active={activeScope.kind === 'type' && activeScope.value === scope.id}
@@ -89,10 +98,10 @@ export function Sidebar({
             onClick={() => setActiveScope({ kind: 'type', value: scope.id })}
           />
         ))}
-      </div>
+      </details>
 
-      <div className="nav-section range-list">
-        <span className="section-label">词汇范围（按字母顺序）</span>
+      <details className="nav-section range-list scope-disclosure">
+        <summary className="section-label">按字母分段</summary>
         {ranges.map((range) => (
           <ScopeButton
             active={activeScope.kind === 'range' && Number(activeScope.value) === range.index}
@@ -103,7 +112,7 @@ export function Sidebar({
             onClick={() => setActiveScope({ kind: 'range', value: range.index })}
           />
         ))}
-      </div>
+      </details>
 
       {/* Used to be a second, identical door to 生词本 (both just setMode('browse')).
           Now it earns its place: it lands in 生词本 with the list already filtered

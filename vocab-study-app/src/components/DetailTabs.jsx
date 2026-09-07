@@ -227,7 +227,7 @@ function LockedPanel({ label }) {
   return (
     <div className="detail-locked">
       <strong>{label}</strong>
-      <span>作答或点“提示”后显示，避免提前看到答案</span>
+      <span>完成本题后显示，帮助你核对和巩固记忆。</span>
     </div>
   );
 }
@@ -317,7 +317,7 @@ export function DetailTabs({
           <div className="voice-preview">
             <div>
               <span>朗读词形</span>
-              <strong>{currentEntry ? getSpeechText(currentEntry.word, speechSettings.accent) : '-'}</strong>
+              <strong>{spellingLocked ? '答题后显示词形' : currentEntry ? getSpeechText(currentEntry.word, speechSettings.accent) : '-'}</strong>
               <small>{activeVoice ? `${activeVoice.name} · ${activeVoice.lang}` : '没有读到可用英文语音'}</small>
             </div>
             <button type="button" onClick={onPlay}>
@@ -395,7 +395,7 @@ export function DetailTabs({
 
       {activeTab === 'note' ? (
         <div className="note-pane">
-          {meaningLocked ? (
+          {meaningLocked || spellingLocked ? (
             <LockedPanel label="词源已隐藏" />
           ) : (
             <>
@@ -410,8 +410,9 @@ export function DetailTabs({
           <textarea
             className="note-box"
             placeholder={currentEntry ? '记录易混点、例句、口诀' : '选中一个单词后才能记笔记'}
-            value={noteValue}
-            disabled={!currentEntry}
+            value={meaningLocked || spellingLocked ? '' : noteValue}
+            disabled={!currentEntry || meaningLocked || spellingLocked}
+            aria-label={meaningLocked || spellingLocked ? '答题后可查看和编辑笔记' : '个人笔记'}
             onChange={(event) => onNoteChange(event.target.value)}
           />
         </div>
@@ -442,7 +443,7 @@ export function DetailTabs({
             ))}
           </div>
           <div className="search-summary">
-            {search.trim() ? `匹配 ${searchedEntries.length} 个词条` : '请输入关键词'}
+            {search.trim() ? `匹配 ${searchedEntries.length} 个词条` : `当前列表 ${searchedEntries.length} 个词条 · 输入关键词可搜索全词库`}
           </div>
           <div className="search-results">
             {searchedEntries.slice(0, 40).map((entry) => {

@@ -1,5 +1,6 @@
 import { progressDefaults } from './srs.js';
 import { getTodayKey } from './streak.js';
+import { DIFFICULTY_STAGES, WORD_TYPE_BUCKETS } from './frequency.js';
 
 export const STORAGE_KEY = 'shen-shuo-vocab-study-v1';
 const SCHEMA_VERSION = 2;
@@ -17,6 +18,118 @@ const DEFAULT_SETTINGS = {
   shuffleSeed: '',
   lastSession: null,
 };
+
+const DEFAULT_SESSION = {
+  mode: 'study',
+  activeScope: { kind: 'frequency', value: 'gaokao' },
+  currentIndex: 0,
+  currentEntryId: null,
+};
+
+const isFiniteNumber = (value) => typeof value === 'number' && Number.isFinite(value);
+const isString = (value) => typeof value === 'string';
+const isPosition = (value) => Number.isSafeInteger(value) && value >= 0;
+const stageIds = new Set(DIFFICULTY_STAGES.map((stage) => stage.id));
+const typeIds = new Set(WORD_TYPE_BUCKETS.map((type) => type.id));
+
+function isValidScope(scope) {
+  if (!isPlainObject(scope)) return false;
+  if (scope.kind === 'all') return scope.value === undefined || scope.value === 'all';
+  if (scope.kind === 'frequency') return stageIds.has(scope.value);
+  if (scope.kind === 'type') return typeIds.has(scope.value);
+  if (scope.kind === 'range') {
+    return isPosition(scope.value) || (isString(scope.value) && /^\d+$/.test(scope.value) && isPosition(Number(scope.value)));
+  }
+  if (scope.kind === 'stage-chunk' && isString(scope.value)) {
+    const [stage, index, extra] = scope.value.split(':');
+    return stageIds.has(stage) && /^\d+$/.test(index || '') && isPosition(Number(index)) && extra === undefined;
+  }
+  return false;
+}
+
+const SETTING_RULES = {
+  dailyTarget: isFiniteNumber,
+  shuffleSeed: isString,
+  lastSession: (value) => value === null || isPlainObject(value),
+  speech: isPlainObject,
+};
+const SESSION_RULES = {
+  mode: (value) => ['study', 'review', 'quiz', 'spelling', 'cloze', 'reading', 'browse'].includes(value),
+  activeScope: isValidScope,
+  currentIndex: isPosition,
+  currentEntryId: (value) => value === null || isString(value),
+};
+const SPEECH_RULES = {
+  accent: (value) => value === 'us' || value === 'uk',
+  rate: (value) => isFiniteNumber(value) && value > 0,
+  repeat: (value) => Number.isInteger(value) && value >= 1 && value <= 3,
+  autoSpeak: (value) => typeof value === 'boolean',
+  voiceURI: isString,
+};
+
+// External backups fail before overwrite; damaged local settings retain each
+// healthy neighbour while invalid fields fall back to their own defaults.
+function settingsFields(value, defaults, rules, label, strict) {
+  const source = isPlainObject(value) ? value : {};
+  const result = { ...defaults, ...source };
+  for (const [key, valid] of Object.entries(rules)) {
+    if (source[key] === undefined) {
+      result[key] = defaults[key];
+    } else if (!valid(source[key])) {
+      if (strict) throw new Error(`文件已损坏：${label}.${key} 格式不对`);
+      result[key] = defaults[key];
+    }
+  }
+  return result;
+}
+
+function normalizeSettings(value, strict = false) {
+  const defaults = { ...DEFAULT_SETTINGS, shuffleSeed: getTodayKey(), speech: { ...DEFAULT_SPEECH_SETTINGS } };
+  const settings = settingsFields(value, defaults, SETTING_RULES, 'settings', strict);
+  settings.dailyTarget = Math.min(500, Math.max(20, settings.dailyTarget));
+  settings.shuffleSeed ||= defaults.shuffleSeed;
+  if (settings.lastSession !== null) {
+    settings.lastSession = settingsFields(settings.lastSession, DEFAULT_SESSION, SESSION_RULES, 'settings.lastSession', strict);
+  }
+  settings.speech = settingsFields(settings.speech, DEFAULT_SPEECH_SETTINGS, SPEECH_RULES, 'settings.speech', strict);
+  settings.speech.rate = Math.min(1.05, Math.max(0.62, settings.speech.rate));
+  return settings;
+}
+
+const DAILY_DEFAULTS = { seen: 0, known: 0, weak: 0, quiz: 0, cloze: 0, reading: 0 };
+
+function validField(value, fallback, key) {
+  if (typeof fallback === 'number') {
+    return typeof value === 'number' && Number.isFinite(value) && (key === 'score' || value >= 0);
+  }
+  if (typeof fallback === 'boolean' || typeof fallback === 'string') return typeof value === typeof fallback;
+  return true;
+}
+
+function normalizeRecord(value, defaults) {
+  const result = { ...defaults, ...(isPlainObject(value) ? value : {}) };
+  for (const [key, fallback] of Object.entries(defaults)) {
+    if (!validField(result[key], fallback, key)) result[key] = fallback;
+  }
+  return result;
+}
+
+function normalizeRecords(value, defaults) {
+  return Object.fromEntries(
+    Object.entries(isPlainObject(value) ? value : {})
+      .filter(([, record]) => isPlainObject(record))
+      .map(([id, record]) => [id, normalizeRecord(record, defaults)]),
+  );
+}
+
+function validateRecord(value, defaults, label) {
+  if (!isPlainObject(value)) throw new Error(`文件已损坏：${label} 不是有效记录`);
+  for (const [key, fallback] of Object.entries(defaults)) {
+    if (value[key] !== undefined && !validField(value[key], fallback, key)) {
+      throw new Error(`文件已损坏：${label} 的 ${key} 格式不对`);
+    }
+  }
+}
 
 export function defaultStudyState() {
   return {
@@ -46,6 +159,7 @@ function migrateStep(state, fromVersion) {
     const words = state.words || {};
     const upgraded = {};
     for (const [id, raw] of Object.entries(words)) {
+      if (!isPlainObject(raw)) continue;
       const previousScore = Math.max(0, Number(raw?.score) || 0);
       upgraded[id] = {
         ...progressDefaults(),
@@ -83,7 +197,7 @@ function migrate(stored) {
 // running the same migration chain a normal load uses. Shared by loadStudyState
 // and by importing a backup file, so an exported v1 file upgrades exactly the way
 // a v1 localStorage record would.
-function hydrate(raw) {
+function hydrate(raw, { strictSettings = false } = {}) {
   const migrated = migrate(raw);
   const fallback = defaultStudyState();
   // The spread below would happily carry a null/!object container through from a
@@ -95,17 +209,17 @@ function hydrate(raw) {
   return {
     ...fallback,
     ...migrated,
-    words: container(migrated.words, fallback.words),
-    notes: container(migrated.notes, fallback.notes),
-    daily: container(migrated.daily, fallback.daily),
-    cloze: container(migrated.cloze, fallback.cloze),
-    reading: container(migrated.reading, fallback.reading),
-    settings: {
-      ...fallback.settings,
-      ...(migrated.settings || {}),
-      shuffleSeed: migrated.settings?.shuffleSeed || getTodayKey(),
-      speech: { ...DEFAULT_SPEECH_SETTINGS, ...(migrated.settings?.speech || {}) },
+    words: normalizeRecords(migrated.words, progressDefaults()),
+    notes: Object.fromEntries(
+      Object.entries(container(migrated.notes, {})).filter(([, note]) => typeof note === 'string'),
+    ),
+    daily: normalizeRecords(migrated.daily, DAILY_DEFAULTS),
+    cloze: normalizeRecord(migrated.cloze, fallback.cloze),
+    reading: {
+      ...normalizeRecord(migrated.reading, fallback.reading),
+      done: container(migrated.reading?.done, {}),
     },
+    settings: normalizeSettings(migrated.settings, strictSettings),
   };
 }
 
@@ -113,16 +227,19 @@ function hydrate(raw) {
 // or throws with a human-readable reason. Deliberately strict about the shape:
 // importing overwrites everything, so a wrong file must fail loudly rather than
 // silently wipe the learner's progress.
-// `typeof null === 'object'`, so a null check is mandatory here: a truncated or
-// hand-edited file with `"words": null` would otherwise pass, survive the spread
-// in hydrate (which only guards `settings`), and crash every render on
-// `study.words[id]` — AFTER the caller has already written it to localStorage,
-// leaving a crash loop whose only exit is wiping all progress.
+// Validate individual records too: null word entries break migration, and a
+// non-string note breaks search only after the backup has overwritten progress.
 function isPlainObject(value) {
   return typeof value === 'object' && value !== null && !Array.isArray(value);
 }
 
 export function parseImportedStudyState(parsed) {
+  if (isPlainObject(parsed) && (
+    (parsed.app !== undefined && parsed.app !== 'shenshuo-english-vocab')
+    || (parsed.kind !== undefined && parsed.kind !== 'study-backup')
+  )) {
+    throw new Error('文件格式不对：不是本应用的学习记录备份');
+  }
   const payload = isPlainObject(parsed?.study) ? parsed.study : parsed;
   if (!isPlainObject(payload)) {
     throw new Error('文件格式不对：不是学习记录备份');
@@ -138,7 +255,23 @@ export function parseImportedStudyState(parsed) {
       throw new Error(`文件已损坏：${key} 不是对象`);
     }
   }
-  return hydrate(payload);
+  for (const [id, record] of Object.entries(payload.words || {})) {
+    validateRecord(record, progressDefaults(), `单词记录 ${id}`);
+  }
+  for (const [id, note] of Object.entries(payload.notes || {})) {
+    if (typeof note !== 'string') throw new Error(`文件已损坏：笔记 ${id} 不是文字`);
+  }
+  for (const [day, record] of Object.entries(payload.daily || {})) {
+    validateRecord(record, DAILY_DEFAULTS, `每日记录 ${day}`);
+  }
+  const defaults = defaultStudyState();
+  for (const key of ['cloze', 'reading']) {
+    if (payload[key] !== undefined) validateRecord(payload[key], defaults[key], key);
+  }
+  if (payload.reading?.done !== undefined && !isPlainObject(payload.reading.done)) {
+    throw new Error('文件已损坏：已读篇目不是有效记录');
+  }
+  return hydrate(payload, { strictSettings: true });
 }
 
 export function loadStudyState() {
@@ -201,5 +334,7 @@ export function requestPersistentStorage() {
 }
 
 export function normalizeSpeechSettings(settings = {}) {
-  return { ...DEFAULT_SPEECH_SETTINGS, ...(settings || {}) };
+  const normalized = settingsFields(settings, DEFAULT_SPEECH_SETTINGS, SPEECH_RULES, 'speech', false);
+  normalized.rate = Math.min(1.05, Math.max(0.62, normalized.rate));
+  return normalized;
 }

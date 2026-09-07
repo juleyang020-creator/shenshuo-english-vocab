@@ -216,7 +216,7 @@ export function StudyCard({
                 {currentEntry.phonetic ? (
                   <div className="phonetic">/{currentEntry.phonetic}/</div>
                 ) : null}
-                <div className={`meaning ${showMeaning ? 'is-visible' : ''}`}>
+                <div hidden={!showMeaning} className={`meaning ${showMeaning ? 'is-visible' : ''}`}>
                   {cleanDefinitionLines(currentEntry).slice(0, 4).map((line, index) => (
                     <p key={`${currentEntry.id}-${index}`}>{line}</p>
                   ))}
@@ -247,7 +247,7 @@ export function StudyCard({
               </div>
             ) : null}
             {isChoiceMode && answeredChoice ? (
-              <div className={`choice-feedback ${choiceResult.correct ? 'is-correct' : 'is-wrong'}`.trim()}>
+              <div aria-live="polite" className={`choice-feedback ${choiceResult.correct ? 'is-correct' : 'is-wrong'}`.trim()}>
                 <strong>
                   {choiceResult.correct
                     ? '回答正确'
@@ -268,7 +268,7 @@ export function StudyCard({
                   title={choiceResult?.correct ? '这个词以后不再出现' : '答对之后才能选'}
                 >
                   <CheckCircle2 size={20} />
-                  <span>认识</span>
+                  <span>已熟练</span>
                   <small>{choiceResult?.correct ? '不再复习 · K' : '答对后可选'}</small>
                 </button>
                 <button
@@ -293,6 +293,9 @@ export function StudyCard({
                     disabled={Boolean(spellingFeedback)}
                     key={currentEntry.id}
                     placeholder="输入英文拼写"
+                    aria-label="英文拼写"
+                    autoCapitalize="none"
+                    spellCheck={false}
                     type="text"
                     value={spellingInput}
                     onChange={(event) => onSpellingInput(event.target.value)}
@@ -311,17 +314,17 @@ export function StudyCard({
               <button className="decision decision--know" type="button" onClick={() => onMark('know')}>
                 <CheckCircle2 size={23} />
                 <span>认识</span>
-                <small>1 / 2 / K</small>
+                <small>1 / K</small>
               </button>
               <button className="decision decision--unsure" type="button" onClick={() => onMark('unsure')}>
                 <CircleHelp size={23} />
                 <span>有点印象</span>
-                <small>U / 3</small>
+                <small>2 / U</small>
               </button>
               <button className="decision decision--forgot" type="button" onClick={() => onMark('forgot')}>
                 <XCircle size={23} />
                 <span>不认识</span>
-                <small>F / 4</small>
+                <small>3 / F</small>
               </button>
             </div>
           ) : null}

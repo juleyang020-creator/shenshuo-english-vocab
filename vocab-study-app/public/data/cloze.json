@@ -2,8 +2,43 @@
   "meta": {
     "count": 3522,
     "distinctAnswers": 3522,
-    "source": "curated(90) + batch-generated & verify-repaired, deduped by answer",
-    "note": "近义词辨析选词填空：每题 4 个近义选项，作答后给中文释义与辨析。"
+    "source": "AI-assisted practice; sampled editorial review",
+    "note": "词义辨析、固定搭配与词形训练：每题 4 个选项，按题干语境选择。练习不等同于历年真题。",
+    "sourceLabel": "AI 辅助编写的词汇练习",
+    "contentReview": {
+      "date": "2026-09-07",
+      "revisedItems": [
+        "cloze-0003",
+        "cloze-0007",
+        "cloze-0009",
+        "cloze-0011",
+        "cloze-0023",
+        "cloze-0024",
+        "cloze-0028",
+        "cloze-0029",
+        "cloze-0030",
+        "cloze-3513",
+        "cloze-3514",
+        "cloze-3515",
+        "cloze-3516",
+        "cloze-3517",
+        "cloze-3518",
+        "cloze-3519",
+        "cloze-3520",
+        "cloze-3521",
+        "cloze-3522",
+        "cloze-1111",
+        "cloze-1118",
+        "cloze-2369",
+        "cloze-2373",
+        "cloze-2384",
+        "cloze-2385",
+        "cloze-2402",
+        "cloze-3073",
+        "cloze-3085"
+      ],
+      "scope": "全量结构检查；本次修订的 28 道题逐题复核题干、选项、答案和解析，其余语义未逐题复核。"
+    }
   },
   "items": [
     {
@@ -73,34 +108,35 @@
     {
       "id": "cloze-0003",
       "theme": "影响",
-      "sentence": "The government rolled out subsidies to cushion the ___ of the recession on small businesses.",
+      "sentence": "The airbags were designed to cushion the ___ of a collision and reduce the force reaching the passengers.",
       "answer": "impact",
-      "translation": "政府推出补贴，以缓冲经济衰退对小企业的冲击。",
+      "translation": "这些安全气囊旨在缓冲碰撞的冲击，减小传递到乘客身上的力量。",
       "level": "postgrad",
-      "explain": "本题靠固定搭配 cushion/soften the impact of sth（缓冲、减轻……的冲击）锁定答案：cushion（缓冲）一词源于‘减轻撞击力’，与表示‘冲击、重创’的 impact 搭配最地道，故选 impact。effect 作名词虽可说 the effect of the recession，但 cushion the effect 并非地道固定搭配——cushion 强调减缓‘力道、冲击’，与偏中性的‘效果、结果’ effect 不匹配，排除。affect 是动词，不能跟在 the 后充当 the ___ of 中的名词，语法不通，排除。influence 作名词指对思想、行为的潜移默化的感化或左右，用于描述衰退对企业的客观打击既不搭 cushion，语义也不符（衰退不是在‘感化’企业），排除。",
+      "explain": "线索是 collision（碰撞）和 force（力）：cushion the impact 表示缓冲撞击。impulse 在此不是撞击，insight 是洞察力，instance 是实例。记忆搭配 cushion the impact of a collision。effect 也可表示影响；遇到近义词时应结合具体语境判断。",
       "options": [
         {
           "word": "impact",
-          "zh": "n./v. 巨大冲击；影响",
+          "zh": "n. 撞击；冲击",
           "correct": true
         },
         {
-          "word": "effect",
-          "zh": "n. 效果；影响（偏中性）",
+          "word": "impulse",
+          "zh": "n. 冲动；脉冲",
           "correct": false
         },
         {
-          "word": "affect",
-          "zh": "vt. 影响（动词）",
+          "word": "insight",
+          "zh": "n. 洞察力",
           "correct": false
         },
         {
-          "word": "influence",
-          "zh": "n./v. (潜移默化地)影响",
+          "word": "instance",
+          "zh": "n. 例子；实例",
           "correct": false
         }
       ],
-      "source": "curated"
+      "source": "curated",
+      "reviewStatus": "revised-2026-09-07"
     },
     {
       "id": "cloze-0004",
@@ -203,32 +239,33 @@
       "theme": "增加",
       "sentence": "The number of online orders ___ steadily throughout last year, reaching a record high in December.",
       "answer": "increased",
-      "translation": "线上订单的数量在去年全年稳步增加，并在十二月创下历史新高。",
+      "translation": "去年全年，网上订单数量稳步增加，并在十二月创下新高。",
       "level": "cet4",
-      "explain": "四者都与‘增加/上升’有关，且此处均给出过去式以排除时态干扰，纯考语义与搭配。主语 The number of online orders 强调‘数量上的增多’，increase（increase-increased）作不及物动词正表示‘(数目)增加’，与 the number、steadily 搭配最贴切，故选 increased。rose（rise 的过去式）虽也可表上升，但 rise 更多指价格、水平、温度等‘水平面’的升高，与 the number of orders 这一‘数目’搭配不如 increase 自然。raised 是及物动词，必须带宾语（raise prices/funds），其后无宾语，语法不通。grew（grow 的过去式）多强调有机的、整体规模的‘成长、壮大’（the company grew），用于 the number 这种精确计数显得别扭。",
+      "explain": "reaching a record high 指向数量增加，故用 increased。decreased 表示减少；remained 需要后接说明保持何种状态的成分；raised 在这种用法中要带宾语。拓展：rise 和 grow 也能表示数量增长；The number grew/rose 是正常英语表达。",
       "options": [
         {
           "word": "increased",
-          "zh": "vi.&vt. (数量上)增加（increase的过去式）",
+          "zh": "v. 增加（过去式）",
           "correct": true
         },
         {
-          "word": "rose",
-          "zh": "vi. (价格/水平)上升（rise的过去式，不接宾语）",
+          "word": "decreased",
+          "zh": "v. 减少（过去式）",
+          "correct": false
+        },
+        {
+          "word": "remained",
+          "zh": "v. 保持（过去式）",
           "correct": false
         },
         {
           "word": "raised",
-          "zh": "vt. 提高、筹集（须带宾语）",
-          "correct": false
-        },
-        {
-          "word": "grew",
-          "zh": "vi. 成长、壮大（grow的过去式）",
+          "zh": "v. 提高；举起（过去式）",
           "correct": false
         }
       ],
-      "source": "curated"
+      "source": "curated",
+      "reviewStatus": "revised-2026-09-07"
     },
     {
       "id": "cloze-0008",
@@ -265,34 +302,35 @@
     {
       "id": "cloze-0009",
       "theme": "增加",
-      "sentence": "Regular training can greatly ___ employees' communication skills and overall confidence.",
+      "sentence": "The new lighting was installed to ___ the appearance of the exhibition, making every painting easier to see.",
       "answer": "enhance",
-      "translation": "定期培训能极大地提升员工的沟通能力和整体自信心。",
+      "translation": "安装这套新照明是为了改善展览的视觉效果，使每幅画都更容易看清。",
       "level": "cet6",
-      "explain": "四者都与‘增加/提升’相关，但搭配对象不同。enhance 意为‘增强、提升(能力、质量、价值、效果)’，强调使原本就存在的东西变得更好、更强，与 skills（技能）、confidence（自信）这类抽象品质搭配最地道，故选 enhance。increase 侧重数量、数目上的‘增多’（increase the number/amount/output），用于不可量化的 skills、confidence 显得别扭。raise 表示提高数额、标准或举起，搭配 wage、price、hand 等，不用于‘提升能力素质’。grow 作及物时意为‘种植’，作不及物意为‘成长’，不能直接带 skills 作宾语表示‘提升技能’，搭配不当。",
+      "explain": "后半句 making every painting easier to see 说明新照明改善了观看效果。enhance the appearance 表示改善外观或视觉效果。enclose 是围住，enforce 常接法律或规定，encounter 是遇到。拓展：increase confidence 也可以表示增强信心；近义词的侧重点不同并不等于不能互换。",
       "options": [
         {
           "word": "enhance",
-          "zh": "vt. 增强、提升(能力/质量/价值)",
+          "zh": "v. 改善；增强",
           "correct": true
         },
         {
-          "word": "increase",
-          "zh": "vi.&vt. (数量上)增加、增多",
+          "word": "enclose",
+          "zh": "v. 围住；附上",
           "correct": false
         },
         {
-          "word": "raise",
-          "zh": "vt. 提高(数额/标准)、举起",
+          "word": "enforce",
+          "zh": "v. 执行；强制实施",
           "correct": false
         },
         {
-          "word": "grow",
-          "zh": "vt. 种植；vi. 成长、增长",
+          "word": "encounter",
+          "zh": "v. 遇到",
           "correct": false
         }
       ],
-      "source": "curated"
+      "source": "curated",
+      "reviewStatus": "revised-2026-09-07"
     },
     {
       "id": "cloze-0010",
@@ -329,34 +367,35 @@
     {
       "id": "cloze-0011",
       "theme": "减少",
-      "sentence": "The factory has installed new equipment to ___ the amount of waste it produces.",
+      "sentence": "The company offered to ___ the price from fifty dollars to forty dollars for returning customers.",
       "answer": "reduce",
-      "translation": "工厂安装了新设备，以减少其产生的废料量。",
+      "translation": "公司愿意将回头客的价格从五十美元降到四十美元。",
       "level": "cet4",
-      "explain": "四词都表‘减少’。reduce 是最通用的及物动词，意为‘减少、缩减（数量、程度等）’，reduce the amount of waste/cost/risk 是地道固定搭配，故选 reduce。decline 在‘减少’义上是不及物动词（自身下降），不能带宾语 the amount of waste，作及物时意为‘谢绝、婉拒’，语义不符。lower 侧重把‘高度/水平/价格/声音’本身调低（lower the price/voice），不与 the amount（数量）搭配，说 lower the amount of waste 不自然。diminish 多用于抽象事物（diminish importance/value）逐渐减弱，用于‘废料量’这种可量化的具体数量不如 reduce 准确。因此唯一正确的是 reduce。",
+      "explain": "from fifty dollars to forty dollars 表示把价格降低，reduce the price from A to B 结构成立。decline 表示价格自行下降时不这样直接带 the price；deduct 通常是 deduct an amount from a total（从总额中扣去某个数额）；diminution 是名词。拓展：lower the price 也能表示降低价格。",
       "options": [
         {
           "word": "reduce",
-          "zh": "vt. 减少，缩减",
+          "zh": "v. 减少；降低",
           "correct": true
         },
         {
           "word": "decline",
-          "zh": "vi. 下降，衰退；vt. 谢绝",
+          "zh": "v. 下降；谢绝",
           "correct": false
         },
         {
-          "word": "lower",
-          "zh": "vt. 降低，放低",
+          "word": "deduct",
+          "zh": "v. 扣除",
           "correct": false
         },
         {
-          "word": "diminish",
-          "zh": "v. (使)减弱，缩小",
+          "word": "diminution",
+          "zh": "n. 减少；缩小",
           "correct": false
         }
       ],
-      "source": "curated"
+      "source": "curated",
+      "reviewStatus": "revised-2026-09-07"
     },
     {
       "id": "cloze-0012",
@@ -713,66 +752,68 @@
     {
       "id": "cloze-0023",
       "theme": "拒绝",
-      "sentence": "No matter how hard the rescuers begged, the stubborn old man ___ to leave his flooded house.",
+      "sentence": "The invitation asked for a reply by Friday, but he ___ to give any answer at all.",
       "answer": "refused",
-      "translation": "无论救援人员怎么恳求，那个固执的老人就是不肯离开被淹的房子。",
+      "translation": "邀请函要求在星期五前回复，但他拒绝作出任何答复。",
       "level": "cet6",
-      "explain": "本题关键在结构 ‘___ to do’ 和‘固执、断然不肯’的语气。refuse 可接不定式 refuse to do，表示‘坚决不肯做某事’，与 stubborn、no matter how hard…begged 的语境完全吻合，故选 refused。decline 虽也能接 to do，但它表示客气、委婉的‘谢绝’（多用于邀请、提议），与‘固执地不肯撤离’这种强硬、非礼节性的语境矛盾，搭配不当。reject 和 deny 都不能接不定式：reject 后接名词（拒收/否决某物），deny 后接名词或双宾语（deny sb sth），二者在 ‘___ to leave’ 结构中均语法不通。",
+      "explain": "本题考查 refuse to do（拒绝做某事）。rejected 常直接接建议或申请等宾语，denied 常接名词或动名词，refusal 是名词。拓展：decline to do 也是表示婉拒做某事的正确表达。",
       "options": [
         {
           "word": "refused",
-          "zh": "vt. 拒绝，断然不肯(refuse to do)",
+          "zh": "v. 拒绝",
           "correct": true
         },
         {
-          "word": "declined",
-          "zh": "vt. 婉拒，谢绝",
-          "correct": false
-        },
-        {
           "word": "rejected",
-          "zh": "vt. 拒收，否决",
+          "zh": "v. 拒绝接受；驳回",
           "correct": false
         },
         {
           "word": "denied",
-          "zh": "vt. 否认；拒绝给予",
+          "zh": "v. 否认；不给予",
+          "correct": false
+        },
+        {
+          "word": "refusal",
+          "zh": "n. 拒绝",
           "correct": false
         }
       ],
-      "source": "curated"
+      "source": "curated",
+      "reviewStatus": "revised-2026-09-07"
     },
     {
       "id": "cloze-0024",
       "theme": "拒绝",
-      "sentence": "The hospital cannot ___ any patient emergency treatment simply because of unpaid bills.",
+      "sentence": "The website did not ___ users access to the report: anyone could download it without signing in.",
       "answer": "deny",
-      "translation": "医院不能仅仅因为账单未付就拒绝给任何病人提供急救。",
+      "translation": "网站没有拒绝用户访问这份报告，任何人都能在不登录的情况下下载它。",
       "level": "postgrad",
-      "explain": "本题关键在双宾语结构 ‘___ sb sth’（拒绝给某人某物）。deny 可接双宾语 deny sb sth，意为‘拒绝给予某人（应得的权利或东西）’，deny a patient emergency treatment 即‘拒绝给病人急救’，含‘剥夺应得权利’的正式意味，语法与语义都正确，故选 deny。reject 不能接双宾语，且意为‘拒收/否决’具体事物，不能说 reject sb sth。decline 一般只接单宾语或 to do（decline an offer / decline to comment），不接双宾语，故 decline a patient treatment 语法不通。refuse 虽也能说 refuse sb sth，但更偏个人‘不愿给’，缺少 deny 所含‘剥夺正当权利’这一正式、制度化的含义，在此正式语境中不如 deny 准确。",
+      "explain": "deny somebody something 可表示不给某人某物或权利，deny users access 即拒绝用户访问。reject 和 decline 在这里不能直接构成 users access 这样的双宾语；prevent 通常用 prevent somebody from doing。本句后半部分说明所有人均可下载，与 did not deny 一致。",
       "options": [
         {
           "word": "deny",
-          "zh": "vt. 拒绝给予(deny sb sth)；否认",
+          "zh": "v. 拒绝给予；否认",
           "correct": true
         },
         {
           "word": "reject",
-          "zh": "vt. 拒收，否决",
+          "zh": "v. 拒绝接受",
           "correct": false
         },
         {
           "word": "decline",
-          "zh": "vt. 婉拒，谢绝",
+          "zh": "v. 谢绝；下降",
           "correct": false
         },
         {
-          "word": "refuse",
-          "zh": "vt. 拒绝",
+          "word": "prevent",
+          "zh": "v. 阻止",
           "correct": false
         }
       ],
-      "source": "curated"
+      "source": "curated",
+      "reviewStatus": "revised-2026-09-07"
     },
     {
       "id": "cloze-0025",
@@ -875,96 +916,99 @@
       "theme": "选择",
       "sentence": "The citizens went to the polls to ___ a new president last week.",
       "answer": "elect",
-      "translation": "上周公民们前往投票站选举新总统。",
+      "translation": "上周，公民前往投票站选举新总统。",
       "level": "cet4",
-      "explain": "四者都含'选择'义，但侧重不同。elect 特指通过投票'选举'产生公职人员（elect a president/mayor），与 went to the polls（前往投票站）、citizens（公民）共同锁定政治选举语境，是唯一表'投票选出某人担任职务'的词，故正确。choose 是最普通的'选择'，强调凭意愿挑选，但它不含'投票推选公职'之义，无法表达'选举总统'这一通过选票产生职务的过程。select 强调'经仔细比较从多者中精选'，多用于商品或人选筛选，不用于公民投票选举公职。pick 偏口语，指'随手挑、选中'，更不适合正式的国家选举，且都不能表达'投票使某人当选'。",
+      "explain": "to 后需要动词原形，elect 表示通过投票选举。election 和 elector 是名词，elective 是形容词。词族记忆：elect 是动词，election 是选举这件事，elector 是参与选举的人。choose、select、pick 也可以泛指选择。",
       "options": [
         {
           "word": "elect",
-          "zh": "vt. (投票)选举，选出",
+          "zh": "v. 选举",
           "correct": true
         },
         {
-          "word": "choose",
-          "zh": "vt. 选择，挑选",
+          "word": "election",
+          "zh": "n. 选举",
           "correct": false
         },
         {
-          "word": "select",
-          "zh": "vt. (仔细)挑选，精选",
+          "word": "elective",
+          "zh": "a. 选举的；可选择的",
           "correct": false
         },
         {
-          "word": "pick",
-          "zh": "vt. 挑选，选中(口语)",
+          "word": "elector",
+          "zh": "n. 选民；选举人",
           "correct": false
         }
       ],
-      "source": "curated"
+      "source": "curated",
+      "reviewStatus": "revised-2026-09-07"
     },
     {
       "id": "cloze-0029",
       "theme": "选择",
-      "sentence": "Inspectors ___ a few samples from each batch and sent them to the lab for testing.",
+      "sentence": "A few samples were ___ at random from each batch and sent to the laboratory for testing.",
       "answer": "selected",
-      "translation": "检验员从每一批中抽选出几个样品，送到实验室检测。",
+      "translation": "每批中随机抽取了少量样品，并送往实验室检验。",
       "level": "cet6",
-      "explain": "四者都表'选择'，但本句考'从大批中按标准抽取出部分代表'之义。select 强调'依据标准从众多对象中（有目的地）挑出若干'，与 a few samples from each batch（从每批中抽取几个）这一'抽样'语境精确契合，是唯一地道选项。choose 强调'凭意愿在选项间作决定'，常含'拿定主意要哪个'之意，用于'抽样取出几个送检'显得不自然，也不突出按标准筛取。pick 偏口语、随意，指'随手挑出'，与正式的质检抽样、再送实验室检测的语境语气不符。elect 专指投票选举公职人员，绝不能用于抽取样品，语义不通。",
+      "explain": "样品是被抽取的，所以使用 were selected 被动语态；at random 表示随机地。selecting 不是这里需要的过去分词，selection 是名词，selective 是形容词。拓展：chosen 和 picked 也可以描述样品被选取。",
       "options": [
         {
           "word": "selected",
-          "zh": "vt. (按标准)挑选，抽选",
+          "zh": "v. 选择（过去分词）",
           "correct": true
         },
         {
-          "word": "chose",
-          "zh": "vt. 选择(凭意愿)",
+          "word": "selecting",
+          "zh": "v. 正在选择；选择（动名词）",
           "correct": false
         },
         {
-          "word": "picked",
-          "zh": "vt. 挑选(口语，随意)",
+          "word": "selection",
+          "zh": "n. 选择；选取",
           "correct": false
         },
         {
-          "word": "elected",
-          "zh": "vt. (投票)选举",
+          "word": "selective",
+          "zh": "a. 有选择性的",
           "correct": false
         }
       ],
-      "source": "curated"
+      "source": "curated",
+      "reviewStatus": "revised-2026-09-07"
     },
     {
       "id": "cloze-0030",
       "theme": "选择",
       "sentence": "Faced with two equally good job offers, she finally ___ to stay in her hometown.",
       "answer": "chose",
-      "translation": "面对两份同样不错的工作邀约，她最终决定留在家乡。",
+      "translation": "面对两份同样好的工作机会，她最终选择留在家乡。",
       "level": "cet4",
-      "explain": "四者都含'选择'义，但本句空格后接动词不定式 to stay，考'做出抉择、拿定主意做某事'。只有 choose 能直接接不定式（choose to do sth = 决定做某事），与 finally（最终）、Faced with two offers（面对两个选择）这一'权衡后作出决定'的语境完全吻合，故唯一正确。select 表'经比较精选出某物'，是及物动词，不能说 select to do sth，语法不通。pick 同样不接不定式（不能说 pick to stay），且偏口语随意，与慎重抉择不符。elect 虽偶可接不定式（elect to do）但属正式、生硬的'选择做某事'，更主要义为投票选举公职，用于此处个人留乡的日常抉择极不自然。",
+      "explain": "she finally 后缺少谓语，chose 是 choose 的过去式，chose to do 表示选择做某事。choice 为名词；choosing 或 chosen 不能在此独立构成谓语。拓展：elect to do 也有“选择做”的正式用法。",
       "options": [
         {
           "word": "chose",
-          "zh": "vt. 选择，决定(choose to do)",
+          "zh": "v. 选择（过去式）",
           "correct": true
         },
         {
-          "word": "selected",
-          "zh": "vt. (仔细)精选",
+          "word": "choice",
+          "zh": "n. 选择",
           "correct": false
         },
         {
-          "word": "picked",
-          "zh": "vt. 挑选(口语)",
+          "word": "choosing",
+          "zh": "v. 选择（现在分词）",
           "correct": false
         },
         {
-          "word": "elected",
-          "zh": "vt. (投票)选举",
+          "word": "chosen",
+          "zh": "v. 选择（过去分词）",
           "correct": false
         }
       ],
-      "source": "curated"
+      "source": "curated",
+      "reviewStatus": "revised-2026-09-07"
     },
     {
       "id": "cloze-0031",
@@ -34508,34 +34552,35 @@
     },
     {
       "theme": "因果后果",
-      "sentence": "Failing to back up your files can have serious ___ s if your hard drive fails suddenly.",
-      "answer": "consequence",
+      "sentence": "Failing to back up your files can have serious ___ if your hard drive fails suddenly.",
+      "answer": "consequences",
       "translation": "如果你的硬盘突然损坏，未能备份文件可能会产生严重的后果。",
       "level": "gaokao",
-      "explain": "consequence意为「后果，结果」，have serious consequences是强调负面因果关系的固定搭配。advantage指优势（语义相反），reputation指声誉，celebration指庆典，均与「数据损失后果」无关。",
+      "explain": "have serious consequences 表示产生严重后果；硬盘故障会使未备份的数据丢失，语境强调后果。causes 和 origins 表示原因或起源，benefits 表示益处。这里使用 consequence 的复数 consequences，整个单词填入空格。",
       "options": [
         {
-          "word": "consequence",
-          "zh": "n. 后果，结果",
+          "word": "consequences",
+          "zh": "n. 后果（复数）",
           "correct": true
         },
         {
-          "word": "advantage",
-          "zh": "n. 优势，好处",
+          "word": "causes",
+          "zh": "n. 原因（复数）",
           "correct": false
         },
         {
-          "word": "reputation",
-          "zh": "n. 声誉",
+          "word": "origins",
+          "zh": "n. 起源（复数）",
           "correct": false
         },
         {
-          "word": "celebration",
-          "zh": "n. 庆典，庆祝",
+          "word": "benefits",
+          "zh": "n. 益处（复数）",
           "correct": false
         }
       ],
-      "id": "cloze-1111"
+      "id": "cloze-1111",
+      "reviewStatus": "revised-2026-09-07"
     },
     {
       "theme": "身体感受",
@@ -34725,34 +34770,35 @@
     },
     {
       "theme": "归属所有",
-      "sentence": "This ancient manuscript ___ s to the national museum's permanent collection.",
-      "answer": "belong",
+      "sentence": "This ancient manuscript ___ to the national museum's permanent collection.",
+      "answer": "belongs",
       "translation": "这份古老的手稿属于国家博物馆的永久馆藏。",
       "level": "gaokao",
-      "explain": "belong to意为「属于，归属于」，是表达所属关系的固定搭配。donate指捐赠（主语应是人），display指展示，destroy指摧毁，均不符合「归属」的语义。",
+      "explain": "belong to 表示属于，主语 This ancient manuscript 是单数，谓语用 belongs。own、include、contain 在这种语境中通常直接带宾语，不能接这里的 to。",
       "options": [
         {
-          "word": "belong",
-          "zh": "vi. 属于，归属",
+          "word": "belongs",
+          "zh": "v. 属于（第三人称单数）",
           "correct": true
         },
         {
-          "word": "donate",
-          "zh": "vt. 捐赠",
+          "word": "owns",
+          "zh": "v. 拥有（第三人称单数）",
           "correct": false
         },
         {
-          "word": "display",
-          "zh": "vt. 展示",
+          "word": "includes",
+          "zh": "v. 包含（第三人称单数）",
           "correct": false
         },
         {
-          "word": "destroy",
-          "zh": "vt. 摧毁",
+          "word": "contains",
+          "zh": "v. 容纳（第三人称单数）",
           "correct": false
         }
       ],
-      "id": "cloze-1118"
+      "id": "cloze-1118",
+      "reviewStatus": "revised-2026-09-07"
     },
     {
       "theme": "援助支持",
@@ -73506,34 +73552,35 @@
     },
     {
       "theme": "物理科学",
-      "sentence": "Dust ___ s in the air can trigger allergic reactions in sensitive people.",
-      "answer": "particle",
+      "sentence": "Dust ___ in the air can trigger allergic reactions in sensitive people.",
+      "answer": "particles",
       "translation": "空气中的尘埃颗粒会引发敏感人群的过敏反应。",
       "level": "cet4",
-      "explain": "particle 指微小的颗粒或粒子，尘埃颗粒说 dust particles 是固定表达。fragment 指碎片，通常较大；molecule 指分子，是化学概念；grain 多指谷粒或沙粒，不用于描述尘埃。",
+      "explain": "dust particles 表示尘埃微粒。parcels 是包裹，chapters 是章节，pillars 是柱子。particles 是 particle 的复数；空格包含完整的词尾 -s。",
       "options": [
         {
-          "word": "particle",
-          "zh": "n. 微粒，粒子",
+          "word": "particles",
+          "zh": "n. 微粒（复数）",
           "correct": true
         },
         {
-          "word": "fragment",
-          "zh": "n. 碎片",
+          "word": "parcels",
+          "zh": "n. 包裹（复数）",
           "correct": false
         },
         {
-          "word": "molecule",
-          "zh": "n. 分子",
+          "word": "chapters",
+          "zh": "n. 章节（复数）",
           "correct": false
         },
         {
-          "word": "grain",
-          "zh": "n. 谷粒，颗粒",
+          "word": "pillars",
+          "zh": "n. 柱子（复数）",
           "correct": false
         }
       ],
-      "id": "cloze-2369"
+      "id": "cloze-2369",
+      "reviewStatus": "revised-2026-09-07"
     },
     {
       "theme": "荣誉奖励",
@@ -73630,34 +73677,35 @@
     },
     {
       "theme": "动物自然",
-      "sentence": "Researchers discovered that ___ s use echolocation to navigate in complete darkness.",
-      "answer": "bat",
+      "sentence": "Researchers discovered that ___ use echolocation to navigate in complete darkness.",
+      "answer": "bats",
       "translation": "研究人员发现蝙蝠利用回声定位在完全黑暗中导航。",
       "level": "gaokao",
-      "explain": "bat 指蝙蝠，是用回声定位导航的典型动物。owl 是猫头鹰，夜间活动但依靠视觉而非回声定位；moth 是飞蛾；hawk 是鹰，白天活动，与题意不符。",
+      "explain": "语境用 echolocation（回声定位）提示 bats（蝙蝠），其余选项不符合此题所描述的典型夜间导航方式。bats 是 bat 的复数，空格中应填完整复数形式。",
       "options": [
         {
-          "word": "bat",
-          "zh": "n. 蝙蝠",
+          "word": "bats",
+          "zh": "n. 蝙蝠（复数）",
           "correct": true
         },
         {
-          "word": "owl",
-          "zh": "n. 猫头鹰",
+          "word": "butterflies",
+          "zh": "n. 蝴蝶（复数）",
           "correct": false
         },
         {
-          "word": "moth",
-          "zh": "n. 飞蛾",
+          "word": "beetles",
+          "zh": "n. 甲虫（复数）",
           "correct": false
         },
         {
-          "word": "hawk",
-          "zh": "n. 鹰",
+          "word": "sparrows",
+          "zh": "n. 麻雀（复数）",
           "correct": false
         }
       ],
-      "id": "cloze-2373"
+      "id": "cloze-2373",
+      "reviewStatus": "revised-2026-09-07"
     },
     {
       "theme": "警报安全",
@@ -73971,65 +74019,67 @@
     },
     {
       "theme": "表扬激励",
-      "sentence": "The coach publicly ___ d the team for their outstanding performance in the final.",
-      "answer": "praise",
+      "sentence": "The coach publicly ___ the team for their outstanding performance in the final.",
+      "answer": "praised",
       "translation": "教练公开表扬了球队在决赛中的出色表现。",
       "level": "gaokao",
-      "explain": "praise 意为称赞、表扬，是最直接的表达。compliment 也指赞美，但多指言语上的恭维；admire 表示钦佩，是内心感受而非公开行为；applaud 指鼓掌，动作意义更强。",
+      "explain": "for their outstanding performance 表示因出色表现而受到表扬，praised 符合正面语境；blamed、criticized、scolded 都表示责备。praise 的过去式是 praised，词尾 e 后只加 d。",
       "options": [
         {
-          "word": "praise",
-          "zh": "vt. 称赞，表扬",
+          "word": "praised",
+          "zh": "v. 表扬（过去式）",
           "correct": true
         },
         {
-          "word": "compliment",
-          "zh": "vt. 恭维，称赞",
+          "word": "blamed",
+          "zh": "v. 责备（过去式）",
           "correct": false
         },
         {
-          "word": "admire",
-          "zh": "vt. 钦佩，欣赏",
+          "word": "criticized",
+          "zh": "v. 批评（过去式）",
           "correct": false
         },
         {
-          "word": "applaud",
-          "zh": "vt. 鼓掌，称赞",
+          "word": "scolded",
+          "zh": "v. 斥责（过去式）",
           "correct": false
         }
       ],
-      "id": "cloze-2384"
+      "id": "cloze-2384",
+      "reviewStatus": "revised-2026-09-07"
     },
     {
       "theme": "伤害损害",
-      "sentence": "The player was forced to withdraw after he ___ d his knee during training.",
-      "answer": "injure",
+      "sentence": "The player was forced to withdraw after he ___ his knee during training.",
+      "answer": "injured",
       "translation": "这名球员在训练中膝盖受伤，被迫退出比赛。",
       "level": "gaokao",
-      "explain": "injure 指使身体受伤，injure one's knee 是固定搭配。hurt 也可用，但较口语；damage 多用于物体损坏；wound 专指刀枪等造成的创伤，不适合运动受伤场景。",
+      "explain": "was forced to withdraw（被迫退出）和 during training 表明训练中膝盖受伤，故选 injured。其余选项表示修理、恢复或治愈，不能解释被迫退出。injure 的过去式为 injured。",
       "options": [
         {
-          "word": "injure",
-          "zh": "vt. 伤害，损伤",
+          "word": "injured",
+          "zh": "v. 使受伤（过去式）",
           "correct": true
         },
         {
-          "word": "hurt",
-          "zh": "vt. 使受伤，疼痛",
+          "word": "repaired",
+          "zh": "v. 修理（过去式）",
           "correct": false
         },
         {
-          "word": "damage",
-          "zh": "vt. 损坏",
+          "word": "restored",
+          "zh": "v. 恢复（过去式）",
           "correct": false
         },
         {
-          "word": "wound",
-          "zh": "vt. 使受伤（刀枪等）",
+          "word": "cured",
+          "zh": "v. 治愈（过去式）",
           "correct": false
         }
       ],
-      "id": "cloze-2385"
+      "id": "cloze-2385",
+      "reviewStatus": "revised-2026-09-07"
     },
     {
       "theme": "无穷无尽",
@@ -74529,34 +74579,35 @@
     },
     {
       "theme": "手部动作",
-      "sentence": "He gave a ___ s up to show he agreed with the plan.",
-      "answer": "thumb",
+      "sentence": "He gave a ___ up to show he agreed with the plan.",
+      "answer": "thumbs",
       "translation": "他竖起大拇指表示赞同这个计划。",
       "level": "cet4",
-      "explain": "thumb 指大拇指，thumbs up 是表示赞同的固定手势表达。finger 泛指手指；fist 指拳头；palm 指手掌，均不构成 thumbs up 的含义。",
+      "explain": "give a thumbs up 表示竖起大拇指赞同；a 指一次赞同的手势，thumbs up 是固定表达。其余身体部位不能替换 thumbs 构成此表达。",
       "options": [
         {
-          "word": "thumb",
-          "zh": "n. 拇指",
+          "word": "thumbs",
+          "zh": "n. 拇指（复数）",
           "correct": true
         },
         {
-          "word": "finger",
-          "zh": "n. 手指",
+          "word": "elbows",
+          "zh": "n. 肘（复数）",
           "correct": false
         },
         {
-          "word": "fist",
-          "zh": "n. 拳头",
+          "word": "knees",
+          "zh": "n. 膝盖（复数）",
           "correct": false
         },
         {
-          "word": "palm",
-          "zh": "n. 手掌",
+          "word": "heels",
+          "zh": "n. 脚后跟（复数）",
           "correct": false
         }
       ],
-      "id": "cloze-2402"
+      "id": "cloze-2402",
+      "reviewStatus": "revised-2026-09-07"
     },
     {
       "theme": "团结统一",
@@ -95330,34 +95381,35 @@
     },
     {
       "theme": "原子物质",
-      "sentence": "Every element is made up of tiny particles called ___ s.",
-      "answer": "atom",
+      "sentence": "Every element is made up of tiny particles called ___.",
+      "answer": "atoms",
       "translation": "每种元素都由称为原子的微小粒子组成。",
       "level": "gaokao",
-      "explain": "atom 是化学基本粒子，与「element」和「tiny particles」的科学语境完全吻合。molecule（分子）由原子组成，层级更高；cell（细胞）是生物学概念；neutron（中子）是原子内部的亚粒子。",
+      "explain": "此题考查 element（元素）与 atom（原子）的基础词汇联系：atoms 是 atom 的复数。cells、tissues、organs 分别指细胞、组织、器官，不是这里所说构成元素的微小粒子。",
       "options": [
         {
-          "word": "atom",
-          "zh": "n. 原子",
+          "word": "atoms",
+          "zh": "n. 原子（复数）",
           "correct": true
         },
         {
-          "word": "molecule",
-          "zh": "n. 分子",
+          "word": "cells",
+          "zh": "n. 细胞（复数）",
           "correct": false
         },
         {
-          "word": "cell",
-          "zh": "n. 细胞；单元",
+          "word": "tissues",
+          "zh": "n. 组织（复数）",
           "correct": false
         },
         {
-          "word": "neutron",
-          "zh": "n. 中子",
+          "word": "organs",
+          "zh": "n. 器官（复数）",
           "correct": false
         }
       ],
-      "id": "cloze-3073"
+      "id": "cloze-3073",
+      "reviewStatus": "revised-2026-09-07"
     },
     {
       "theme": "零食小吃",
@@ -95702,34 +95754,35 @@
     },
     {
       "theme": "现场观众",
-      "sentence": "Thousands of ___ s gathered to watch the championship final.",
-      "answer": "spectator",
-      "translation": "数千名观众聚集在一起观看锦标赛决赛。",
+      "sentence": "Thousands of ___ filled the public stands to watch the championship final.",
+      "answer": "spectators",
+      "translation": "数千名观众坐满了公共看台，观看锦标赛决赛。",
       "level": "cet6",
-      "explain": "spectator 指到场观看赛事的观众，与「championship final」语境完全吻合。participant（参与者）是场上选手而非场下观众；volunteer（志愿者）有其特定职责；journalist（记者）有职业目的而非单纯观赛。",
+      "explain": "spectators 指观看比赛的观众。public stands（公共看台）和 to watch 提示观看者的角色；sponsors 是赞助方，referees 是裁判，opponents 是对手。spectators 为完整复数形式。",
       "options": [
         {
-          "word": "spectator",
-          "zh": "n. 观众，旁观者",
+          "word": "spectators",
+          "zh": "n. 观众（复数）",
           "correct": true
         },
         {
-          "word": "participant",
-          "zh": "n. 参与者，参赛者",
+          "word": "sponsors",
+          "zh": "n. 赞助者（复数）",
           "correct": false
         },
         {
-          "word": "volunteer",
-          "zh": "n. 志愿者",
+          "word": "referees",
+          "zh": "n. 裁判（复数）",
           "correct": false
         },
         {
-          "word": "journalist",
-          "zh": "n. 记者，新闻工作者",
+          "word": "opponents",
+          "zh": "n. 对手（复数）",
           "correct": false
         }
       ],
-      "id": "cloze-3085"
+      "id": "cloze-3085",
+      "reviewStatus": "revised-2026-09-07"
     },
     {
       "theme": "流血受伤",
@@ -108974,162 +109027,167 @@
       "answer": "embark",
       "translation": "下个月，她将踏上为期一年的环球旅程。",
       "level": "cet6",
-      "explain": "embark on 表示「开始（旅程/事业）」，是描述踏上旅程或着手重大计划的正式用语。set off（出发）较口语；begin（开始）过于普通；depart（离开）只指出发而不含着手新旅程的隐喻。",
+      "explain": "embark on a journey 表示开始一段旅程；will 后用动词原形。embassy 是大使馆，embargo 是禁运，embankment 是堤岸，均不能表达开始旅程。记忆搭配：embark on a journey / embark on a new project。",
       "options": [
         {
           "word": "embark",
-          "zh": "v. 开始，踏上（旅程）",
+          "zh": "v. 开始；上船",
           "correct": true
         },
         {
-          "word": "depart",
-          "zh": "v. 离开，出发",
+          "word": "embassy",
+          "zh": "n. 大使馆",
           "correct": false
         },
         {
-          "word": "venture",
-          "zh": "v. 冒险前往",
+          "word": "embargo",
+          "zh": "n./v. 禁运",
           "correct": false
         },
         {
-          "word": "commence",
-          "zh": "v. 开始，着手",
+          "word": "embankment",
+          "zh": "n. 堤岸",
           "correct": false
         }
       ],
-      "id": "cloze-3513"
+      "id": "cloze-3513",
+      "reviewStatus": "revised-2026-09-07"
     },
     {
       "theme": "花朵生长",
-      "sentence": "The cherry trees were in full ___ when we arrived at the park.",
+      "sentence": "The cherry trees were in full ___, and nearly every branch was covered with open flowers.",
       "answer": "bloom",
-      "translation": "当我们到达公园时，樱花树正盛开。",
+      "translation": "樱花树正在盛开，几乎每根枝条都开满了花。",
       "level": "cet4",
-      "explain": "bloom 表示「开花」，in full bloom 是固定短语，意为「盛开」。blossom 虽也指花朵，但 bloom 作为名词与 in full 搭配更为固定；growth（生长）不专指开花；fruit（结果）是花后阶段。",
+      "explain": "open flowers（已经开放的花）锁定盛开这一阶段，in full bloom 表示盛开。bud 指花蕾，leaf 指叶片，fruit 指果实。拓展：in blossom 也可以表示开花。",
       "options": [
         {
           "word": "bloom",
-          "zh": "n./v. 开花，繁荣",
+          "zh": "n./v. 开花；繁荣",
           "correct": true
         },
         {
-          "word": "blossom",
-          "zh": "n./v. 花朵，开花",
+          "word": "bud",
+          "zh": "n. 花蕾；芽",
           "correct": false
         },
         {
-          "word": "growth",
-          "zh": "n. 生长，增长",
+          "word": "leaf",
+          "zh": "n. 叶片",
           "correct": false
         },
         {
           "word": "fruit",
-          "zh": "n. 果实，成果",
+          "zh": "n. 果实",
           "correct": false
         }
       ],
-      "id": "cloze-3514"
+      "id": "cloze-3514",
+      "reviewStatus": "revised-2026-09-07"
     },
     {
       "theme": "体态描述",
-      "sentence": "The dancer had long ___ fingers perfectly suited for the piano.",
+      "sentence": "In her sketch, the fingers were ___: long, thin, and graceful rather than thick.",
       "answer": "slender",
-      "translation": "这位舞蹈演员拥有修长纤细的手指，非常适合弹钢琴。",
+      "translation": "在她的素描中，手指显得修长纤细：又长又细、姿态优美，并不粗厚。",
       "level": "cet4",
-      "explain": "slender 形容「细长的、苗条的」，常用于正面描述手指、身材等。thin（细的）有时含消瘦负面意味；narrow（窄的）多描述空间；fragile（脆弱的）指易碎而非形态。",
+      "explain": "题干直接限定 thin and graceful（纤细而优美），对应 slender。sturdy 表示结实，swollen 表示肿胀，square 表示方形。slender 带有细长、优美的含义；thin 本身也可以形容手指。",
       "options": [
         {
           "word": "slender",
-          "zh": "adj. 细长的，苗条的",
+          "zh": "a. 细长的；苗条的",
           "correct": true
         },
         {
-          "word": "thin",
-          "zh": "adj. 细的，薄的",
+          "word": "sturdy",
+          "zh": "a. 结实的",
           "correct": false
         },
         {
-          "word": "narrow",
-          "zh": "adj. 狭窄的",
+          "word": "swollen",
+          "zh": "a. 肿胀的",
           "correct": false
         },
         {
-          "word": "fragile",
-          "zh": "adj. 脆弱的，易碎的",
+          "word": "square",
+          "zh": "a. 方形的",
           "correct": false
         }
       ],
-      "id": "cloze-3515"
+      "id": "cloze-3515",
+      "reviewStatus": "revised-2026-09-07"
     },
     {
       "theme": "服装着装",
-      "sentence": "She wore a floral ___ tucked into her high-waisted skirt.",
+      "sentence": "The clothing label described the garment as a ___, a loose upper garment traditionally worn by women.",
       "answer": "blouse",
-      "translation": "她穿着一件碎花女衬衫，塞进了高腰裙里。",
+      "translation": "服装标签将这件衣服称为 blouse，即传统上由女性穿着的一种宽松上衣。",
       "level": "gaokao",
-      "explain": "blouse 专指「女衬衫」，tucked into a skirt 是其典型穿搭方式。shirt（衬衫）通常指男式或中性款；jacket（夹克）是外套不能塞进裙子；vest（马甲）无袖，不与此描述匹配。",
+      "explain": "upper garment（上衣）及题干的服装释义对应 blouse。skirt 是下装，scarf 是配饰，sleeve 只是袖子。shirt 通常是更宽泛的衬衫称呼，并不限定穿着者必须是男性。",
       "options": [
         {
           "word": "blouse",
-          "zh": "n. 女衬衫",
+          "zh": "n. 女式衬衫；女式上衣",
           "correct": true
         },
         {
-          "word": "shirt",
-          "zh": "n. 衬衫（通常男款）",
+          "word": "skirt",
+          "zh": "n. 裙子",
           "correct": false
         },
         {
-          "word": "jacket",
-          "zh": "n. 夹克，外套",
+          "word": "scarf",
+          "zh": "n. 围巾",
           "correct": false
         },
         {
-          "word": "vest",
-          "zh": "n. 马甲，背心",
+          "word": "sleeve",
+          "zh": "n. 袖子",
           "correct": false
         }
       ],
-      "id": "cloze-3516"
+      "id": "cloze-3516",
+      "reviewStatus": "revised-2026-09-07"
     },
     {
       "theme": "旅游资料",
-      "sentence": "The hotel lobby had a rack of ___ about local attractions.",
+      "sentence": "The travel agency printed illustrated ___, small booklets describing its holiday packages.",
       "answer": "brochures",
-      "translation": "酒店大堂摆放着一排介绍当地景点的小册子。",
+      "translation": "旅行社印制了图文并茂的宣传手册，介绍其度假套餐。",
       "level": "gaokao",
-      "explain": "brochure 指介绍景点或服务的「宣传手册、小册子」，rack of brochures 是酒店大堂的常见描述。pamphlets 也指小册子但多用于政治/宗教；posters（海报）张贴在墙上；magazines（杂志）是定期出版物。",
+      "explain": "small booklets describing its holiday packages 是同位说明，指出这些印刷品用于介绍产品，对应 brochures。receipts 证明付款，invoices 列出应付项目，tickets 用于乘坐或入场。拓展：pamphlet 也指提供信息或表达观点的小册子，并不限于政治或宗教用途。",
       "options": [
         {
           "word": "brochures",
-          "zh": "n. 宣传手册，小册子",
+          "zh": "n. 宣传手册；小册子",
           "correct": true
         },
         {
-          "word": "pamphlets",
-          "zh": "n. 政治/宗教小册子",
+          "word": "receipts",
+          "zh": "n. 收据",
           "correct": false
         },
         {
-          "word": "posters",
-          "zh": "n. 海报，广告牌",
+          "word": "invoices",
+          "zh": "n. 发票；付款清单",
           "correct": false
         },
         {
-          "word": "magazines",
-          "zh": "n. 杂志，期刊",
+          "word": "tickets",
+          "zh": "n. 票；入场券",
           "correct": false
         }
       ],
-      "id": "cloze-3517"
+      "id": "cloze-3517",
+      "reviewStatus": "revised-2026-09-07"
     },
     {
       "theme": "香氛气味",
-      "sentence": "The store sells a wide variety of imported ___ from Paris.",
+      "sentence": "She put a little ___ on her wrists for its pleasant fragrance before leaving home.",
       "answer": "perfume",
-      "translation": "这家店出售各种从巴黎进口的香水。",
+      "translation": "出门前，她在手腕上抹了一点香水，让自己带着怡人的香气。",
       "level": "gaokao",
-      "explain": "perfume 是「香水」，进口自巴黎的香水是经典描述。cologne（古龙水）浓度较低，通常为男性香水；lotion（乳液）是护肤品；soap（肥皂）是清洁用品。",
+      "explain": "on her wrists 和 for its pleasant fragrance 一起说明这是用于身体留香的香水，故选 perfume。其余分别用于洗涤、刷牙和洗发。拓展：cologne 也属于香水类产品，词义不由产地或使用者性别决定。",
       "options": [
         {
           "word": "perfume",
@@ -109137,146 +109195,151 @@
           "correct": true
         },
         {
-          "word": "cologne",
-          "zh": "n. 古龙水（男士淡香水）",
+          "word": "detergent",
+          "zh": "n. 洗涤剂",
           "correct": false
         },
         {
-          "word": "lotion",
-          "zh": "n. 乳液，化妆水",
+          "word": "toothpaste",
+          "zh": "n. 牙膏",
           "correct": false
         },
         {
-          "word": "soap",
-          "zh": "n. 肥皂",
+          "word": "shampoo",
+          "zh": "n. 洗发水",
           "correct": false
         }
       ],
-      "id": "cloze-3518"
+      "id": "cloze-3518",
+      "reviewStatus": "revised-2026-09-07"
     },
     {
       "theme": "工艺提升",
-      "sentence": "The chef spent years trying to ___ his signature pasta recipe.",
+      "sentence": "The company uses a special process to ___ crude oil by separating it into useful products.",
       "answer": "refine",
-      "translation": "这位厨师花了数年时间努力改进他的招牌意大利面食谱。",
+      "translation": "这家公司用一种专门工艺炼制原油，将其分离成有用的产品。",
       "level": "cet4",
-      "explain": "refine 表示「精炼、改进、提纯」，用于工艺和技艺的持续完善。improve（改善）也可，但 refine 更强调精益求精的过程；create（创造）是从无到有；simplify（简化）不一定是质量提升。",
+      "explain": "crude oil 和 separating it into useful products 指向精炼过程，refine crude oil 表示炼制原油。define 是下定义，confine 是限制，decline 是下降或谢绝。另一义项：refine a recipe 表示逐步改进食谱，与 improve 的部分用法重叠。",
       "options": [
         {
           "word": "refine",
-          "zh": "v. 精制，改进，提纯",
+          "zh": "v. 精炼；提纯；改进",
           "correct": true
         },
         {
-          "word": "improve",
-          "zh": "v. 改善，提高",
+          "word": "define",
+          "zh": "v. 下定义",
           "correct": false
         },
         {
-          "word": "create",
-          "zh": "v. 创造，创作",
+          "word": "confine",
+          "zh": "v. 限制；禁闭",
           "correct": false
         },
         {
-          "word": "simplify",
-          "zh": "v. 简化",
+          "word": "decline",
+          "zh": "v. 下降；谢绝",
           "correct": false
         }
       ],
-      "id": "cloze-3519"
+      "id": "cloze-3519",
+      "reviewStatus": "revised-2026-09-07"
     },
     {
       "theme": "竞争对抗",
-      "sentence": "The ___ between the two tech companies drove rapid innovation.",
+      "sentence": "The long-standing ___ between the two companies meant that each tried to win customers away from the other.",
       "answer": "rivalry",
-      "translation": "两家科技公司之间的竞争推动了快速创新。",
+      "translation": "这两家公司长期存在竞争关系，每家都试图从对方那里争取客户。",
       "level": "cet6",
-      "explain": "rivalry 表示「竞争、对抗关系」，常指长期的竞争关系。competition 也可用，但 rivalry 更强调双方之间持续的较量关系；conflict（冲突）含更激烈的对立；partnership（合作关系）意义相反。",
+      "explain": "each tried to win customers away from the other 说明双方相互争夺客户，对应 rivalry。alliance 强调联合，merger 是合并，ownership 是所有权，均不能概括这里的竞争关系。可联想商业竞争 business rivalry 和体育竞争 sporting rivalry。",
       "options": [
         {
           "word": "rivalry",
-          "zh": "n. 竞争，对抗",
+          "zh": "n. 竞争；对抗关系",
           "correct": true
         },
         {
-          "word": "conflict",
-          "zh": "n. 冲突，矛盾",
+          "word": "alliance",
+          "zh": "n. 联盟",
           "correct": false
         },
         {
-          "word": "partnership",
-          "zh": "n. 合作关系，伙伴关系",
+          "word": "merger",
+          "zh": "n. 合并",
           "correct": false
         },
         {
-          "word": "tension",
-          "zh": "n. 紧张关系，张力",
+          "word": "ownership",
+          "zh": "n. 所有权",
           "correct": false
         }
       ],
-      "id": "cloze-3520"
+      "id": "cloze-3520",
+      "reviewStatus": "revised-2026-09-07"
     },
     {
       "theme": "严格标准",
-      "sentence": "The training program is known for its ___ standards and demanding schedule.",
+      "sentence": "The course requires every claim to be checked against evidence and is known for its ___ approach to research.",
       "answer": "rigorous",
-      "translation": "该培训项目以其严格的标准和繁重的日程而闻名。",
+      "translation": "这门课要求用证据核对每一项论断，以严谨的研究方法著称。",
       "level": "cet6",
-      "explain": "rigorous 表示「严格的、严谨的」，修饰 standards，强调高要求的品质。strict 也有严格之意，但 rigorous 更强调系统性和科学性；lenient（宽松的）相反；flexible（灵活的）与严格矛盾。",
+      "explain": "every claim to be checked against evidence 强调细致而严格的证据核对，对应 rigorous。careless、superficial、arbitrary 分别表示粗心、表面化和任意武断，与这一要求不符。",
       "options": [
         {
           "word": "rigorous",
-          "zh": "adj. 严格的，严谨的",
+          "zh": "a. 严谨的；严格的",
           "correct": true
         },
         {
-          "word": "lenient",
-          "zh": "adj. 宽松的，仁慈的",
+          "word": "careless",
+          "zh": "a. 粗心的",
           "correct": false
         },
         {
-          "word": "flexible",
-          "zh": "adj. 灵活的，弹性的",
+          "word": "superficial",
+          "zh": "a. 肤浅的；表面的",
           "correct": false
         },
         {
-          "word": "moderate",
-          "zh": "adj. 适度的，温和的",
+          "word": "arbitrary",
+          "zh": "a. 任意的；武断的",
           "correct": false
         }
       ],
-      "id": "cloze-3521"
+      "id": "cloze-3521",
+      "reviewStatus": "revised-2026-09-07"
     },
     {
       "theme": "形状描述",
-      "sentence": "The stadium was built in an ___ shape to maximize spectator views.",
+      "sentence": "The mirror had an ___ outline, shaped like an egg rather than a perfect circle.",
       "answer": "oval",
-      "translation": "这座体育场建成椭圆形，以最大化观众的视野。",
+      "translation": "镜子的轮廓是椭圆形的，像鸡蛋，而非正圆形。",
       "level": "gaokao",
-      "explain": "oval 表示「椭圆形的」，体育场（如英式橄榄球场）常呈椭圆形。circular（圆形的）是正圆；rectangular（矩形的）是长方形；triangular（三角形的）是三角形，均不符合典型体育场形状。",
+      "explain": "shaped like an egg 和 rather than a perfect circle 明确限定卵形或椭圆形，故选 oval。circular 是正圆形，rectangular 是长方形，triangular 是三角形。like an egg 是判断 oval 的直接语境线索。",
       "options": [
         {
           "word": "oval",
-          "zh": "adj. 椭圆形的 n. 椭圆形",
+          "zh": "a. 椭圆形的 n. 椭圆形",
           "correct": true
         },
         {
           "word": "circular",
-          "zh": "adj. 圆形的",
+          "zh": "a. 圆形的",
           "correct": false
         },
         {
           "word": "rectangular",
-          "zh": "adj. 矩形的，长方形的",
+          "zh": "a. 长方形的",
           "correct": false
         },
         {
           "word": "triangular",
-          "zh": "adj. 三角形的",
+          "zh": "a. 三角形的",
           "correct": false
         }
       ],
-      "id": "cloze-3522"
+      "id": "cloze-3522",
+      "reviewStatus": "revised-2026-09-07"
     }
   ]
 }

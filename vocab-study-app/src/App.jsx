@@ -6,6 +6,8 @@ import { DetailTabs } from './components/DetailTabs.jsx';
 import { RightRail } from './components/RightRail.jsx';
 import { ClozeMode } from './components/ClozeMode.jsx';
 import { ReadingMode } from './components/ReadingMode.jsx';
+import { StudyHeading } from './components/StudyHeading.jsx';
+import { nextQueueIndex } from './lib/queue.js';
 import {
   defaultStudyState,
   loadStudyState,
@@ -73,7 +75,17 @@ const INITIAL_LAST_SESSION = INITIAL_STUDY.settings?.lastSession || {};
 export default function App() {
   const { payload, error: loadError, loading } = useVocab();
   const [study, setStudy] = useState(INITIAL_STUDY);
-  const [mode, setMode] = useState(INITIAL_LAST_SESSION.mode || 'study');
+  const [mode, setModeState] = useState(INITIAL_LAST_SESSION.mode || 'study');
+  const [reviewSnapshot, setReviewSnapshot] = useState(INITIAL_STUDY.words);
+  const [reviewStartedAt, setReviewStartedAt] = useState(Date.now);
+  function setMode(nextMode) {
+    if (nextMode === 'review') { setReviewSnapshot(study.words); setReviewStartedAt(Date.now()); }
+    setModeState(nextMode);
+  }
+  function openReview() {
+    setActiveScope({ kind: 'all', value: 'all' });
+    setMode('review');
+  }
   const { items: clozeItems, error: clozeError, loading: clozeLoading } = useCloze({ enabled: mode === 'cloze' });
   const { items: readingItems, error: readingError, loading: readingLoading } = useReading({ enabled: mode === 'reading' });
   // Default to the gaokao stage — the user's baseline is high-school English,
@@ -94,7 +106,7 @@ export default function App() {
   // learner responds or taps 提示. The reset effect skips the very first mount
   // (it restores the saved position instead), so this initial value matters.
   const [showMeaning, setShowMeaning] = useState(
-    INITIAL_LAST_SESSION.mode === 'review' || INITIAL_LAST_SESSION.mode === 'browse',
+    INITIAL_LAST_SESSION.mode === 'browse',
   );
   const [activeTab, setActiveTab] = useState('source');
   const [search, setSearch] = useState('');
@@ -174,6 +186,7 @@ export default function App() {
   );
 
   const activeScopeMeta = useMemo(() => {
+    if (activeScope.kind === 'all') return { label: '全部词库', entries: learnerEntries, key: 'all:all' };
     if (activeScope.kind === 'frequency') {
       const scope = frequencyScopes.find((item) => item.id === activeScope.value) || frequencyScopes[0];
       return { ...scope, key: `frequency:${scope?.id || 'high'}` };
@@ -227,11 +240,7 @@ export default function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [learnerEntries, study],
   );
-  const reviewableRangeEntries = useMemo(
-    () => rangeEntries.filter(isReviewable),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [rangeEntries, study],
-  );
+
 
   // Debounce the search term so fast typing doesn't trigger a 5390-entry ×
   // 20-regex scan on every keystroke. compactDefinition is now cached, but
@@ -248,26 +257,28 @@ export default function App() {
   }, [searchTerm]);
 
   const searchedEntries = useMemo(() => {
-    if (!debouncedSearchTerm) return rangeEntries;
     return entries.filter((entry) => {
       // Match across: word, IPA, compact definition, AND personal notes.
       const word = entry.word.toLowerCase();
       const definition = compactDefinition(entry).toLowerCase();
       const phonetic = (entry.phonetic || '').toLowerCase();
-      const note = (study.notes[entry.id] || '').toLowerCase();
+      const note = String(study.notes[entry.id] || '').toLowerCase();
       if (
         !word.includes(debouncedSearchTerm)
         && !definition.includes(debouncedSearchTerm)
         && !phonetic.includes(debouncedSearchTerm)
         && !note.includes(debouncedSearchTerm)
       ) return false;
-      if (searchFilter === 'all') return true;
+      if (searchFilter === 'all') {
+        const progress = getWordProgress(study, entry);
+        return Boolean(debouncedSearchTerm || progress.favorite || isWeak(progress) || progress.attempts);
+      }
       if (searchFilter === 'favorite') return Boolean(study.words[entry.id]?.favorite);
       if (searchFilter === 'weak') return isWeak(study.words[entry.id] || {});
       // Otherwise treat the filter id as a difficulty stage.
       return entry.difficultyStage === searchFilter;
     });
-  }, [entries, rangeEntries, debouncedSearchTerm, searchFilter, study]);
+  }, [entries, debouncedSearchTerm, searchFilter, study]);
 
   const lockedChoiceEntryId = choiceResult?.entryId || '';
 
@@ -286,29 +297,19 @@ export default function App() {
   );
 
   const queue = useMemo(() => {
-    const now = Date.now();
     if (mode === 'browse') {
-      const browsePool = debouncedSearchTerm ? searchedEntries : entries;
-      return browsePool.filter((entry) => {
-        const progress = getWordProgress(study, entry);
-        if (debouncedSearchTerm) return true;
-        // With no search term the pane is the 生词本 itself: normally everything
-        // the learner has touched. But an explicit chip narrows it — 「我的收藏」
-        // relies on this, otherwise picking it would still hand back the whole
-        // favourite-OR-weak-OR-attempted union and likely land on a weak word.
-        if (searchFilter === 'favorite') return Boolean(progress.favorite);
-        if (searchFilter === 'weak') return isWeak(progress);
-        return progress.favorite || isWeak(progress) || progress.attempts;
-      });
+      return searchedEntries;
     }
     if (mode === 'review') {
-      const due = reviewableRangeEntries.filter((entry) => {
-        const progress = getWordProgress(study, entry);
-        return isDue(progress, now) || isWeak(progress);
+      // Freeze eligibility for this review session; grading must not reshuffle it.
+      const pool = rangeEntries.filter((entry) => hasStartedLearning(reviewSnapshot[entry.id]) && !isMastered(reviewSnapshot[entry.id]));
+      const due = pool.filter((entry) => {
+        const progress = reviewSnapshot[entry.id];
+        return isDue(progress, reviewStartedAt) || isWeak(progress);
       });
       return due.length
         ? stableShuffle(due, `${shuffleSeed}:review-due:${activeScopeMeta.key}`)
-        : stableShuffle(reviewableRangeEntries, `${shuffleSeed}:review:${activeScopeMeta.key}`);
+        : stableShuffle(pool, `${shuffleSeed}:review:${activeScopeMeta.key}`);
     }
     if (mode === 'quiz' || mode === 'spelling') {
       return stableShuffle(
@@ -327,7 +328,8 @@ export default function App() {
     lockedChoiceEntryId,
     mode,
     rangeEntries,
-    reviewableRangeEntries,
+    reviewSnapshot,
+    reviewStartedAt,
     searchedEntries,
     searchFilter,
     shuffledRangeEntries,
@@ -335,7 +337,8 @@ export default function App() {
     study,
   ]);
 
-  const currentEntry = queue.length ? queue[clamp(currentIndex, 0, queue.length - 1)] : null;
+  const effectiveIndex = queue.length ? clamp(currentIndex, 0, queue.length - 1) : 0;
+  const currentEntry = queue[effectiveIndex] || null;
   const currentProgress = getWordProgress(study, currentEntry);
   const isChoiceMode = mode === 'study' || mode === 'quiz';
   const answeredChoice = isChoiceMode && choiceResult?.entryId === currentEntry?.id;
@@ -437,13 +440,13 @@ export default function App() {
       return;
     }
     setCurrentIndex(0);
-    setShowMeaning(mode === 'review' || mode === 'browse');
+    setShowMeaning(mode === 'browse');
     setQuizChoice(null);
     setChoiceResult(null);
     setSpellingInput('');
     setSpellingFeedback(null);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [mode, scopeIntentKey, debouncedSearchTerm, shuffleSeed]);
+  }, [mode, scopeIntentKey, debouncedSearchTerm, searchFilter, shuffleSeed]);
 
   // Once the queue is populated for the first time, jump to the last-studied
   // entry (if it still exists in that queue). Runs at most once.
@@ -686,30 +689,32 @@ export default function App() {
     });
   }
 
-  function goNext() {
-    setShowMeaning(mode === 'review' || mode === 'browse');
+  function goNext(options = {}) {
+    setShowMeaning(mode === 'browse');
     setQuizChoice(null);
     setChoiceResult(null);
     setSpellingInput('');
     setSpellingFeedback(null);
-    setCurrentIndex((index) => (queue.length ? (index + 1) % queue.length : 0));
+    const removeCurrent = options.removeCurrent ?? (mode === 'study' && isKnown(currentProgress));
+    setCurrentIndex(nextQueueIndex(queue, currentEntry?.id, removeCurrent));
   }
 
   function goPrevious() {
-    setShowMeaning(mode === 'review' || mode === 'browse');
+    setShowMeaning(mode === 'browse');
     setQuizChoice(null);
     setChoiceResult(null);
     setSpellingInput('');
     setSpellingFeedback(null);
-    setCurrentIndex((index) => (queue.length ? (index - 1 + queue.length) % queue.length : 0));
+    setCurrentIndex(queue.length ? (effectiveIndex - 1 + queue.length) % queue.length : 0);
   }
 
   function markEntry(result, options = {}) {
     if (!currentEntry) return;
     const { advance = true } = options;
-    updateWord(currentEntry, (word) => applyReview(word, result));
+    const reviewed = applyReview(currentProgress, result);
+    updateWord(currentEntry, () => reviewed);
     updateDaily(result);
-    if (advance) goNext();
+    if (advance) goNext({ removeCurrent: (mode === 'study' && isKnown(reviewed)) || (mode === 'browse' && searchFilter === 'weak' && !isWeak(reviewed)) });
   }
 
   function toggleFavorite(entry = currentEntry) {
@@ -832,7 +837,7 @@ export default function App() {
     setMode('study');
     setActiveScope({ kind: 'frequency', value: 'gaokao' });
     setCurrentIndex(0);
-    setShowMeaning(true);
+    setShowMeaning(false);
     setQuizChoice(null);
     setChoiceResult(null);
     setSpellingInput('');
@@ -860,6 +865,7 @@ export default function App() {
       ...word,
       mastered: true,
     }));
+    setCurrentIndex(nextQueueIndex(queue, currentEntry.id, true));
     // Deliberately NOT advancing the cursor. Mastering drops this word out of
     // the study queue, and because the queue is shuffled-then-filtered (see
     // shuffledRangeEntries) that removal is a true delete-in-place: the rest of
@@ -907,7 +913,10 @@ export default function App() {
       if (isChoiceMode && !answeredChoice) return;
       goNext();
     },
-    ' ': () => setShowMeaning((value) => !value),
+    ' ': () => {
+      if (isChoiceMode && !answeredChoice) return;
+      setShowMeaning((value) => !value);
+    },
     p: () => playCurrentWord(),
     s: () => toggleFavorite(),
     '1': () => {
@@ -950,6 +959,7 @@ export default function App() {
 
   return (
     <div className="app-shell">
+      <a className="skip-link" href="#study-workspace">跳到学习内容</a>
       {/* Hidden picker driven by the 导入备份 button in the rail. */}
       <input
         ref={importInputRef}
@@ -971,12 +981,13 @@ export default function App() {
         typeScopeStats={typeScopeStats}
         onOpenFavorites={() => {
           setMode('browse');
+          setSearch('');
           setSearchFilter('favorite');
           setActiveTab('search');
         }}
       />
 
-      <main className="workspace">
+      <main className="workspace" id="study-workspace" tabIndex={-1}>
         <Topbar
           todayStats={todayStats}
           dailyTarget={dailyTarget}
@@ -987,10 +998,12 @@ export default function App() {
           streak={streak}
           longestStreak={longestStreak}
           reshuffleQueue={reshuffleQueue}
-          openPronunciation={() => setActiveTab('pronunciation')}
-          openReview={() => setMode('review')}
+          openPronunciation={() => { if (mode === 'cloze' || mode === 'reading') setMode('study'); setActiveTab('pronunciation'); requestAnimationFrame(() => document.querySelector('.detail-card')?.scrollIntoView({ block: 'center' })); }}
+          openReview={openReview}
           dueCount={dueEntries.length}
         />
+
+        <StudyHeading mode={mode} activeScope={activeScope} setActiveScope={setActiveScope} frequencyScopes={frequencyScopes} typeScopes={typeScopes} ranges={ranges} dueCount={dueEntries.length} openReview={openReview} />
 
         <div className="content-grid">
           <section className="study-area">
@@ -1032,7 +1045,7 @@ export default function App() {
               currentEntry={currentEntry}
               currentProgress={currentProgress}
               queue={queue}
-              currentIndex={currentIndex}
+              currentIndex={effectiveIndex}
               isChoiceMode={isChoiceMode}
               answeredChoice={answeredChoice}
               quizOptions={quizOptions}
@@ -1064,8 +1077,8 @@ export default function App() {
               // Hide answer-revealing panels until the learner has answered (or
               // tapped 提示). In a choice question the Chinese meaning is the
               // answer; in spelling the letter grid is the answer.
-              meaningLocked={isChoiceMode && !answeredChoice && !showMeaning}
-              spellingLocked={mode === 'spelling' && !spellingFeedback}
+              meaningLocked={(isChoiceMode && !answeredChoice) || (mode === 'review' && !showMeaning)}
+              spellingLocked={(mode === 'spelling' && !spellingFeedback) || (mode === 'quiz' && listenMode && !answeredChoice)}
               speechSettings={speechSettings}
               updateSpeechSetting={updateSpeechSetting}
               englishVoices={englishVoices}
@@ -1102,6 +1115,7 @@ export default function App() {
 
           <RightRail
             dailyTarget={dailyTarget}
+            setDailyTarget={setDailyTarget}
             todayStats={todayStats}
             weakEntries={weakEntries}
             dueEntries={dueEntries}
@@ -1109,6 +1123,7 @@ export default function App() {
             study={study}
             activeScope={activeScope}
             setMode={setMode}
+            openReview={openReview}
             setActiveScope={setActiveScope}
             getWordProgress={(entry) => getWordProgress(study, entry)}
             resetAllProgress={resetAllProgress}

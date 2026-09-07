@@ -1,10 +1,8 @@
 #!/usr/bin/env python3
-"""Bake a real example sentence into each vocab entry, mined from cloze.json.
+"""Build examples from contextual cloze items with traceable item IDs.
 
-The 近义辨析 question bank already holds 3,522 hand-checked sentences, each with
-a unique correct answer AND a Chinese translation. Every sentence has exactly one
-`___` blank, so filling the blank back in yields a natural example sentence for
-the answer word — content we already own, at zero generation cost.
+These are AI-assisted practice sentences, not a fully human-verified corpus.
+Definition-recognition templates and structurally invalid items are excluded.
 
 Matching is deliberately conservative:
   - exact surface match first (vocab headwords are split on `/` and `,` so
@@ -14,8 +12,8 @@ Matching is deliberately conservative:
   - NO -er/-est rollback: measured, it buys exactly one extra match and that
     match is wrong (career -> care), so it is a net negative.
 
-Writes `entry.example = {"en": ..., "zh": ...}`. Entries with no match are left
-untouched and the UI simply omits the block. Re-running is idempotent.
+Writes `entry.example = {"en": ..., "zh": ..., "sourceItemId": ...}`.
+Entries with no eligible match lose stale examples. Re-running is idempotent.
 """
 from __future__ import annotations
 
@@ -29,6 +27,11 @@ VOCAB_PATH = DATA / "vocab.json"
 CLOZE_PATH = DATA / "cloze.json"
 
 BLANK = "___"
+IRREGULAR_BASES = {
+    "became": "become", "came": "come", "caught": "catch", "chose": "choose",
+    "clung": "cling", "fell": "fall", "felt": "feel", "flung": "fling",
+    "laid": "lay", "stole": "steal", "threw": "throw",
+}
 
 
 def surface_forms(word: str):
@@ -65,16 +68,20 @@ def surface_forms(word: str):
 def deinflect(word: str):
     """Conservative base-form candidates. Intentionally excludes -er/-est."""
     w = word.lower()
+    if w in IRREGULAR_BASES:
+        return [IRREGULAR_BASES[w]]
     out = []
     if w.endswith("ies") and len(w) > 4:
         out.append(w[:-3] + "y")
-    if w.endswith("es") and len(w) > 3:
-        out.append(w[:-2])
+    # Preserve an existing final e first: hopes -> hope, not hop.
     if w.endswith("s") and not w.endswith("ss") and len(w) > 3:
         out.append(w[:-1])
-    if w.endswith("ed") and len(w) > 4:
+    if w.endswith("es") and len(w) > 3:
         out.append(w[:-2])
+    if w.endswith("ed") and len(w) >= 4:
+        # stared -> stare, not star; starred -> star uses the doubled branch.
         out.append(w[:-1])
+        out.append(w[:-2])
         if len(w) > 5 and w[-3] == w[-4]:  # stopped -> stop
             out.append(w[:-3])
     if w.endswith("ing") and len(w) > 5:
@@ -94,6 +101,8 @@ DETACHED_SUFFIX = re.compile(r"^\s+(s|es|ed|d|ing|ly)\b")
 
 def fill_blank(sentence: str, answer: str) -> str:
     """Put the answer back into the sentence, fixing case and detached suffixes."""
+    if sentence.count(BLANK) != 1:
+        raise ValueError("An example must have exactly one blank")
     idx = sentence.find(BLANK)
     word = answer
     if idx == 0 and word[:1].islower():
@@ -104,6 +113,22 @@ def fill_blank(sentence: str, answer: str) -> str:
         word += match.group(1)
         after = after[match.end():]
     return before + word + after
+
+
+def is_context_item(item: dict) -> bool:
+    """Require a single-answer contextual sentence, not a word-definition template."""
+    sentence = item.get("sentence") or ""
+    options = item.get("options") or []
+    correct = [option for option in options if option.get("correct") is True]
+    return (
+        item.get("source") != "auto-vocab-coverage"
+        and sentence.count(BLANK) == 1
+        and not re.search(r"[㐀-鿿]", sentence)
+        and bool((item.get("translation") or "").strip())
+        and len(options) == 4
+        and len(correct) == 1
+        and correct[0].get("word") == item.get("answer")
+    )
 
 
 def main() -> None:
@@ -125,24 +150,26 @@ def main() -> None:
     skipped_no_blank = 0
     unmatched: list[str] = []
 
-    for item in items:
+    # Prefer revised material when more than one item can teach the same word.
+    for item in sorted(items, key=lambda it: not bool(it.get("reviewStatus"))):
         sentence = item.get("sentence") or ""
         answer = (item.get("answer") or "").strip()
         zh = item.get("translation") or ""
-        if not answer or not zh or BLANK not in sentence:
+        if not answer or not is_context_item(item):
             skipped_no_blank += 1
             continue
         en = fill_blank(sentence, answer)
+        payload = (en, zh, item["id"])
         key = answer.lower()
 
         hit = index.get(key)
         if hit:
-            exact.setdefault(hit, (en, zh))
+            exact.setdefault(hit, payload)
             continue
         for base in deinflect(key):
             hit = index.get(base)
             if hit:
-                lemma.setdefault(hit, (en, zh))
+                lemma.setdefault(hit, payload)
                 lemma_log.append(f"{answer} -> {by_id[hit]['word']}")
                 break
         else:
@@ -157,12 +184,13 @@ def main() -> None:
     for entry in entries:
         payload = resolved.get(entry["id"])
         if payload:
-            entry["example"] = {"en": payload[0], "zh": payload[1]}
+            entry["example"] = {"en": payload[0], "zh": payload[1], "sourceItemId": payload[2]}
             written += 1
         else:
             entry.pop("example", None)
 
     vocab["meta"]["exampleCount"] = written
+    vocab["meta"]["exampleSource"] = "AI-assisted contextual cloze practice; sourceItemId identifies the source item; not fully human-verified."
     # indent=2 to match add_phonetics.py / add_etymology.py / tag_vocab_by_exam.py —
     # they all rewrite this same file, so a differing format here would be undone
     # (and churn the whole file) the next time any of them runs.

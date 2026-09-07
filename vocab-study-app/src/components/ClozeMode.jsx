@@ -139,7 +139,7 @@ export function ClozeMode({ items, loading, error, shuffleSeed, stats, onAnswer,
     <div className="card primary-card cloze-card">
       <div className="card-toolbar">
         <div>
-          <strong>近义辨析</strong>
+          <strong>语境辨析</strong>
           <span>{current.theme}</span>
           {current.level ? <span className="queue-badge">{LEVEL_LABEL[current.level] || current.level}</span> : null}
         </div>
@@ -152,6 +152,7 @@ export function ClozeMode({ items, loading, error, shuffleSeed, stats, onAnswer,
       </div>
 
       <div className="cloze-body">
+        <p className="cloze-source">模拟练习 · 结合语境学习词义与搭配，非考试真题。</p>
         <SentenceWithBlank sentence={current.sentence} answered={answered} answerWord={correctOption?.word} glossary={glossary} knownWords={knownWords} />
 
         <div className="cloze-options">

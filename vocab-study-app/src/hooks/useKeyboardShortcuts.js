@@ -42,10 +42,12 @@ export function useKeyboardShortcuts(handlers, { enabled = true } = {}) {
   useEffect(() => {
     if (!enabled || typeof window === 'undefined') return undefined;
     function onKey(event) {
-      if (shouldIgnoreTarget(event.target)) return;
+      if (shouldIgnoreTarget(event.target) || event.repeat || event.isComposing) return;
+      if (['BUTTON', 'SUMMARY', 'A'].includes(event.target?.tagName) && [' ', 'Enter'].includes(event.key)) return;
       const map = ref.current || {};
       const longForm = describeKey(event);
-      const handler = map[longForm] || map[event.key] || map[event.key?.toLowerCase?.()];
+      const modified = event.ctrlKey || event.altKey || event.metaKey;
+      const handler = modified ? map[longForm] : map[longForm] || map[event.key] || map[event.key?.toLowerCase?.()];
       if (typeof handler === 'function') {
         event.preventDefault();
         handler(event);

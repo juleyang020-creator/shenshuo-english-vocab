@@ -7,7 +7,9 @@
       "cet4": 35,
       "gaokao": 30
     },
-    "note": "短文精读：170-220 词短文 + 4 道理解题 + 长难句拆解 + 全文翻译。"
+    "note": "模拟短文精读：理解题、长句拆解和全文翻译；篇幅与题数以每篇实际数据为准。",
+    "sourceLabel": "AI 辅助编写的模拟阅读",
+    "sourceNote": "用于英语学习，未标注为历年真题；文中情境不作为事实或专业建议依据。自动检查全部结构，本轮仅核验本次修订样本。"
   },
   "items": [
     {
@@ -120,15 +122,16 @@
           "tip": "抓住“researchers can deduce that + 从句”这一主干，句末 long before...是时间状语，补充说明从句内容发生的时间点。"
         }
       ],
-      "id": "read-0001"
+      "id": "read-0001",
+      "sourceType": "generated-practice"
     },
     {
       "title": "Reforesting a Thirsty Land",
       "level": "cet4",
       "topic": "荒漠化治理",
       "wordCount": 173,
-      "passage": "A well-known environmental foundation recently launched a large reforestation project in a region that has grown increasingly thirsty after years of low rainfall. Rising population density in the area has placed demanding pressure on limited water resources, forcing local communities to search for new solutions.\n\nAccording to project organizers, the main driver behind the initiative is not simply a shortage of rain but decades of poor land management. Large areas of farmland have become worthless because the soil can no longer hold water or support crops. The foundation hopes that planting trees native to the region will spur natural recovery of the soil and gradually restore the local ecosystem.\n\nScientists involved in the project argue that finding a lasting replacement for outdated farming methods is just as important as planting new trees. Community leaders have welcomed the plan, though some remain cautious, noting that similar projects elsewhere failed simply because local residents were not properly consulted. Even so, organizers remain optimistic that the project can make the region genuinely sustainable within a generation.",
-      "translation": "一家知名环保基金会近日启动了一项大规模的植树造林项目，项目所在地区因多年降雨稀少而变得日益干旱。当地人口密度的上升给有限的水资源带来了苛刻的压力，迫使当地社区寻找新的解决办法。\n\n据项目组织者介绍，推动这一举措的主要因素并不仅仅是降雨短缺，而是数十年来土地管理不善的结果。大片农田因土壤已无法保水或支持作物生长而变得毫无价值。基金会希望，种植本地原生树种能够刺激土壤的自然恢复，并逐步修复当地生态系统。\n\n参与该项目的科学家认为，为过时的耕作方式找到持久的替代方案，与种植新树同样重要。社区领袖对该计划表示欢迎，但也有人保持谨慎，指出其他地方的类似项目仅仅因为没有充分征求当地居民意见而以失败告终。尽管如此，组织者仍然相信，该项目能在一代人的时间内让这一地区真正实现可持续发展。",
+      "passage": "A well-known environmental foundation recently launched a large reforestation project in a region that has grown increasingly thirsty after years of low rainfall. Rising population density in the area has placed intense pressure on limited water resources, forcing local communities to search for new solutions.\n\nAccording to project organizers, the main driver behind the initiative is not simply a shortage of rain but decades of poor land management. Large areas of farmland have become worthless because the soil can no longer hold water or support crops. The foundation hopes that planting trees native to the region will spur natural recovery of the soil and gradually restore the local ecosystem.\n\nScientists involved in the project argue that finding a lasting replacement for outdated farming methods is just as important as planting new trees. Community leaders have welcomed the plan, though some remain cautious, noting that similar projects elsewhere failed simply because local residents were not properly consulted. Even so, organizers remain optimistic that the project can make the region genuinely sustainable within a generation.",
+      "translation": "一家知名环保基金会近日启动了一项大规模的植树造林项目，项目所在地区因多年降雨稀少而变得日益干旱。当地人口密度的上升给有限的水资源带来了巨大压力，迫使当地社区寻找新的解决办法。\n\n据项目组织者介绍，推动这一举措的主要因素并不仅仅是降雨短缺，而是数十年来土地管理不善的结果。大片农田因土壤已无法保水或支持作物生长而变得毫无价值。基金会希望，种植本地原生树种能够刺激土壤的自然恢复，并逐步修复当地生态系统。\n\n参与该项目的科学家认为，为过时的耕作方式找到持久的替代方案，与种植新树同样重要。社区领袖对该计划表示欢迎，但也有人保持谨慎，指出其他地方的类似项目仅仅因为没有充分征求当地居民意见而以失败告终。尽管如此，组织者仍然相信，该项目能在一代人的时间内让这一地区真正实现可持续发展。",
       "keyWords": [
         {
           "word": "foundation",
@@ -147,8 +150,8 @@
           "zh": "n. 密度"
         },
         {
-          "word": "demanding",
-          "zh": "a. 要求高的，苛刻的"
+          "word": "intense",
+          "zh": "a. 强烈的；剧烈的"
         },
         {
           "word": "driver",
@@ -191,7 +194,7 @@
           "explain": "第二段指出，推动这一举措的主要因素并非仅仅是降雨短缺，而是数十年来的土地管理不善，对应B。依据第二段。"
         },
         {
-          "q": "It can be inferred from the last paragraph that some earlier environmental projects failed mainly because __.",
+          "q": "According to the last paragraph, why did some earlier environmental projects fail?",
           "options": [
             "they did not have enough funding",
             "local residents were not properly consulted",
@@ -199,7 +202,7 @@
             "the government refused to support them"
           ],
           "answer": 1,
-          "explain": "第三段提到，其他地方的类似项目因未能充分征求当地居民意见而失败，对应B，A、C、D原文均未提及。依据第三段。"
+          "explain": "第三段直接说明，一些类似项目失败是因为没有充分征求当地居民的意见。正确选项复述这一信息；经费、本土树种和政府支持均未被写作这些项目失败的原因。这是细节定位题，不需要作超出文章的信息推断。"
         },
         {
           "q": "In the second paragraph, the word \"worthless\" is closest in meaning to __.",
@@ -229,7 +232,9 @@
           "tip": "主干很短“leaders have welcomed the plan”，后面 though...和 noting that...都是附加说明，可先理解主干再逐一补充从句信息。"
         }
       ],
-      "id": "read-0002"
+      "id": "read-0002",
+      "sourceType": "generated-practice",
+      "reviewStatus": "revised-2026-09-07"
     },
     {
       "title": "A Family Day at the Ice Rink",
@@ -338,7 +343,8 @@
           "tip": "先用 and 把句子切成两个并列分句，再分别找主谓宾；before 和 if 引导的从句是次要信息，可放在最后处理。"
         }
       ],
-      "id": "read-0003"
+      "id": "read-0003",
+      "sourceType": "generated-practice"
     },
     {
       "title": "Volunteering for Sustainable Livelihoods",
@@ -439,7 +445,8 @@
           "tip": "先用 but 把句子分成两个对比分句，再注意 when combined with...是省略了主语和 be 动词的状语从句，that 从句修饰 skills 说明技能的持续性。"
         }
       ],
-      "id": "read-0004"
+      "id": "read-0004",
+      "sourceType": "generated-practice"
     },
     {
       "title": "A Milestone Moment on Screen",
@@ -551,7 +558,8 @@
           "tip": "识别whether引导的主语从句和that引导的宾语从句，分别译成“……是否……”和“……这一点”。"
         }
       ],
-      "id": "read-0005"
+      "id": "read-0005",
+      "sourceType": "generated-practice"
     },
     {
       "title": "The Risk Behind a High-Speed Crash",
@@ -663,7 +671,8 @@
           "tip": "otherwise在从句中表示“（若不是因为比赛的刺激）本来会……”，翻译时要补出这种隐含的对比条件。"
         }
       ],
-      "id": "read-0006"
+      "id": "read-0006",
+      "sourceType": "generated-practice"
     },
     {
       "title": "Laughter, Meals, and Teenage Wellbeing",
@@ -775,7 +784,8 @@
           "tip": "rather than连接两个并列的动词短语，表示“宁愿……而不是……”，注意区分intention to stay和resign themselves to dropping out这两个对比的行为。"
         }
       ],
-      "id": "read-0007"
+      "id": "read-0007",
+      "sourceType": "generated-practice"
     },
     {
       "title": "Rethinking How Students Earn Degrees",
@@ -887,7 +897,8 @@
           "tip": "warn跟了两个并列的that从句，分别对应两个不同角度的担忧，翻译时可拆成两句分别处理。"
         }
       ],
-      "id": "read-0008"
+      "id": "read-0008",
+      "sourceType": "generated-practice"
     },
     {
       "title": "A City Policy to Rescue Food",
@@ -999,7 +1010,8 @@
           "tip": "遇到双层从句时先找主句谓语argue，再依次剥离that从句和what从句，逐层翻译。"
         }
       ],
-      "id": "read-0009"
+      "id": "read-0009",
+      "sourceType": "generated-practice"
     },
     {
       "title": "Restoring Old Clothes, Building a Business",
@@ -1115,7 +1127,8 @@
           "tip": "插入语（如not invention）在阅读时可以先跳过抓主干，再回头理解其对比或补充作用。"
         }
       ],
-      "id": "read-0010"
+      "id": "read-0010",
+      "sourceType": "generated-practice"
     },
     {
       "title": "An Old House Draws Tourists",
@@ -1231,7 +1244,8 @@
           "tip": "注意定语从句中省略关系代词的情况（symbol后可补出that/which），先补全再翻译更清楚。"
         }
       ],
-      "id": "read-0011"
+      "id": "read-0011",
+      "sourceType": "generated-practice"
     },
     {
       "title": "3D Printers Aid Rural Clinics",
@@ -1347,7 +1361,8 @@
           "tip": "宾语从句中如有插入的时间状语，可先跳过，抓住“每家诊所将拥有打印机”的主干，再补充其余修饰成分。"
         }
       ],
-      "id": "read-0012"
+      "id": "read-0012",
+      "sourceType": "generated-practice"
     },
     {
       "title": "The Real Challenges of Remote Work",
@@ -1452,7 +1467,8 @@
           "tip": "注意“Far from doing”表示“远非，非但不”的让步转折，不要理解成字面“远离”。"
         }
       ],
-      "id": "read-0013"
+      "id": "read-0013",
+      "sourceType": "generated-practice"
     },
     {
       "title": "Supporting Refugees Through Public Policy",
@@ -1557,7 +1573,8 @@
           "tip": "先找准句子主干“研究显示……”，分词短语和as原因状语从句都是补充说明，不影响主干判断。"
         }
       ],
-      "id": "read-0014"
+      "id": "read-0014",
+      "sourceType": "generated-practice"
     },
     {
       "title": "Aging Towns and Vanishing Trades",
@@ -1666,7 +1683,8 @@
           "tip": "such as后面跟的动名词短语是解决办法的具体例子，可以先跳过例子抓住主干，再回头理解举例内容。"
         }
       ],
-      "id": "read-0015"
+      "id": "read-0015",
+      "sourceType": "generated-practice"
     },
     {
       "title": "Epidemics Demand Patience, Not Quick Fixes",
@@ -1779,7 +1797,8 @@
           "tip": "分号连接两个独立分句，可分别处理；though引导的让步状语从句中还嵌套了一个that宾语从句，需要逐层拆解。"
         }
       ],
-      "id": "read-0016"
+      "id": "read-0016",
+      "sourceType": "generated-practice"
     },
     {
       "title": "A Food Safety Scare at the Festival",
@@ -1892,7 +1911,8 @@
           "tip": "rather than开头的部分不是主句，要先跳过找后面真正的主谓结构。"
         }
       ],
-      "id": "read-0017"
+      "id": "read-0017",
+      "sourceType": "generated-practice"
     },
     {
       "title": "Saving a Historic House from Demolition",
@@ -2008,7 +2028,8 @@
           "tip": "while+doing结构表示伴随的动作，可以直接翻译成“同时……”。"
         }
       ],
-      "id": "read-0018"
+      "id": "read-0018",
+      "sourceType": "generated-practice"
     },
     {
       "title": "Life and Training at a Landscaping Firm",
@@ -2124,7 +2145,8 @@
           "tip": "When引导的时间状语从句放在句首，主句是并列谓语collect...and place...。"
         }
       ],
-      "id": "read-0019"
+      "id": "read-0019",
+      "sourceType": "generated-practice"
     },
     {
       "title": "Rethinking Popular Claims About Sleep",
@@ -2240,7 +2262,8 @@
           "tip": "主语Bad habits和谓语can creep之间插入了such as举例说明的部分，读的时候可先跳过插入语抓主干。"
         }
       ],
-      "id": "read-0020"
+      "id": "read-0020",
+      "sourceType": "generated-practice"
     },
     {
       "title": "AI's Growing Role in Daily Life",
@@ -2345,7 +2368,8 @@
           "tip": "冒号后的并列结构是对前面内容的具体展开，抓住三个并列动词即可理清层次。"
         }
       ],
-      "id": "read-0021"
+      "id": "read-0021",
+      "sourceType": "generated-practice"
     },
     {
       "title": "Social Media, Identity and Teen Health",
@@ -2450,7 +2474,8 @@
           "tip": "抓住and连接的两个并列谓语（felt / described），插入语和定语从句都是补充说明，可先略过理清主干再回补细节。"
         }
       ],
-      "id": "read-0022"
+      "id": "read-0022",
+      "sourceType": "generated-practice"
     },
     {
       "title": "The Hidden Psychology of Embarrassment",
@@ -2555,7 +2580,8 @@
           "tip": "分号连接的两个分句地位平等，可分别抓主干，再理解比喻关系（it works like a bridge）。"
         }
       ],
-      "id": "read-0023"
+      "id": "read-0023",
+      "sourceType": "generated-practice"
     },
     {
       "title": "The Ancient Custom of Silent Trade",
@@ -2660,7 +2686,8 @@
           "tip": "since在此表示“因为”，引导原因状语从句，注意与表示“自从”的since区分，可根据句意判断。"
         }
       ],
-      "id": "read-0024"
+      "id": "read-0024",
+      "sourceType": "generated-practice"
     },
     {
       "title": "A Marathon Boom on the Mainland",
@@ -2769,7 +2796,8 @@
           "tip": "长句中出现现在分词短语时，通常是伴随状语而非谓语，先找准句子真正的谓语动词。"
         }
       ],
-      "id": "read-0025"
+      "id": "read-0025",
+      "sourceType": "generated-practice"
     },
     {
       "title": "Why Teenagers Need More Sleep",
@@ -2878,7 +2906,8 @@
           "tip": "遇到who引导的定语从句时，先跳过从句找到主句的并列谓语动词。"
         }
       ],
-      "id": "read-0026"
+      "id": "read-0026",
+      "sourceType": "generated-practice"
     },
     {
       "title": "The Hidden Cost of Silence",
@@ -2983,7 +3012,8 @@
           "tip": "逗号后若出现与前面名词同类的短语，多为同位语，用来进一步解释说明前文内容。"
         }
       ],
-      "id": "read-0027"
+      "id": "read-0027",
+      "sourceType": "generated-practice"
     },
     {
       "title": "The Frenzy of Modern Shopping",
@@ -3088,7 +3118,8 @@
           "tip": "by + 动名词结构常表示手段或方式，翻译时可处理为通过……的方式。"
         }
       ],
-      "id": "read-0028"
+      "id": "read-0028",
+      "sourceType": "generated-practice"
     },
     {
       "title": "A Staircase and an Inheritance",
@@ -3208,7 +3239,8 @@
           "tip": "识别“It was not A but B that...”强调句结构，先确认被强调的是B（memory），再顺着that找谓语persuaded。"
         }
       ],
-      "id": "read-0029"
+      "id": "read-0029",
+      "sourceType": "generated-practice"
     },
     {
       "title": "Small Changes That Saved His Health",
@@ -3328,7 +3360,8 @@
           "tip": "冒号后的内容是对前面“a clever way to relax”的具体解释，抓住三个并列动名词短语理解细节。"
         }
       ],
-      "id": "read-0030"
+      "id": "read-0030",
+      "sourceType": "generated-practice"
     },
     {
       "title": "Small Steps Toward Rural Change",
@@ -3448,7 +3481,8 @@
           "tip": "先剥离定语从句that once depended...，找到families的真正谓语have，再看第二个分句的宾语从句。"
         }
       ],
-      "id": "read-0031"
+      "id": "read-0031",
+      "sourceType": "generated-practice"
     },
     {
       "title": "Confronting Climate Change Step by Step",
@@ -3568,7 +3602,8 @@
           "tip": "What引导的主语从句作句子主语，中间most researchers argue是插入语可先忽略，抓住is neither...nor...but...的并列表语结构。"
         }
       ],
-      "id": "read-0032"
+      "id": "read-0032",
+      "sourceType": "generated-practice"
     },
     {
       "title": "From Home Brew to Small Business",
@@ -3680,7 +3715,8 @@
           "tip": "宾语从句中若又嵌套定语从句，要先理清主句结构，再逐层拆分嵌套的从句。"
         }
       ],
-      "id": "read-0033"
+      "id": "read-0033",
+      "sourceType": "generated-practice"
     },
     {
       "title": "A Quiet Path to Career Success",
@@ -3800,7 +3836,8 @@
           "tip": "定语从句省略关系代词时，从句紧跟在被修饰名词后面，读到主谓结构突然出现要反应过来这是省略了that/which的定语从句。"
         }
       ],
-      "id": "read-0034"
+      "id": "read-0034",
+      "sourceType": "generated-practice"
     },
     {
       "title": "A Summer Visit to My Cousin's Farm",
@@ -3912,7 +3949,8 @@
           "tip": "that引导的定语从句紧跟在名词后面时，先把从句去掉读主干，再补充理解从句对名词的限定说明。"
         }
       ],
-      "id": "read-0035"
+      "id": "read-0035",
+      "sourceType": "generated-practice"
     },
     {
       "title": "Scientists Refine a New Waterproof Material",
@@ -4024,7 +4062,8 @@
           "tip": "句子以what引导的主语从句开头时，要先把整个what从句当作一个大的“名词”，再看它后面的谓语动词。"
         }
       ],
-      "id": "read-0036"
+      "id": "read-0036",
+      "sourceType": "generated-practice"
     },
     {
       "title": "Managing Stress at Work",
@@ -4144,7 +4183,8 @@
           "tip": "not...but...结构强调后半部分才是重点，翻译时应突出转折后的内容。"
         }
       ],
-      "id": "read-0037"
+      "id": "read-0037",
+      "sourceType": "generated-practice"
     },
     {
       "title": "Guarding Against Online Scams",
@@ -4256,7 +4296,8 @@
           "tip": "less...and more...结构表示对比重点，翻译时应突出more后面的内容为强调重点。"
         }
       ],
-      "id": "read-0038"
+      "id": "read-0038",
+      "sourceType": "generated-practice"
     },
     {
       "title": "A Library Brings Reading Home",
@@ -4372,7 +4413,8 @@
           "tip": "rather than插入语打断了主谓结构，阅读时可先跳过它，抓住giving...makes them willing to...的主干。"
         }
       ],
-      "id": "read-0039"
+      "id": "read-0039",
+      "sourceType": "generated-practice"
     },
     {
       "title": "A New Lens for Field Research",
@@ -4488,7 +4530,8 @@
           "tip": "allow sb./sth. to do结构表示“使…得以做…”，抓住这一固定搭配有助于快速理解句意。"
         }
       ],
-      "id": "read-0040"
+      "id": "read-0040",
+      "sourceType": "generated-practice"
     },
     {
       "title": "The Meaning Behind Clothes",
@@ -4597,7 +4640,8 @@
           "tip": "动名词做主语的长句，先找谓语can make，再拆分插入语和宾语从句。"
         }
       ],
-      "id": "read-0041"
+      "id": "read-0041",
+      "sourceType": "generated-practice"
     },
     {
       "title": "Advances in Organ Transplant Technology",
@@ -4698,7 +4742,8 @@
           "tip": "allow sb. to do结构先抓住谓语allow，再关注分词短语作伴随状语表结果。"
         }
       ],
-      "id": "read-0042"
+      "id": "read-0042",
+      "sourceType": "generated-practice"
     },
     {
       "title": "A City After the Quake",
@@ -4803,7 +4848,8 @@
           "tip": "遇到mean as much...as的比较结构，先抓住主句谓语meant，再处理中间的定语成分。"
         }
       ],
-      "id": "read-0043"
+      "id": "read-0043",
+      "sourceType": "generated-practice"
     },
     {
       "title": "The Trouble With Drug Shortages",
@@ -4908,7 +4954,8 @@
           "tip": "句中插入语容易打断主谓，先划掉逗号间的插入成分找到主干，再补充回去理解。"
         }
       ],
-      "id": "read-0044"
+      "id": "read-0044",
+      "sourceType": "generated-practice"
     },
     {
       "title": "Volunteering at a Food Bank",
@@ -5028,7 +5075,8 @@
           "tip": "先剥离Because状语从句，锁定主句主谓宾，再看句末的不定式目的状语。"
         }
       ],
-      "id": "read-0045"
+      "id": "read-0045",
+      "sourceType": "generated-practice"
     },
     {
       "title": "From Poetry to a New Career",
@@ -5148,7 +5196,8 @@
           "tip": "先剥离Whenever状语从句，再看主句宾语从句中还嵌套着一层定语从句。"
         }
       ],
-      "id": "read-0046"
+      "id": "read-0046",
+      "sourceType": "generated-practice"
     },
     {
       "title": "Protecting an Ancient Heritage Site",
@@ -5268,7 +5317,8 @@
           "tip": "though引导的让步状语从句里还嵌套一个宾语从句，先看清让步关系再逐层展开。"
         }
       ],
-      "id": "read-0047"
+      "id": "read-0047",
+      "sourceType": "generated-practice"
     },
     {
       "title": "An Undergraduate's Startup Journey",
@@ -5384,7 +5434,8 @@
           "tip": "先抓主句主谓，再依次处理分词伴随状语和even as引导的让步状语从句。"
         }
       ],
-      "id": "read-0048"
+      "id": "read-0048",
+      "sourceType": "generated-practice"
     },
     {
       "title": "From Architect To Hardware Entrepreneur",
@@ -5496,7 +5547,8 @@
           "tip": "分号连接两个独立分句，注意 force sb/sth to do 结构中不定式作宾语补足语的用法。"
         }
       ],
-      "id": "read-0049"
+      "id": "read-0049",
+      "sourceType": "generated-practice"
     },
     {
       "title": "Tracking Shifting Climate Zones",
@@ -5601,7 +5653,8 @@
           "tip": "插入语用逗号隔开，可先跳过阅读主干，再回头理解其举例说明的作用。"
         }
       ],
-      "id": "read-0050"
+      "id": "read-0050",
+      "sourceType": "generated-practice"
     },
     {
       "title": "The Economics Of Ethical Consumption",
@@ -5710,7 +5763,8 @@
           "tip": "句尾连续出现两个分词短语作结果状语，表示一系列连锁反应，翻译时可译为“从而”“促使”等表因果关系的词。"
         }
       ],
-      "id": "read-0051"
+      "id": "read-0051",
+      "sourceType": "generated-practice"
     },
     {
       "title": "Remote Work: Costs And Benefits",
@@ -5823,7 +5877,8 @@
           "tip": "动名词短语作主语时，先找它的核心动词和宾语（keeping teams productive），再处理后面的同位语和插入成分。"
         }
       ],
-      "id": "read-0052"
+      "id": "read-0052",
+      "sourceType": "generated-practice"
     },
     {
       "title": "Voyages Across the Indian Ocean",
@@ -5943,7 +5998,8 @@
           "tip": "句末的同位语结构是对前面整句话的总结说明，翻译时可处理成破折号引导的补充句。"
         }
       ],
-      "id": "read-0053"
+      "id": "read-0053",
+      "sourceType": "generated-practice"
     },
     {
       "title": "The Cost of Trade Sanctions",
@@ -6059,7 +6115,8 @@
           "tip": "rather than连接两个并列名词短语构成对比，注意准确理解对比关系。"
         }
       ],
-      "id": "read-0054"
+      "id": "read-0054",
+      "sourceType": "generated-practice"
     },
     {
       "title": "Finding Dignity Through Sport",
@@ -6164,7 +6221,8 @@
           "tip": "no longer...but...结构表示对比，可译为“不再……而是……”。"
         }
       ],
-      "id": "read-0055"
+      "id": "read-0055",
+      "sourceType": "generated-practice"
     },
     {
       "title": "Rethinking the Modern Workplace",
@@ -6276,7 +6334,8 @@
           "tip": "Rather than + 动名词位于句首，表示“而不是……”，是常见的对比状语结构。"
         }
       ],
-      "id": "read-0056"
+      "id": "read-0056",
+      "sourceType": "generated-practice"
     },
     {
       "title": "A New Probe to Mercury",
@@ -6392,7 +6451,8 @@
           "tip": "条件状语If successful是If it is successful的省略形式，注意补全其逻辑主语。"
         }
       ],
-      "id": "read-0057"
+      "id": "read-0057",
+      "sourceType": "generated-practice"
     },
     {
       "title": "How AI Capability Is Reshaping Work",
@@ -6508,7 +6568,8 @@
           "tip": "Whether…or…引导的主语从句作句子主语时，先找到从句结束的位置，再看句子谓语。"
         }
       ],
-      "id": "read-0058"
+      "id": "read-0058",
+      "sourceType": "generated-practice"
     },
     {
       "title": "A Trip to an Underground Cave",
@@ -6628,7 +6689,8 @@
           "tip": "nothing prepared sb for sth是常见表达，意为“毫无准备”，翻译时可转换为中文习惯语序。"
         }
       ],
-      "id": "read-0059"
+      "id": "read-0059",
+      "sourceType": "generated-practice"
     },
     {
       "title": "A Shrewd Approach to Immigration Reform",
@@ -6748,7 +6810,8 @@
           "tip": "插入的现在分词短语常用逗号隔开，可先跳过理解主干，翻译时可用破折号处理插入成分。"
         }
       ],
-      "id": "read-0060"
+      "id": "read-0060",
+      "sourceType": "generated-practice"
     },
     {
       "title": "Automation and the Future of Work",
@@ -6864,7 +6927,8 @@
           "tip": "过去分词短语作后置定语时，可将其转化为一个简短的定语从句来理解，如caught between等于who are caught between。"
         }
       ],
-      "id": "read-0061"
+      "id": "read-0061",
+      "sourceType": "generated-practice"
     },
     {
       "title": "Preparing for a Weekend Trip",
@@ -6976,7 +7040,8 @@
           "tip": "插入语如after all可以先忽略，理清主句结构后再体会其强调语气。"
         }
       ],
-      "id": "read-0062"
+      "id": "read-0062",
+      "sourceType": "generated-practice"
     },
     {
       "title": "Cities Rethink Urban Transport",
@@ -7092,7 +7157,8 @@
           "tip": "and连接的两个并列分句，可以分别抓各自的主谓宾，再合并理解整体意思。"
         }
       ],
-      "id": "read-0063"
+      "id": "read-0063",
+      "sourceType": "generated-practice"
     },
     {
       "title": "The Pressure to Appear Perfect",
@@ -7212,7 +7278,8 @@
           "tip": "Rather than开头的短语通常表示“而不是……”，翻译时可以灵活调整到句子后半部分使中文更顺畅。"
         }
       ],
-      "id": "read-0064"
+      "id": "read-0064",
+      "sourceType": "generated-practice"
     },
     {
       "title": "The Business Behind Online Education",
@@ -7317,7 +7384,8 @@
           "tip": "抓住冒号前后的逻辑关系，先定位warn that引导的宾语从句，再逐层剥离分词定语和不定式目的状语。"
         }
       ],
-      "id": "read-0065"
+      "id": "read-0065",
+      "sourceType": "generated-practice"
     },
     {
       "title": "Climate Change and Forest Survival",
@@ -7430,7 +7498,8 @@
           "tip": "注意分词短语作伴随状语与后置定语的双重嵌套结构，先抓主干再逐层剥离修饰成分。"
         }
       ],
-      "id": "read-0066"
+      "id": "read-0066",
+      "sourceType": "generated-practice"
     },
     {
       "title": "Technology Transforms Modern Farming",
@@ -7539,7 +7608,8 @@
           "tip": "抓住predict之后两个并列的疑问词从句（when...and how...），插入语可先忽略以理清主干。"
         }
       ],
-      "id": "read-0067"
+      "id": "read-0067",
+      "sourceType": "generated-practice"
     },
     {
       "title": "The Rise of Farm Tourism",
@@ -7652,7 +7722,8 @@
           "tip": "encourage sb. to do sth.结构中，留意do后面并列的三个不定式短语，以及rather than引出的对比部分。"
         }
       ],
-      "id": "read-0068"
+      "id": "read-0068",
+      "sourceType": "generated-practice"
     },
     {
       "title": "A Study Trip to an Old Castle",
@@ -7757,7 +7828,8 @@
           "tip": "先找and连接的两个并列分句，再分别处理各自的从句和分词修饰成分。"
         }
       ],
-      "id": "read-0069"
+      "id": "read-0069",
+      "sourceType": "generated-practice"
     },
     {
       "title": "Volunteers Dig Up Ancient History",
@@ -7877,7 +7949,8 @@
           "tip": "遇到分词短语加that从句的组合，先抓主句主谓宾，再把分词部分当作补充目的处理。"
         }
       ],
-      "id": "read-0070"
+      "id": "read-0070",
+      "sourceType": "generated-practice"
     },
     {
       "title": "City Life and Mental Exhaustion",
@@ -7997,7 +8070,8 @@
           "tip": "what从句作主语时，先找系动词is，再分别处理插入语和表语从句。"
         }
       ],
-      "id": "read-0071"
+      "id": "read-0071",
+      "sourceType": "generated-practice"
     },
     {
       "title": "A Football Club's Financial Reform",
@@ -8110,7 +8184,8 @@
           "tip": "分词短语作伴随状语时可看作补充说明，先抓“总监拟定计划”这一主干。"
         }
       ],
-      "id": "read-0072"
+      "id": "read-0072",
+      "sourceType": "generated-practice"
     },
     {
       "title": "A Graduation Ceremony by the Lake",
@@ -8230,7 +8305,8 @@
           "tip": "“rather than+动词原形”结构常表示“没有做前者，而是做后者”，注意与后面的谓语动词保持逻辑对比。"
         }
       ],
-      "id": "read-0073"
+      "id": "read-0073",
+      "sourceType": "generated-practice"
     },
     {
       "title": "How One Shop Fixed Its Carbon Reports",
@@ -8350,7 +8426,8 @@
           "tip": "主语从句常以whether/that开头占据主语位置，先跳过从句内部细节，抓住“从句整体作主语”这一结构。"
         }
       ],
-      "id": "read-0074"
+      "id": "read-0074",
+      "sourceType": "generated-practice"
     },
     {
       "title": "Choosing a University Major Wisely",
@@ -8462,7 +8539,8 @@
           "tip": "主语Universities后面紧跟较长的定语从句，注意先跳过从句找谓语tend to see，避免被中间成分绕晕。"
         }
       ],
-      "id": "read-0075"
+      "id": "read-0075",
+      "sourceType": "generated-practice"
     },
     {
       "title": "Bridging the Gap at Sunday Lunch",
@@ -8582,7 +8660,8 @@
           "tip": "定语从句中的only修饰整个从句谓语部分，翻译时可处理为“只有……才”的强调结构，更符合中文表达习惯。"
         }
       ],
-      "id": "read-0076"
+      "id": "read-0076",
+      "sourceType": "generated-practice"
     },
     {
       "title": "A Family of Different Paths",
@@ -8687,7 +8766,8 @@
           "tip": "看到keep+宾语+形容词结构时先确认并列的两组宾补，再处理句末分词状语引出的从句。"
         }
       ],
-      "id": "read-0077"
+      "id": "read-0077",
+      "sourceType": "generated-practice"
     },
     {
       "title": "The Science Behind Regular Exercise",
@@ -8807,7 +8887,8 @@
           "tip": "定语从句和插入语常打断主谓之间的连贯，先跳过插入成分抓住主句主谓，再回头理解修饰内容。"
         }
       ],
-      "id": "read-0078"
+      "id": "read-0078",
+      "sourceType": "generated-practice"
     },
     {
       "title": "The Rise of Aerial Delivery",
@@ -8919,7 +9000,8 @@
           "tip": "分词短语作状语时先看清逻辑主语是否与主句主语一致，再逐层拆解其内部从句结构。"
         }
       ],
-      "id": "read-0079"
+      "id": "read-0079",
+      "sourceType": "generated-practice"
     },
     {
       "title": "How Culture Crosses Borders",
@@ -9031,7 +9113,8 @@
           "tip": "省略关系代词的定语从句常紧跟在名词后面，遇到“名词+主语+谓语”结构要留意是否为省略了that/which的定语从句。"
         }
       ],
-      "id": "read-0080"
+      "id": "read-0080",
+      "sourceType": "generated-practice"
     },
     {
       "title": "From Barn to Modern Family Home",
@@ -9143,7 +9226,8 @@
           "tip": "抓住but前后两个分句的对比关系，分别处理that宾语从句和once时间状语从句即可理清全句。"
         }
       ],
-      "id": "read-0081"
+      "id": "read-0081",
+      "sourceType": "generated-practice"
     },
     {
       "title": "Debating How to Regulate AI",
@@ -9259,7 +9343,8 @@
           "tip": "冒号后的内容是对“difficult”的具体解释，抓住两个由and并列的分句分别理解即可。"
         }
       ],
-      "id": "read-0082"
+      "id": "read-0082",
+      "sourceType": "generated-practice"
     },
     {
       "title": "Caring for an Aging Population",
@@ -9371,7 +9456,8 @@
           "tip": "看到“it is + adj. + that...”结构，先判断it是形式主语，再把that从句还原为真正的主语来理解。"
         }
       ],
-      "id": "read-0083"
+      "id": "read-0083",
+      "sourceType": "generated-practice"
     },
     {
       "title": "In Search of Hidden Crystal",
@@ -9487,7 +9573,8 @@
           "tip": "先剥离who引导的定语从句，找到主句“Researchers note that...”，再处理that从句内部结构。"
         }
       ],
-      "id": "read-0084"
+      "id": "read-0084",
+      "sourceType": "generated-practice"
     },
     {
       "title": "Teenagers Learn to Climb Safely",
@@ -9607,7 +9694,8 @@
           "tip": "by doing结构常表示方式，其后的宾语从句需要按并列结构逐一拆解理解。"
         }
       ],
-      "id": "read-0085"
+      "id": "read-0085",
+      "sourceType": "generated-practice"
     },
     {
       "title": "The Hidden System Behind Online Shopping",
@@ -9712,7 +9800,8 @@
           "tip": "名词后紧跟主谓结构且无引导词时，往往是省略关系代词的定语从句，需要补出关系词理解。"
         }
       ],
-      "id": "read-0086"
+      "id": "read-0086",
+      "sourceType": "generated-practice"
     },
     {
       "title": "Reviving an Old Town District",
@@ -9832,7 +9921,8 @@
           "tip": "遇到“concede...but insist...”这种让步转折结构时，要重点关注but之后作者真正想强调的内容。"
         }
       ],
-      "id": "read-0087"
+      "id": "read-0087",
+      "sourceType": "generated-practice"
     },
     {
       "title": "White-Collar Workers and Lost Sleep",
@@ -9952,7 +10042,8 @@
           "tip": "“Rather than doing..., ...should...”是常见的对比结构，先跳过rather than部分抓住主句，再回头理解对比内容。"
         }
       ],
-      "id": "read-0088"
+      "id": "read-0088",
+      "sourceType": "generated-practice"
     },
     {
       "title": "Reviving a Forgotten Village Trail",
@@ -10072,7 +10163,8 @@
           "tip": "冒号后的内容通常是对前面观点的具体解释，阅读时要将其与主句内容对应起来理解。"
         }
       ],
-      "id": "read-0089"
+      "id": "read-0089",
+      "sourceType": "generated-practice"
     },
     {
       "title": "Thanksgiving Shopping Season Heats Up",
@@ -10192,7 +10284,8 @@
           "tip": "插入语和后置定语不影响主干判断，先找主谓宾industries benefit indirectly，再补充理解修饰部分。"
         }
       ],
-      "id": "read-0090"
+      "id": "read-0090",
+      "sourceType": "generated-practice"
     },
     {
       "title": "A Family's Yearly Golf Tradition",
@@ -10304,7 +10397,8 @@
           "tip": "长句中出现多个从句和分词结构时，先划出and连接的并列谓语（pumped...and earned...），再依次处理后面的修饰成分。"
         }
       ],
-      "id": "read-0091"
+      "id": "read-0091",
+      "sourceType": "generated-practice"
     },
     {
       "title": "Missionaries Who Served a Marsh Community",
@@ -10413,7 +10507,8 @@
           "tip": "regard A as comparable to B是固定结构，中间插入语可以先跳过，理清主干后再补充理解。"
         }
       ],
-      "id": "read-0092"
+      "id": "read-0092",
+      "sourceType": "generated-practice"
     },
     {
       "title": "The Changing Face of Retail",
@@ -10518,7 +10613,8 @@
           "tip": "逗号后接doing分词结构时，通常是伴随状语，用来补充说明前面动作的具体方式，翻译时可处理成并列的动作。"
         }
       ],
-      "id": "read-0093"
+      "id": "read-0093",
+      "sourceType": "generated-practice"
     },
     {
       "title": "Five Years Without City-Centre Cars",
@@ -10623,7 +10719,8 @@
           "tip": "主语后紧跟较长定语从句时，需先跳过从句找到真正的谓语动词（say），避免遗漏句子主干。"
         }
       ],
-      "id": "read-0094"
+      "id": "read-0094",
+      "sourceType": "generated-practice"
     },
     {
       "title": "Keeping Old Festivals Alive",
@@ -10732,7 +10829,8 @@
           "tip": "长句中多层从句和分词结构层层嵌套，建议先找主句“Others take a view”，再依次拆解pointing out、that从句、who从句和because从句。"
         }
       ],
-      "id": "read-0095"
+      "id": "read-0095",
+      "sourceType": "generated-practice"
     },
     {
       "title": "The Heroine of the Valley",
@@ -10841,7 +10939,8 @@
           "tip": "插入语“with a shiver”打断了主谓结构，阅读时可先跳过插入成分抓住主干“residents admit that...”，再补充插入语的含义。"
         }
       ],
-      "id": "read-0096"
+      "id": "read-0096",
+      "sourceType": "generated-practice"
     },
     {
       "title": "A Town Built on Stairs",
@@ -10957,7 +11056,8 @@
           "tip": "两个动名词短语构成并列主语，谓语动词用第三人称单数offers；that引导的从句是定语从句，修饰experience。"
         }
       ],
-      "id": "read-0097"
+      "id": "read-0097",
+      "sourceType": "generated-practice"
     },
     {
       "title": "Farm Tourism in the Countryside",
@@ -11073,7 +11173,8 @@
           "tip": "What引导主语从句作句子主语，抓住not...but...并列结构可知语义重心落在but后面的内容上。"
         }
       ],
-      "id": "read-0098"
+      "id": "read-0098",
+      "sourceType": "generated-practice"
     },
     {
       "title": "From Zero to a Local Favorite",
@@ -11197,7 +11298,8 @@
           "tip": "not...but...结构表强调对比，proving后接that宾语从句，注意层层嵌套的从句关系。"
         }
       ],
-      "id": "read-0099"
+      "id": "read-0099",
+      "sourceType": "generated-practice"
     },
     {
       "title": "A Hidden Census Inside Us",
@@ -11313,7 +11415,8 @@
           "tip": "that引导宾语从句作argue的宾语，句末的现在分词短语是伴随状语，说明动作的自然结果。"
         }
       ],
-      "id": "read-0100"
+      "id": "read-0100",
+      "sourceType": "generated-practice"
     }
   ]
 }

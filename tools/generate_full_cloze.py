@@ -21,32 +21,8 @@ WORDLIST_DEFINITION_PATHS = [
     ROOT / "tools" / "wordlists" / "cet6.txt",
 ]
 
-ANSWER_OVERRIDES = {
-    # OCR artifact in the source vocab list. Keep the target id, but show the
-    # learnable headword in the cloze bank.
-    "eg90q": "egg",
-    "gqenetics": "genetics",
-    "gqlow": "glow",
-    "garind": "grind",
-    "pquess": "guess",
-    "gquidance": "guidance",
-    "gauitar": "guitar",
-    "ljetlag": "jetlag",
-    "mal": "mall",
-    "outdate": "outdated",
-    "dispatch/dispatch": "dispatch",
-    "postcode": "postcard",
-    "fag": "rag",
-    "fay": "ray",
-    "fow": "row",
-    "fug": "rug",
-    "sum": "gum",
-    "tub": "rub",
-    "isghe": "tight",
-    "television/tv/t. v": "television/tv",
-    "unit": "quit",
-    "om": "own",
-}
+# OCR corrections belong to the identified vocab record, with its PDF evidence.
+# Global substitutions such as sum -> gum also corrupt legitimate future entries.
 
 DEFINITION_OVERRIDES = {
     "accountable": "a. 有责任的；有解释义务的",
@@ -76,13 +52,6 @@ DEFINITION_OVERRIDES = {
     "spectacular": "a. 壮观的",
     "unveil": "vt. 揭幕；使公之于众，揭开 vi. 除去面纱；显露",
     "widen": "vt. 弄宽",
-    "pquess": "v./n. 推测，猜测",
-    "gauitar": "n. 吉他",
-    "ljetlag": "n. 时差综合征",
-    "mal": "n. 购物商场",
-    "outdate": "a. 过时的",
-    "postcode": "n. 明信片",
-    "fow": "n. （一）排，（一）行；争吵 v. 划船",
     "westerner": "n. 西方人，欧美人",
     "whip": "n. 鞭子，车夫 v. 鞭打，抽打",
     "footstep": "n. 脚步；脚步声；足迹",
@@ -98,7 +67,6 @@ DEFINITION_OVERRIDES = {
     "trifle": "n. 小事，琐事；少量，少许",
     "zone": "n. 地带，区域",
     "tidy": "vt. 整理，收拾 a. 整洁，整齐",
-    "tub": "v. 擦，摩擦 n. 磨，擦；障碍",
 }
 
 CURATED_ITEM_FIXES = {
@@ -165,8 +133,7 @@ def zh_for(entry: dict) -> str:
 
 
 def answer_word(entry: dict) -> str:
-    word = compact_spaces(entry.get("word", ""))
-    return ANSWER_OVERRIDES.get(word, word)
+    return compact_spaces(entry.get("word", ""))
 
 
 def load_wordlist_definitions() -> dict[str, str]:
@@ -376,16 +343,76 @@ def normalized_existing_signature(item: dict) -> tuple:
 
 
 def normalize_curated_item(item: dict) -> dict:
-    normalized = {**item, "source": item.get("source", "curated")}
+    normalized = {**item, "source": item.get("source", "generated-practice")}
     fix = CURATED_ITEM_FIXES.get(item.get("id"))
-    if fix:
+    if fix and not item.get("reviewStatus"):
         normalized.update(fix)
     return normalized
+
+
+def existing_item_identity(cloze: dict) -> tuple[dict[str, dict], int]:
+    """Validate persistent keys and retain a high-water mark for retired IDs."""
+    items = cloze.get("items", [])
+    ids = [item.get("id") for item in items]
+    if any(not isinstance(key, str) or not key for key in ids) or len(set(ids)) != len(ids):
+        raise ValueError("Existing cloze IDs must be nonempty and unique")
+    next_number = cloze.get("meta", {}).get("nextItemNumber", 1)
+    if isinstance(next_number, bool) or not isinstance(next_number, int) or next_number < 1:
+        raise ValueError("Invalid cloze nextItemNumber")
+    next_number = max(next_number, max((int(key[6:]) + 1 for key in ids if re.fullmatch(r"cloze-\d+", key)), default=1))
+    by_target: dict[str, dict] = {}
+    for item in items:
+        if item.get("source") != "auto-vocab-coverage":
+            continue
+        target = item.get("targetId")
+        if not isinstance(target, str) or not target or target in by_target:
+            raise ValueError("Existing generated items need unique, nonempty targetId values")
+        by_target[target] = item
+    return by_target, next_number
+
+
+def validate_vocab_ids(entries: list[dict]) -> None:
+    """Reject ambiguous target identities before building or writing questions."""
+    ids = [entry.get("id") for entry in entries]
+    if any(not isinstance(key, str) or not key.strip() for key in ids) or len(set(ids)) != len(ids):
+        raise ValueError("Vocabulary entry IDs must be nonempty strings and unique")
+
+
+def regenerate_items(entries: list[dict], buckets: dict, cloze: dict) -> tuple[list[dict], list[dict], int]:
+    """Regenerate unreviewed templates while keeping each target's progress ID."""
+    validate_vocab_ids(entries)
+    by_target, next_number = existing_item_identity(cloze)
+    curated = [
+        normalize_curated_item(item) for item in cloze.get("items", [])
+        if item.get("source") != "auto-vocab-coverage"
+    ]
+    # Reviewed generated items may contain deliberate exceptions to templates.
+    generated = [dict(item) for item in by_target.values() if item.get("reviewStatus")]
+    reviewed_targets = {item["targetId"] for item in generated}
+    signatures = {normalized_existing_signature(item) for item in [*curated, *generated]}
+    for entry in entries:
+        target = entry.get("id")
+        if target in reviewed_targets:
+            continue
+        item = make_generated_item(entry, buckets)
+        signature = normalized_existing_signature(item)
+        if signature in signatures:
+            continue
+        previous = by_target.get(target)
+        if previous:
+            item["id"] = previous["id"]
+        else:
+            item["id"] = f"cloze-{next_number:04d}"
+            next_number += 1
+        generated.append(item)
+        signatures.add(signature)
+    return curated, generated, next_number
 
 
 def main() -> None:
     vocab = json.loads(VOCAB_PATH.read_text(encoding="utf-8"))
     cloze = json.loads(CLOZE_PATH.read_text(encoding="utf-8"))
+    validate_vocab_ids(vocab["entries"])
     wordlist_definitions = load_wordlist_definitions()
     entries = [
         prepare_entry(entry, wordlist_definitions)
@@ -394,24 +421,8 @@ def main() -> None:
     ]
     buckets = build_buckets(entries)
 
-    curated = [
-        normalize_curated_item(item) for item in cloze.get("items", [])
-        if item.get("source") != "auto-vocab-coverage"
-    ]
-    existing_signatures = {normalized_existing_signature(item) for item in curated}
-
-    generated = []
-    for entry in entries:
-        item = make_generated_item(entry, buckets)
-        signature = normalized_existing_signature(item)
-        if signature in existing_signatures:
-            continue
-        generated.append(item)
-        existing_signatures.add(signature)
-
+    curated, generated, next_number = regenerate_items(entries, buckets, cloze)
     merged = [*curated, *generated]
-    for index, item in enumerate(merged, 1):
-        item["id"] = f"cloze-{index:04d}"
 
     correct_words = {compact_spaces(item.get("answer", "")).lower() for item in merged if item.get("answer")}
     target_ids = {item.get("targetId") for item in merged if item.get("targetId")}
@@ -420,6 +431,8 @@ def main() -> None:
 
     output = {
         "meta": {
+            **cloze.get("meta", {}),
+            "nextItemNumber": next_number,
             "count": len(merged),
             "curatedCount": len(curated),
             "generatedCount": len(generated),
@@ -429,7 +442,7 @@ def main() -> None:
             "levels": dict(sorted(levels.items())),
             "sources": dict(sorted(sources.items())),
             "source": "curated near-synonym items + generated full-vocab coverage",
-            "note": "前 90 题保留近义词辨析；后续题目从 5390 词大纲自动生成，尽量覆盖所有词条。",
+            "note": f"保留 {len(curated)} 道已有练习，另生成 {len(generated)} 道词义识别题。自动生成内容未全部人工核验；词义识别模板不作为自然例句。",
         },
         "items": merged,
     }

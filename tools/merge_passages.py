@@ -2,12 +2,13 @@
 """Merge generated reading passages into vocab-study-app/public/data/passages.json.
 
 Validates every passage, recomputes wordCount, drops long-sentence breakdowns
-whose sentence does not appear verbatim in the passage, dedupes by title+passage,
-and assigns sequential ids.
+whose sentence does not appear verbatim in the passage, and appends new records.
+Existing text and IDs are preserved; source keys make later imports repeatable.
 """
+import hashlib
 import json
 import re
-import glob
+import tempfile
 from collections import Counter
 from pathlib import Path
 
@@ -19,12 +20,21 @@ LEVELS = {"gaokao", "cet4", "cet6", "postgrad"}
 CJK = re.compile(r"[㐀-鿿]")
 
 
+def nonempty_text(value: object) -> bool:
+    """Reject JSON nulls and other non-string values before normalization."""
+    return isinstance(value, str) and bool(value.strip())
+
+
 def valid(it):
     try:
-        passage = str(it["passage"]).strip()
+        if not nonempty_text(it.get("passage")):
+            return None
+        passage = it["passage"].strip()
         if len(passage.split()) < 90:
             return None
         if CJK.search(passage):           # English passage must not contain Chinese
+            return None
+        if not nonempty_text(it.get("translation")):
             return None
         questions = it.get("questions") or []
         if not (3 <= len(questions) <= 5):
@@ -38,7 +48,13 @@ def valid(it):
                 return None
             if not (0 <= ans <= 3):
                 return None
-            if not str(q.get("q", "")).strip():
+            if not nonempty_text(q.get("q")):
+                return None
+            if any(not nonempty_text(option) for option in opts):
+                return None
+            if len({str(option).strip().lower() for option in opts}) != 4:
+                return None
+            if not nonempty_text(q.get("explain")):
                 return None
             clean_qs.append({
                 "q": str(q["q"]).strip(),
@@ -73,48 +89,126 @@ def valid(it):
             "keyWords": key_words,
             "questions": clean_qs,
             "longSentences": longs,
+            "sourceType": "generated-practice",
         }
-    except Exception:
+    except (KeyError, TypeError, AttributeError, ValueError):
         return None
 
 
-def main():
-    items, seen = [], set()
-    raw = bad = dup = 0
-    for path in sorted(glob.glob(str(PARTS / "part-*.json"))):
+def source_key(item: dict) -> str:
+    """Use producer identity; legacy inputs fall back to their original title."""
+    if nonempty_text(item.get("sourceKey")):
+        return item["sourceKey"].strip()
+    if nonempty_text(item.get("id")):
+        return f"source-id:{item['id'].strip()}"
+    seq = item.get("seq")
+    if isinstance(seq, int) and not isinstance(seq, bool) and seq >= 0:
+        return f"reading-seq:{seq}"
+    identity = item.get("title") or item.get("passage", "")
+    normalized = re.sub(r"\s+", " ", identity.strip().lower())
+    return "legacy:" + hashlib.sha256(normalized.encode("utf-8")).hexdigest()
+
+
+def load_candidates(parts: Path) -> list[dict]:
+    """Fully validate the source batch before allowing any output changes."""
+    paths = sorted(parts.glob("part-*.json"))
+    if not paths:
+        raise ValueError(f"No reading parts found in {parts}; output was not changed")
+    candidates: dict[str, dict] = {}
+    for path in paths:
         try:
-            data = json.loads(Path(path).read_text(encoding="utf-8"))
-        except Exception:
+            data = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, ValueError) as exc:
+            raise ValueError(f"Cannot read {path}: {exc}; output was not changed") from exc
+        if not isinstance(data, dict) or not isinstance(data.get("items"), list):
+            raise ValueError(f"{path}: expected an items list; output was not changed")
+        for position, raw in enumerate(data["items"], 1):
+            item = valid(raw)
+            if item is None:
+                raise ValueError(f"{path}: invalid reading item {position}; output was not changed")
+            key = source_key(raw)
+            item["sourceKey"] = key
+            if key in candidates and candidates[key] != item:
+                raise ValueError(f"{path}: conflicting source key {key}; output was not changed")
+            candidates[key] = item
+    if not candidates:
+        raise ValueError("No valid reading items found; output was not changed")
+    return list(candidates.values())
+
+
+def merge_items(existing: list[dict], candidates: list[dict]) -> list[dict]:
+    """Append unseen sources without replacing existing editorial content."""
+    items = [dict(item) for item in existing]
+    ids = [item.get("id") for item in items]
+    if any(not nonempty_text(key) for key in ids) or len(set(ids)) != len(ids):
+        raise ValueError("Existing reading IDs must be nonempty and unique")
+    by_source = {item["sourceKey"]: item for item in items if item.get("sourceKey")}
+    if len(by_source) != sum(bool(item.get("sourceKey")) for item in items):
+        raise ValueError("Existing reading source keys must be unique")
+    by_title: dict[str, list[dict]] = {}
+    for item in items:
+        title = item.get("title", "").strip().lower()
+        if title:
+            by_title.setdefault(title, []).append(item)
+    next_id = max((int(key[5:]) for key in ids if re.fullmatch(r"read-\d+", key)), default=0) + 1
+    for candidate in candidates:
+        key = candidate["sourceKey"]
+        if key in by_source:
             continue
-        for it in data.get("items", []):
-            raw += 1
-            v = valid(it)
-            if not v:
-                bad += 1
-                continue
-            key = v["passage"][:120]
-            if key in seen:
-                dup += 1
-                continue
-            seen.add(key)
-            items.append(v)
+        legacy = [item for item in by_title.get(candidate["title"].strip().lower(), []) if not item.get("sourceKey")]
+        if len(legacy) > 1:
+            raise ValueError(f"Ambiguous legacy title: {candidate['title']}")
+        if legacy:
+            # Attach producer identity without replacing the reviewed text.
+            legacy[0]["sourceKey"] = key
+            by_source[key] = legacy[0]
+            continue
+        item = {**candidate, "id": f"read-{next_id:04d}"}
+        next_id += 1
+        items.append(item)
+        by_source[key] = item
+    return items
 
-    for i, it in enumerate(items, 1):
-        it["id"] = f"read-{i:04d}"
 
+def write_payload(path: Path, payload: dict) -> None:
+    """Replace the output only after a complete temporary file is written."""
+    temporary = None
+    try:
+        with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8", dir=path.parent, prefix=f".{path.name}.", delete=False) as handle:
+            temporary = Path(handle.name)
+            json.dump(payload, handle, ensure_ascii=False, indent=2)
+            handle.write("\n")
+        temporary.replace(path)
+    finally:
+        if temporary is not None:
+            temporary.unlink(missing_ok=True)
+
+
+def main() -> None:
+    candidates = load_candidates(PARTS)
+    current = json.loads(OUT.read_text(encoding="utf-8")) if OUT.exists() else {"items": []}
+    if not isinstance(current, dict) or not isinstance(current.get("items"), list):
+        raise ValueError("Existing reading data must contain an items list")
+    items = merge_items(current["items"], candidates)
     payload = {
         "meta": {
+            **current.get("meta", {}),
             "count": len(items),
             "totalQuestions": sum(len(i["questions"]) for i in items),
             "levels": dict(Counter(i["level"] for i in items)),
-            "note": "短文精读：170-220 词短文 + 4 道理解题 + 长难句拆解 + 全文翻译。",
+            "sourceLabel": "AI 辅助编写的模拟阅读",
+            "sourceNote": "用于英语学习，未标注为历年真题；自动结构检查不等同于全部内容已经人工核验。",
+            "note": "模拟短文精读：理解题、长句拆解和全文翻译；篇幅与题数以每篇实际数据为准。",
         },
         "items": items,
     }
-    OUT.write_text(json.dumps(payload, ensure_ascii=False, indent=2))
-    print(f"raw={raw} added={len(items)} rejected_invalid={bad} rejected_dup={dup}")
+    write_payload(OUT, payload)
+    print(f"sources={len(candidates)} existing={len(current['items'])} added={len(items) - len(current['items'])} total={len(items)}")
     print("levels:", payload["meta"]["levels"], "| questions:", payload["meta"]["totalQuestions"])
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except (OSError, ValueError) as exc:
+        raise SystemExit(f"FAIL: {exc}") from exc

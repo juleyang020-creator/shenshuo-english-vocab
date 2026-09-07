@@ -7,7 +7,7 @@ Usage: python3 tools/merge_cloze.py <workflow_output.json>
   answer matches, non-empty zh/translation/explain).
 - Dedupes against existing items by normalized sentence and by
   (sorted option words + answer).
-- Reassigns sequential ids, recomputes meta, writes back.
+- Preserves existing IDs, assigns new IDs, recomputes meta, writes back.
 """
 import json
 import re
@@ -48,10 +48,18 @@ def valid(it):
             return None
         if len(opts) != 4:
             return None
+        if any(not isinstance(o.get("correct"), bool) for o in opts):
+            return None
         corr = [o for o in opts if o.get("correct")]
         if len(corr) != 1:
             return None
-        ans = corr[0]["word"]
+        ans = corr[0]["word"].strip()
+        if it.get("answer", "").strip() != ans.strip():
+            return None
+        if len({o["word"].strip().lower() for o in opts}) != 4:
+            return None
+        if re.search(r"___\s+(?:s|es|ed|d|ing|ly)\b", s):
+            return None
         if not it.get("explain", "").strip() or not it.get("translation", "").strip():
             return None
         for o in opts:
@@ -70,7 +78,7 @@ def valid(it):
                 for o in opts
             ],
         }
-    except Exception:
+    except (KeyError, TypeError, AttributeError, ValueError):
         return None
 
 
@@ -80,15 +88,20 @@ def sig(it):
 
 
 def main():
-    raw = json.load(open(sys.argv[1], encoding="utf-8"))
+    raw = json.loads(Path(sys.argv[1]).read_text(encoding="utf-8"))
     new_items = extract_items(raw) or []
-    existing = json.load(open(CLOZE, encoding="utf-8"))["items"]
+    current = json.loads(CLOZE.read_text(encoding="utf-8"))
+    existing = current["items"]
 
     merged = []
     seen = set()
+    seen_sentences = set()
+    seen_answers_options = set()
     for it in existing:
         merged.append(it)
         seen.add(sig(it))
+        seen_sentences.add(norm_sentence(it["sentence"]))
+        seen_answers_options.add(sig(it)[1:])
 
     added = 0
     for it in new_items:
@@ -96,25 +109,39 @@ def main():
         if not v:
             continue
         k = sig(v)
-        if k in seen:
+        if k in seen or k[0] in seen_sentences or k[1:] in seen_answers_options:
             continue
         seen.add(k)
+        seen_sentences.add(k[0])
+        seen_answers_options.add(k[1:])
         merged.append(v)
         added += 1
 
-    # reassign ids
-    for i, it in enumerate(merged, 1):
-        it["id"] = f"cloze-{i:04d}"
+    # Existing IDs are learning-progress keys and must never be reassigned.
+    used_ids = {it["id"] for it in existing}
+    next_id = max(
+        current.get("meta", {}).get("nextItemNumber", 1),
+        max((int(key[6:]) + 1 for key in used_ids if re.fullmatch(r"cloze-\d+", key)), default=1),
+    )
+    for it in merged[len(existing):]:
+        while f"cloze-{next_id:04d}" in used_ids:
+            next_id += 1
+        it["id"] = f"cloze-{next_id:04d}"
+        used_ids.add(it["id"])
+        next_id += 1
 
     words = {o["word"].lower() for it in merged for o in it["options"]}
     groups = {tuple(sorted(o["word"].lower() for o in it["options"])) for it in merged}
     out = {
         "meta": {
+            **current.get("meta", {}),
+            "nextItemNumber": next_id,
             "count": len(merged),
             "distinctWords": len(words),
             "groups": len(groups),
-            "source": "curated (generated + adversarially verified)",
-            "note": "近义词辨析选词填空：每题 4 个近义选项，作答后给中文释义与辨析。",
+            "distinctAnswers": len({it["answer"] for it in merged}),
+            "source": "AI-assisted practice; sampled editorial review",
+            "note": "词义辨析、固定搭配与词形训练；自动结构校验不等同于全部题目语义已人工核验。",
         },
         "items": merged,
     }

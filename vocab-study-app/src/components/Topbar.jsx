@@ -1,6 +1,7 @@
 import { Bell, Flame, Settings, Shuffle } from 'lucide-react';
 import { IconButton } from './IconButton.jsx';
 import { ProgressRing } from './ProgressRing.jsx';
+import { DailyTargetInput } from './DailyTargetInput.jsx';
 
 export function Topbar({
   todayStats,
@@ -19,11 +20,11 @@ export function Topbar({
   return (
     <header className="topbar">
       <div className="topbar__progress">
-        <span>今日学习进度</span>
+        <span>今日练习</span>
         <ProgressRing value={progressValue} />
         <div>
           <strong>
-            已学 <b>{todayStats.seen}</b> / {dailyTarget} 词
+            已练 <b>{todayStats.seen}</b> / {dailyTarget} 次
           </strong>
           <small>
             累计掌握 {allKnown} 词 · 词库共 {totalEntries} 个
@@ -33,15 +34,8 @@ export function Topbar({
       <div className="metric">
         <span>今日目标</span>
         <label>
-          <input
-            aria-label="今日目标"
-            max="500"
-            min="20"
-            type="number"
-            value={dailyTarget}
-            onChange={(event) => setDailyTarget(event.target.value)}
-          />
-          词
+          <DailyTargetInput value={dailyTarget} onCommit={setDailyTarget} />
+          次
         </label>
       </div>
       <div className="metric">

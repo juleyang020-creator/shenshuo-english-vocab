@@ -3,6 +3,7 @@ export function ScopeButton({ active, detail, label, onClick, stats }) {
     <button
       className={`range-item ${active ? 'is-active' : ''}`.trim()}
       type="button"
+      aria-pressed={active}
       onClick={onClick}
     >
       <span className="range-label">

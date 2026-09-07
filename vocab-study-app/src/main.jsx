@@ -4,6 +4,7 @@ import App from './App.jsx';
 import { ErrorBoundary } from './components/ErrorBoundary.jsx';
 import { requestPersistentStorage } from './lib/storage.js';
 import './styles.css';
+import './layout.css';
 
 // Make the browser less willing to evict saved progress (see storage.js).
 requestPersistentStorage();
